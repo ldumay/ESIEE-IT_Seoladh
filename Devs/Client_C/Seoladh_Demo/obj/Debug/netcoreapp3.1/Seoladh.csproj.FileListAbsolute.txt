@@ -1,0 +1,15 @@
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\bin\Debug\netcoreapp3.1\Seoladh.exe
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\bin\Debug\netcoreapp3.1\Seoladh.deps.json
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\bin\Debug\netcoreapp3.1\Seoladh.runtimeconfig.json
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\bin\Debug\netcoreapp3.1\Seoladh.runtimeconfig.dev.json
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\bin\Debug\netcoreapp3.1\Seoladh.dll
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\bin\Debug\netcoreapp3.1\Seoladh.pdb
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.csprojAssemblyReference.cache
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.csproj.GenerateResource.cache
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.AssemblyInfoInputs.cache
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.AssemblyInfo.cs
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.csproj.CoreCompileInputs.cache
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.dll
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.pdb
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.genruntimeconfig.cache
+C:\Users\BurstRun\Documents\Programme c#\Seoladh\obj\Debug\netcoreapp3.1\Seoladh.Seoladh.resources

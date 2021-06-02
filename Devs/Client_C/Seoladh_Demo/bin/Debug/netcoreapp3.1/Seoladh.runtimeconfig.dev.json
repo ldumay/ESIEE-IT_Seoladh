@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\BurstRun\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\BurstRun\\.nuget\\packages"
+    ]
+  }
+}
