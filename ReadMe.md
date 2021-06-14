@@ -51,3 +51,10 @@ Pour l'exécuter, il est requis ".NET Core Runtime" disponible dans le dossier :
 ```
 \Devs\_Requis\.NET_Core_Runtime\.NET_Core_Runtime_v3.1.15_win64.exe
 ```
+
+## 3 - Protoype Java Swing en cours de réalisation.
+
+```
+/ESIEE-IT_Seoladh/Devs/Client_Java/Seoladh_Protoype
+```
+Projet gérer via Netbeans 8.2.
