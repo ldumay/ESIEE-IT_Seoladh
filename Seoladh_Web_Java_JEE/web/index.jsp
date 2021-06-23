@@ -30,7 +30,7 @@
                             <h1>Seoladh Web - [Java JEE]</h1>
                             <h2>Pages en cours</h2>
                             <ul>
-                                <li><a href="#">Page d'inscription</a></li>
+                                <li><a href="register.jsp">Page d'inscription</a></li>
                                 <li><a href="login.jsp">Page de connexion</a></li>
                                 <li><a href="accueil.jsp">Page d'accueil</a></li>
                                 <li><a href="#">Template</a></li>

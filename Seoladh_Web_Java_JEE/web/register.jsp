@@ -31,7 +31,11 @@
                                     <label for="motDePasse" class="form-label">Mot de passe</label>
                                     <input type="password" class="form-control" id="motDePasse">
                                 </div>
-                                <a href="accueil.jsp"><button type="button" class="btn btn-success">Connexion</button></a>
+                                <div class="mb-3">
+                                    <label for="confirmationMotDePasse" class="form-label">Confirmation du mot de passe</label>
+                                    <input type="password" class="form-control" id="confirmationMotDePasse">
+                                </div>
+                                <a href="login.jsp"><button type="button" class="btn btn-success">Inscription</button></a>
                             </form>
                         </div>
                     </div>
