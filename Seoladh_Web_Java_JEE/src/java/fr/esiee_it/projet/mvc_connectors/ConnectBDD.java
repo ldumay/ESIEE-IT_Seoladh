@@ -6,6 +6,9 @@
 package fr.esiee_it.projet.mvc_connectors;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -53,6 +56,66 @@ public class ConnectBDD {
         this.bddIP = bddIP;
         this.bddPort = bddPort;
         this.bddUrl = "jdbc:mysql://"+this.bddIP+":"+this.bddPort+"/"+this.bddName;
+    }
+    
+    /**
+     * Ouverture de la connexion JDBC/SQL.
+     * openConnexion()
+     */
+    public void openConnexion(){
+        try {
+            Class.forName(this.strClassName);
+            this.conn = DriverManager.getConnection(this.bddUrl, this.bddLogin, this.bddPassword);
+            this.statement = (Statement) conn.createStatement();
+            System.out.println("Connexion SQL prête !");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver non chargé !");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Autre erreur !");
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Cette fonction permet d'ajouter, de modifier ou de supprimer des données dans une base de données SQL via une requère SQL.
+     * @param querySQL 
+     */
+    public void setDatasBySQL(String querySQL){
+        try{
+            this.statement.executeQuery(querySQL);
+            System.out.println("Ajout, Mise à Jour ou Suppression de données SQL -> OK !");
+        } catch (SQLException e) {
+            System.err.println("Autre erreur !");
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Cette fonction permet de récupérer des données dans une base de données SQL via une requère SQL.
+     * @param querySQL 
+     * @return  Object
+     */
+    public Object getDatasBySQL(String querySQL){
+        try{
+            ResultSet datas = this.statement.executeQuery(querySQL);
+            System.out.println("Récupération de données SQL -> OK !");
+            return datas;
+        } catch (SQLException e) {
+            System.err.println("Autre erreur !");
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    /**
+     * Fermeture de la connexion JDBC/SQL.
+     * close()
+     * @throws java.sql.SQLException
+     */
+    public void closeConnexion() throws SQLException{
+        this.conn.close();
+        System.out.println("Connexion SQL arrêtée !");
     }
 
     // The methods of basic getter below.
