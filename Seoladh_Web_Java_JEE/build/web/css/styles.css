@@ -1,0 +1,87 @@
+body{
+    background: url(../images/background/background_001.png) fixed center;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.container .logo{
+    text-align: center;
+}
+
+.container .logo, #nav-bar{
+    margin-bottom: 2%;
+}
+
+#nav-bar,
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link{
+    color: rgba(143, 78, 221, 1.0);
+}
+
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .active>.nav-link{
+    color: rgba(143, 78, 221, 1.0);
+    text-shadow:
+        -1px 0 rgba(143, 78, 221, 0.2),
+        0 1px rgba(143, 78, 221, 0.2),
+        1px 0 rgba(143, 78, 221, 0.2),
+        0 -1px rgba(143, 78, 221, 0.2)
+}
+
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover{
+    color: rgba(143, 78, 221, 1.0);
+    text-decoration : underline;
+}
+
+#nav-bar, .rounded{
+    border-radius: 0!important;
+}
+
+.container #logo .logo img{
+    max-width: 30%;
+}
+
+/* Login éléments */
+.container #logo-login{
+    margin-bottom: 20%;
+}
+.container #logo-login .logo img{
+    max-width: 60%;
+}
+
+#logo h3{
+    color: rgba(143, 78, 221, 1.0);
+}
+
+#sub-container{
+    background-color: rgba(255, 255, 255, 1);
+    padding: 1.5rem 2.6rem;
+    font-size: 1rem;
+}
+
+#footer, #footer p{
+    text-align: center;
+    font-size: 14px;
+}
+
+/*
+@media screen and (max-width: 1200px) {
+    .container{ font-size: 0.9rem; }
+}
+@media screen and (max-width: 1023px) {
+    .container{ font-size: 0.9rem; }
+    h2{ font-size: 1.3rem; }
+}
+@media screen and (max-width: 767px) {
+    .container{ width:620px; font-size: 0.7rem; }
+    .logo{ text-align: center; }
+    .logo img{ max-width: 120px; }
+    h1{ font-size: 1.9rem; }
+    h2{ font-size: 1.1rem; }
+    h4{ font-size: 1.3rem; }
+    h5{ font-size: 1.05rem; }
+}
+*/
