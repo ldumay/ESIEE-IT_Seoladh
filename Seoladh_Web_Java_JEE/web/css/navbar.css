@@ -1,5 +1,9 @@
 /* = = [ Navbar ] = = */
 
+#nav-bar{
+    margin-bottom: 2%;
+}
+
 #nav-bar,
 .navbar-light .navbar-nav .nav-link,
 .navbar-light .navbar-nav .nav-link.show,
