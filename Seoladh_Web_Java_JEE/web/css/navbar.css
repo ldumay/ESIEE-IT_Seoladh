@@ -21,6 +21,7 @@
 .navbar-light .navbar-nav .nav-link:hover{
     color: rgba(143, 78, 221, 1.0);
     text-decoration : underline;
+    cursor: pointer;
 }
 
 #nav-bar, .rounded{

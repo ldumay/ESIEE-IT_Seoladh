@@ -66,7 +66,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="paramteres" data-bs-toggle="dropdown" aria-expanded="false">Paramètres</a>
                                 <ul class="dropdown-menu" aria-labelledby="paramteres">
-                                    <li><a class="dropdown-item" href="#">Serveur SMTP Défaut</a></li>
+                                    <li><a class="dropdown-item" href="parametres_serveur_smtp.jsp">Serveur SMTP Défaut</a></li>
                                 </ul>
                             </li>
 

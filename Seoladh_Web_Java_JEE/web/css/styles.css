@@ -1,3 +1,5 @@
+/* = = [ CSS | Main ] = = */
+
 body{
     background: url(../images/background/background_001.png) fixed center;
     background-size: cover;
@@ -49,6 +51,22 @@ body{
 #footer, #footer p{
     text-align: center;
     font-size: 14px;
+}
+
+.input-group{
+    width: auto;
+}
+
+.box-serveur, .box-serveur-port{
+    flex: none!important;
+    height: 38px;
+}
+
+.box-serveur{
+    width: 68%!important;
+}
+.box-serveur-port{
+    width: 23%!important;
 }
 
 /*
