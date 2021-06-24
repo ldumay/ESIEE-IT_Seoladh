@@ -1,7 +1,7 @@
 <%-- 
     Document   : accueil.jsp
     Created on : 23 juin 2021, 18:03:00
-    Author     : ldumay
+    Author     : ldumay,tcauchois
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
