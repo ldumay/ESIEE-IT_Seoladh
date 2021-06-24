@@ -55,17 +55,14 @@
         <link rel="stylesheet" type="text/css" href="https://dev.ldumay.fr/resources/icons/simple-line-icons/simple-line-icons.css"/>
         <link rel="stylesheet" type="text/css" href="https://dev.ldumay.fr/resources/icons/themify-icons/themify-icons.css"/>
         <!-- ./Icons -->
-
         
-        <!-- Bootstrap core CSS - v3.3.7 -->
-        <!--
-        <link rel="stylesheet" href="https://dev.ldumay.fr/resources/bootstrap/3.3.7/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://dev.ldumay.fr/resources/bootstrap/3.3.7/css/bootstrap-theme.min.css3" />
-        -->
-        
-        <!-- Bootstrap core CSS - v4.1.3 -->
+        <!-- Bootstrap core CSS -->
+        <!-- v4.1.3 --
         <link rel="stylesheet" href="https://dev.ldumay.fr/resources/bootstrap/4.1.3/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://dev.ldumay.fr/resources/bootstrap/4.1.3/css/bootstrap-grid.min.css" />
+        -->
+        <!-- v5.0.2 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         
         <!-- GoogleFonts -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poiret+One&family=Alatsi&family=Roboto&family=Righteous"/>
@@ -74,6 +71,7 @@
         <!-- StylesCustom -->
         <link rel="stylesheet" type="text/css" href="css/styles.css"/>
         <link rel="stylesheet" type="text/css" href="css/navbar.css"/>
+        <link rel="stylesheet" type="text/css" href="css/logo.css"/>
         <link rel="stylesheet" type="text/css" href="css/medias_queries.css"/>
         <!-- ./StylesCustom -->
     </head>

@@ -6,6 +6,6 @@
 
 <div id="logo-login" class="row">
     <div class="col-md-12 col-xs-12 logo">
-        <img src="images/logo/Seoladh_3.png"/>
+        <img src="images/logo/Seoladh_4.png"/>
     </div>
 </div>

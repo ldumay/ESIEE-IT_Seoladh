@@ -1,0 +1,15 @@
+.container #logo .logo img{
+    max-width: 30%;
+}
+
+/* Login éléments */
+.container #logo-login{
+    margin-bottom: 20%;
+}
+.container #logo-login .logo img{
+    max-width: 60%;
+}
+
+#logo h3{
+    color: rgba(143, 78, 221, 1.0);
+}

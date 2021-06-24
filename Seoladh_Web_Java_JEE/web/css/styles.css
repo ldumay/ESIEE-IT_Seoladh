@@ -40,22 +40,6 @@ body{
     border-radius: 0!important;
 }
 
-.container #logo .logo img{
-    max-width: 30%;
-}
-
-/* Login éléments */
-.container #logo-login{
-    margin-bottom: 20%;
-}
-.container #logo-login .logo img{
-    max-width: 60%;
-}
-
-#logo h3{
-    color: rgba(143, 78, 221, 1.0);
-}
-
 #sub-container{
     background-color: rgba(255, 255, 255, 1);
     padding: 1.5rem 2.6rem;

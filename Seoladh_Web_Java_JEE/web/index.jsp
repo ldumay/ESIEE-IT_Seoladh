@@ -33,7 +33,7 @@
                                 <li><a href="register.jsp">Page d'inscription</a></li>
                                 <li><a href="login.jsp">Page de connexion</a></li>
                                 <li><a href="accueil.jsp">Page d'accueil</a></li>
-                                <li><a href="#">Template</a></li>
+                                <li><a href="campaigns.jsp">Page des campagnes</a></li>
                                 <li><a href="#">Template</a></li>
                                 <li><a href="#">Template</a></li>
                                 <li><a href="#">Template</a></li>

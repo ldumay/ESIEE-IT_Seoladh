@@ -6,7 +6,8 @@
 
 <div id="logo" class="row">
     <div class="col-md-12 col-xs-12 logo">
-        <img src="images/logo/Seoladh_3.png"/>
-        <h3>WEB Version</h3>
+        <a href="index.jsp">
+            <img src="images/logo/Seoladh_4.png"/>
+        </a>
     </div>
 </div>

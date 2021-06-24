@@ -26,3 +26,11 @@
 #nav-bar, .rounded{
     border-radius: 0!important;
 }
+
+#nav-bar .dropdown-menu .dropdown-item{
+    color: rgba(143, 78, 221, 1.0);
+}
+
+.dropdown-item:focus, .dropdown-item:hover{
+    background-color: rgba(143, 78, 221, 0.2);
+}
