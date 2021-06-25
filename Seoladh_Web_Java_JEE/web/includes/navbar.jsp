@@ -58,9 +58,9 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="administation" data-bs-toggle="dropdown" aria-expanded="false">Administration</a>
                                 <ul class="dropdown-menu" aria-labelledby="administation">
-                                    <li><a class="dropdown-item" href="admins.jsp">[404] Administration</a></li>
-                                    <li><a class="dropdown-item" href="admin_mamagement_accounts.jsp">[404] Gestion des comptes</a></li>
-                                    <li><a class="dropdown-item" href="admin_mamagement_roles.jsp">[404] Gestion des rôles</a></li>
+                                    <li><a class="dropdown-item" href="admin.jsp">Administration</a></li>
+                                    <li><a class="dropdown-item" href="admin_accounts.jsp">Gestion des comptes</a></li>
+                                    <li><a class="dropdown-item" href="admin_roles.jsp">Gestion des rôles</a></li>
                                 </ul>
                             </li>
 

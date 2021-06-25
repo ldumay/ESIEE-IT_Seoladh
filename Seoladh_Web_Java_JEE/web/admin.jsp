@@ -1,7 +1,7 @@
 <%-- 
-    Document   : parametres_serveur_smtp.jsp
+    Document   : admin.jsp
     Created on : 24 juin 2021, 12:00:23
-    Author     : mtl
+    Author     : ldumay
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,14 +31,14 @@
                             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.jsp">Accueil</a></li>
-                                    <li class="breadcrumb-item active">Paramètres</li>
+                                    <li class="breadcrumb-item active">Administration</li>
                                 </ol>
                             </nav>
                         </div>
                         <br><br>
                         
                         <!-- Page - Title -->
-                        <div class="row col-md-12 col-xs-12 text-center"><h3>Paramètres</h3></div>
+                        <div class="row col-md-12 col-xs-12 text-center"><h3>Administration</h3></div>
                         <hr>
                         
                         <!-- Page - Content -->
