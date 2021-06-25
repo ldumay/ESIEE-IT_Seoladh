@@ -1,0 +1,5 @@
+/* = = [ Breadcrumb-item ] = = */
+
+.breadcrumb, .breadcrumb-item, .breadcrumb-item a{
+    color: rgba(143, 78, 221, 1.0);
+}

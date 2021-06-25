@@ -70,7 +70,9 @@
 
         <!-- StylesCustom -->
         <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+        <link rel="stylesheet" type="text/css" href="css/fonts.css"/>
         <link rel="stylesheet" type="text/css" href="css/navbar.css"/>
+        <link rel="stylesheet" type="text/css" href="css/breadcrumb.css"/>
         <link rel="stylesheet" type="text/css" href="css/logo.css"/>
         <link rel="stylesheet" type="text/css" href="css/medias_queries.css"/>
         <!-- ./StylesCustom -->
