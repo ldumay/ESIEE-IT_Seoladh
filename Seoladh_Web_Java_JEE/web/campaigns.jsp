@@ -26,16 +26,84 @@
 
                     <div id="content" class="row">
                         <div class="col-md-12 col-xs-12">
-                            <h4>Campagnes !</h4>
-                            <p>Proinde die funestis interrogationibus praestituto imaginarius iudex equitum resedit magister adhibitis aliis iam quae essent agenda praedoctis, et adsistebant hinc inde notarii, quid quaesitum esset, quidve responsum, cursim ad Caesarem perferentes, cuius imperio truci, stimulis reginae exsertantis aurem subinde per aulaeum, nec diluere obiecta permissi nec defensi periere conplures.
-                                <br>Sed cautela nimia in peiores haeserat plagas, ut narrabimus postea, aemulis consarcinantibus insidias graves apud Constantium, cetera medium principem sed siquid auribus eius huius modi quivis infudisset ignotus, acerbum et inplacabilem et in hoc causarum titulo dissimilem sui.
-                                <br>Sed fruatur sane hoc solacio atque hanc insignem ignominiam, quoniam uni praeter se inusta sit, putet esse leviorem, dum modo, cuius exemplo se consolatur, eius exitum expectet, praesertim cum in Albucio nec Pisonis libidines nec audacia Gabini fuerit ac tamen hac una plaga conciderit, ignominia senatus.
-                            </p>
+                            
+                            <!-- Page - Breadcrumb -->
+                            <div class="row col-md-12 col-xs-12">
+                                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.jsp">Accueil</a></li>
+                                        <li class="breadcrumb-item active">Campagnes</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <br><br>
+                            
+                            <!-- Page - Title -->
+                            <div class="row col-md-12 col-xs-12 text-center"><h3>Campagnes</h3></div>
                             <hr>
-                            <p>Proinde die funestis interrogationibus praestituto imaginarius iudex equitum resedit magister adhibitis aliis iam quae essent agenda praedoctis, et adsistebant hinc inde notarii, quid quaesitum esset, quidve responsum, cursim ad Caesarem perferentes, cuius imperio truci, stimulis reginae exsertantis aurem subinde per aulaeum, nec diluere obiecta permissi nec defensi periere conplures.
-                                <br>Sed cautela nimia in peiores haeserat plagas, ut narrabimus postea, aemulis consarcinantibus insidias graves apud Constantium, cetera medium principem sed siquid auribus eius huius modi quivis infudisset ignotus, acerbum et inplacabilem et in hoc causarum titulo dissimilem sui.
-                                <br>Sed fruatur sane hoc solacio atque hanc insignem ignominiam, quoniam uni praeter se inusta sit, putet esse leviorem, dum modo, cuius exemplo se consolatur, eius exitum expectet, praesertim cum in Albucio nec Pisonis libidines nec audacia Gabini fuerit ac tamen hac una plaga conciderit, ignominia senatus.
-                            </p>
+                            
+                            <!-- Page - Content -->
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                                
+                                <!-- Item -->
+                                <div class="col">
+                                    <div class="card shadow-sm">
+                                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+                                        <div class="card-body">
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-success">View</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary">Edit</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                                </div>
+                                                <small class="text-muted">9 mins</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Item -->
+                                <div class="col">
+                                    <div class="card shadow-sm">
+                                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+                                        <div class="card-body">
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-success">View</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary">Edit</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                                </div>
+                                                <small class="text-muted">9 mins</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Item -->
+                                <div class="col">
+                                    <div class="card shadow-sm">
+                                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+                                        <div class="card-body">
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-success">View</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary">Edit</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                                </div>
+                                                <small class="text-muted">9 mins</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
                         </div>
                     </div>
                     

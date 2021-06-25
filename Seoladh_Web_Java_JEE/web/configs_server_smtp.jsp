@@ -25,8 +25,8 @@
                 <div id="sub-container">
 
                     <div id="content">
-                        <div class="row col-md-12 col-xs-12"><h3>Serveur SMTP</h3></div>
                         
+                        <!-- Page - Breadcrumb -->
                         <div class="row col-md-12 col-xs-12">
                             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -36,9 +36,13 @@
                                 </ol>
                             </nav>
                         </div>
+                        <br><br>
                         
+                        <!-- Page - Title -->
+                        <div class="row col-md-12 col-xs-12 text-center"><h3>Serveur SMTP</h3></div>
                         <hr>
                         
+                        <!-- Page - Formulaire Serveur SMTP -->
                         <form method="post" action="#">
                             <div class="row col-md-12 col-xs-12">
                                     <div class="row col-md-1 col-xs-1"></div>
@@ -82,6 +86,8 @@
                                 </div>
                                 <div class="row col-md-4 col-xs-4"></div>
                             </div>
+                        </form>
+                        
                     </div>
                     
                     <hr>

@@ -23,10 +23,10 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="campagnes" data-bs-toggle="dropdown" aria-expanded="false">Campagnes</a>
                                 <ul class="dropdown-menu" aria-labelledby="campagnes">
-                                    <li><a class="dropdown-item" href="campaigns.jsp">[OK] Liste des campagnes</a></li>
-                                    <li><a class="dropdown-item" href="campaigns_new.jsp">[404] Nouvel campagne</a></li>
-                                    <li><a class="dropdown-item" href="campaigns_import.jsp">[404] Importation des campagnes</a></li>
-                                    <li><a class="dropdown-item" href="campaigns_export.jsp">[404] Exportation des campagnes</a></li>
+                                    <li><a class="dropdown-item" href="campaigns.jsp">Liste des campagnes</a></li>
+                                    <li><a class="dropdown-item" href="campaigns_new.jsp">Nouvel campagne</a></li>
+                                    <li><a class="dropdown-item" href="campaigns_import.jsp">Importation des campagnes</a></li>
+                                    <li><a class="dropdown-item" href="campaigns_export.jsp">Exportation des campagnes</a></li>
                                 </ul>
                             </li>
 
@@ -34,23 +34,23 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="listesDeContacts" data-bs-toggle="dropdown" aria-expanded="false">Listes de contacts</a>
                                 <ul class="dropdown-menu" aria-labelledby="listesDeContacts">
-                                    <li><a class="dropdown-item" href="#">[404] Tous les contacts</a></li>
-                                    <li><a class="dropdown-item" href="#">Nouvel liste de contacts</a></li>
-                                    <li><a class="dropdown-item" href="#">Importation des listes</a></li>
-                                    <li><a class="dropdown-item" href="#">Exportation des listes</a></li>
+                                    <li><a class="dropdown-item" href="contactslists.jsp">Listes de contacts</a></li>
+                                    <li><a class="dropdown-item" href="contactslists_blacklist.jsp">Liste noir des listes de contacts</a></li>
+                                    <li><a class="dropdown-item" href="contactslists_new.jsp">Nouvelle liste de contacts</a></li>
+                                    <li><a class="dropdown-item" href="contactslists_clean_doublons.jsp">Nettoyage des doublons et erreurs d'emails</a></li>
+                                    <li><a class="dropdown-item" href="contactslists_import.jsp">Importation de listes de contacts</a></li>
+                                    <li><a class="dropdown-item" href="contactslists_export.jsp">Exportation de listes de contacts</a></li>
                                 </ul>
                             </li>
 
                             <!-- ListeDesEmails -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="listeDesEmails" data-bs-toggle="dropdown" aria-expanded="false">Liste Des Emails</a>
+                                <a class="nav-link dropdown-toggle" id="listeDesEmails" data-bs-toggle="dropdown" aria-expanded="false">Contacts</a>
                                 <ul class="dropdown-menu" aria-labelledby="listeDesEmails">
-                                    <li><a class="dropdown-item" href="#">Tous les emails</a></li>
-                                    <li><a class="dropdown-item" href="#">Blacklists</a></li>
-                                    <li><a class="dropdown-item" href="#">Nouvel email</a></li>
-                                    <li><a class="dropdown-item" href="#">Nettoyage & tri des emails</a></li>
-                                    <li><a class="dropdown-item" href="#">Importation des emails</a></li>
-                                    <li><a class="dropdown-item" href="#">Exportation des emails</a></li>
+                                    <li><a class="dropdown-item" href="contacts.jsp">Contacts</a></li>
+                                    <li><a class="dropdown-item" href="contacts_new.jsp">Nouveau contact</a></li>
+                                    <li><a class="dropdown-item" href="contacts_import.jsp">Importation des contacts</a></li>
+                                    <li><a class="dropdown-item" href="contacts_export.jsp">Exportation des contacts</a></li>
                                 </ul>
                             </li>
 
@@ -68,17 +68,20 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="paramteres" data-bs-toggle="dropdown" aria-expanded="false">Paramètres</a>
                                 <ul class="dropdown-menu" aria-labelledby="paramteres">
-                                    <li><a class="dropdown-item" href="configs.jsp">[404] Paramètres</a></li>
-                                    <li><a class="dropdown-item" href="configs_server_smtp.jsp">[404] Serveur SMTP Défaut</a></li>
+                                    <li><a class="dropdown-item" href="configs.jsp">Paramètres</a></li>
+                                    <li><a class="dropdown-item" href="configs_server_smtp.jsp">Serveur SMTP Défaut</a></li>
                                 </ul>
                             </li>
-
-                            <!-- Inscription/Connexion -->
-                            <li class="nav-item"> <a class="nav-link" href="register.jsp">[Ok] Inscription</a> </li>
-                            <li class="nav-item"> <a class="nav-link" href="login.jsp">[Ok] Connexion</a> </li>
                             
-                            <!-- Deconnexion -->
-                            <li class="nav-item"> <a class="nav-link" href="logout.jsp">[404] Déconnexion</a> </li>
+                            <!-- Authentification -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="administation" data-bs-toggle="dropdown" aria-expanded="false">Authentification</a>
+                                <ul class="dropdown-menu" aria-labelledby="administation">
+                                    <li><a class="dropdown-item" href="auth_register.jsp">Inscription</a></li>
+                                    <li><a class="dropdown-item" href="auth_login.jsp">Connexion</a></li>
+                                    <li><a class="dropdown-item" href="auth_logout.jsp">Déconnexion</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
