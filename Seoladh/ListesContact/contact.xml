@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Listcontacts>
+    <Listcontacts id="1">
+        <nom>Tubert</nom>
+        <prenom>Hugo</prenom>
+        <email>hugo@gmail.com</email>
+        <Birthday>14/02/2000</Birthday>
+        <test>telephone</test>
+    </Listcontacts>
+    <Listcontacts id="2">
+        <nom>Javlin</nom>
+        <prenom>Kevin</prenom>
+        <email>Kevin@gmail.com</email>
+        <Birthday>12/06/1987</Birthday>
+        <test>telephone</test>
+    </Listcontacts>
+</Listcontacts>

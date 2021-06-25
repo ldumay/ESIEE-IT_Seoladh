@@ -52,7 +52,7 @@ public class FirstPage {
 		btnListe.setBounds(20,20,150,30);
 		btnCampagne.setBounds(20,20,150,30);
 		
-		final JFrame frame = new JFrame("Seoladh HUB");
+		final JFrame frame = new JFrame("ma fenetre");
 		frame.setSize(800,500);
 		JPanel pan = new JPanel();
 		pan.add(btnMail);
