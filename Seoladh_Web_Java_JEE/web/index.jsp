@@ -31,6 +31,10 @@
                             <h2>Pages en cours</h2>
                             <hr>
                             <ul>
+
+                                <li><a href="adminAccountManagment.jsp">Gestion des comptes</a></li>
+                               
+
                                 <li><a href="register.jsp">[AUTH] > Page d'inscription</a></li>
                                 <li><a href="login.jsp">[AUTH] > Page de connexion</a></li>
                             </ul>
@@ -70,6 +74,7 @@
                             <ul>
                                 <li><a href="configs.jsp">[InAPP] > Paramètre</a></li>
                                 <li><a href="configs_server_smtp.jsp">[InAPP] > Paramètre - Serveur sSMTP</a></li>
+
                             </ul>
                         </div>
                     </div>
