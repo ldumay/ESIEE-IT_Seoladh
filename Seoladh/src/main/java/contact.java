@@ -48,6 +48,18 @@ public class contact {
 	}
 
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getBirthday() {
+		return Birthday;
+	}
+	public void setBirthday(String birthday) {
+		Birthday = birthday;
+	}
 	public String getNom() {
 		return nom;
 	}
