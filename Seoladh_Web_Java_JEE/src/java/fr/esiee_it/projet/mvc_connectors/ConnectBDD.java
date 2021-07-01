@@ -33,7 +33,7 @@ public class ConnectBDD {
      * Constructor
      */
     public ConnectBDD(){
-        this.bddName = "univcergy22";
+        this.bddName = "seoladh";
         this.bddLogin = "root";
         this.bddPassword = "root";
         this.bddIP = "localhost";
@@ -94,9 +94,9 @@ public class ConnectBDD {
     /**
      * Cette fonction permet de récupérer des données dans une base de données SQL via une requère SQL.
      * @param querySQL 
-     * @return  Object
+     * @return  ResultSet
      */
-    public Object getDatasBySQL(String querySQL){
+    public ResultSet getDatasBySQL(String querySQL){
         try{
             ResultSet datas = this.statement.executeQuery(querySQL);
             System.out.println("Récupération de données SQL -> OK !");
