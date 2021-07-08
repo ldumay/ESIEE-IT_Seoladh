@@ -16,14 +16,19 @@
     
     <!-- Servelet - AvisSaisi -->
     <!-- servlet - laison -->
+    
+    <!--
     <servlet>
         <servlet-name>Index</servlet-name>
         <servlet-class>fr.esiee_it.projet.mvc_controllers.Index</servlet-class>
     </servlet>
+    -->
     <!-- servlet-mapping - URI Accès -->
+    <!--
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    -->
     
 </web-app>

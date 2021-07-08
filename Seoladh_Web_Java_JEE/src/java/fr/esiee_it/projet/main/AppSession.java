@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class AppSession {
     //-Attributs de base
-    private User userConnect;
+    public User userConnect;
     
     /**
      * Constructor
@@ -31,6 +31,14 @@ public class AppSession {
 
     // The methods of basic setter below.
     public void setUserConnect(User userConnect) { this.userConnect = userConnect; }
+    
+    /**
+     * Permet de testé une session client.
+     * @throws SQLException 
+     */
+    public void clientDemo() throws SQLException{
+        userConnect = new User("superAdmin","superAdmin");
+    }
 
     /**
      * toString

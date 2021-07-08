@@ -8,7 +8,6 @@ package fr.esiee_it.projet.mvc_models;
 import fr.esiee_it.projet.mvc_connectors.ConnectBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
