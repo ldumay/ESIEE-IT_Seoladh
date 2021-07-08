@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Listcontacts>
+    <Listcontacts id="0">
+        <nom>test</nom>
+        <prenom>test</prenom>
+        <email>test</email>
+        <Birthday>test</Birthday>
+    </Listcontacts>
+    <Listcontacts id="1">
+        <nom>Nom</nom>
+        <prenom>Prenom</prenom>
+        <email>Email</email>
+        <Birthday>Date de naissance</Birthday>
+    </Listcontacts>
+    <Listcontacts id="1">
+        <nom>test2</nom>
+        <prenom>test2</prenom>
+        <email>test2</email>
+        <Birthday>test2</Birthday>
+    </Listcontacts>
+</Listcontacts>
