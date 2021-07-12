@@ -6,8 +6,19 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 
 public class FirstPage {
@@ -35,42 +46,122 @@ public class FirstPage {
 	 */
 	public FirstPage() {
 		initialize();
+
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
 		
-		JButton btnMail = new JButton("Gestion des mails");
-		JButton btnContact = new JButton("Gestions des contacts");
-		JButton btnListe = new JButton("Gestion des listes");
-		JButton btnCampagne = new JButton("Gestion des Campagnes");
-		btnMail.setBounds(20,20,150,30);
-		btnContact.setBounds(20,20,150,30);
-		btnListe.setBounds(20,20,150,30);
-		btnCampagne.setBounds(20,20,150,30);
-		
-		final JFrame frame = new JFrame("ma fenetre");
+		final JFrame frame = new JFrame("Seoladh");
+		frame.setResizable(false);
 		frame.setSize(800,500);
 		JPanel pan = new JPanel();
-		pan.add(btnMail);
-		pan.add(btnContact);
-		pan.add(btnListe);
-		pan.add(btnCampagne);
-		frame.getContentPane().add(pan);
-
-		frame.setVisible(true);
-		btnMail.addActionListener(new ActionListener() {
-
+		pan.setBackground(new Color(111,168,220));
+		JButton btnContact = new JButton("");
+		btnContact.setBorderPainted(false); 
+		btnContact.setContentAreaFilled(false); 
+		btnContact.setFocusPainted(false); 
+		btnContact.setOpaque(false);
+		Image img = new ImageIcon(this.getClass().getResource("/Gestion Contacts.png")).getImage();
+		btnContact.setIcon(new ImageIcon(img));
+		btnContact.setBounds(20,20,150,30);
+		JButton btnListe = new JButton("");
+		btnListe.setFont(new Font("Arial", Font.BOLD, 16));
+		btnListe.setBorderPainted(false); 
+		btnListe.setContentAreaFilled(false); 
+		btnListe.setFocusPainted(false); 
+		btnListe.setOpaque(false);
+		Image img3 = new ImageIcon(this.getClass().getResource("/Gestion Listes.png")).getImage();
+		btnListe.setIcon(new ImageIcon(img3));
+		btnListe.setBounds(20,20,150,30);
+		btnListe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				Interface inter = new Interface();
+				ViewContact inter = new ViewContact();
 				inter.main(null);
 			}
 		});
+		frame.getContentPane().add(pan);
+		JButton btnCampagne = new JButton("");
+		btnCampagne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				ViewCampagne inter = new ViewCampagne();
+				inter.main(null);
+			}
+		});
+		btnCampagne.setBorderPainted(false); 
+		btnCampagne.setContentAreaFilled(false); 
+		btnCampagne.setFocusPainted(false); 
+		btnCampagne.setOpaque(false);
+		Image img4 = new ImageIcon(this.getClass().getResource("/Gestion Campagnes.png")).getImage();
+		btnCampagne.setIcon(new ImageIcon(img4));
+		btnCampagne.setBounds(20,20,150,30);
+		Image img2 = new ImageIcon(this.getClass().getResource("/Seoladh.png")).getImage();
+		
+		JLabel lblNewLabel = new JLabel("Gestion Contacts");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		
+		JLabel lblNewLabel_1 = new JLabel("Gestion Listes");
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
+		
+		JLabel lblNewLabel_2 = new JLabel("Gestion Campagnes");
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
+		
+		JLabel LabelPicture = new JLabel("");
+		LabelPicture.setIcon(new ImageIcon(img2));
+		GroupLayout gl_pan = new GroupLayout(pan);
+		gl_pan.setHorizontalGroup(
+			gl_pan.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pan.createSequentialGroup()
+					.addGroup(gl_pan.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_pan.createSequentialGroup()
+							.addContainerGap(66, Short.MAX_VALUE)
+							.addComponent(btnContact, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+							.addGap(40)
+							.addComponent(btnListe, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
+							.addGap(51))
+						.addGroup(gl_pan.createSequentialGroup()
+							.addGap(86)
+							.addComponent(lblNewLabel)
+							.addGap(91)
+							.addComponent(lblNewLabel_1)
+							.addGap(97)))
+					.addGroup(gl_pan.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_2)
+						.addComponent(btnCampagne))
+					.addContainerGap(119, Short.MAX_VALUE))
+				.addGroup(gl_pan.createSequentialGroup()
+					.addGap(204)
+					.addComponent(LabelPicture, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(270, Short.MAX_VALUE))
+		);
+		gl_pan.setVerticalGroup(
+			gl_pan.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pan.createSequentialGroup()
+					.addGap(58)
+					.addComponent(LabelPicture, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+					.addGroup(gl_pan.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_pan.createSequentialGroup()
+							.addComponent(btnContact, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(gl_pan.createSequentialGroup()
+							.addComponent(btnListe)
+							.addGap(23))
+						.addGroup(gl_pan.createSequentialGroup()
+							.addComponent(btnCampagne)
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addGroup(gl_pan.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_1)
+						.addComponent(lblNewLabel_2)
+						.addComponent(lblNewLabel))
+					.addGap(65))
+		);
+		pan.setLayout(gl_pan);
+		frame.setVisible(true);
 	
 	}
-
 }

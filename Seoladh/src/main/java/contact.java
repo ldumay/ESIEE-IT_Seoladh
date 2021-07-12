@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 public class contact {
 	@XmlAttribute()
 	private int id;
+	private int identifiant;
 	private String nom;
 	private String prenom;
 	private String email;
@@ -38,8 +39,9 @@ public class contact {
 	public contact() {
 		
 	}
-	public contact(int id, String nom, String prenom, String email, String birthday) {
+	public contact(int identifiant,int id, String nom, String prenom, String email, String birthday) {
 		super();
+		this.identifiant = identifiant;
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -48,6 +50,12 @@ public class contact {
 	}
 
 
+	public int getIdentifiant() {
+		return identifiant;
+	}
+	public void setIdentifiant(int identifiant) {
+		this.identifiant = identifiant;
+	}
 	public int getId() {
 		return id;
 	}
