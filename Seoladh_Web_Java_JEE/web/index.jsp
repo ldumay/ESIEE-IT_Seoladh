@@ -32,6 +32,7 @@
                             <hr>
                             <ul>
                                 <li><a href="home.jsp">[InAPP] > Accueil</a></li>
+                                <%= request.getParameter("htmlContent") %>
                             </ul>
                             <hr>
                         </div>

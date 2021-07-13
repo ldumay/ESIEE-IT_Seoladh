@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.esiee_it.projet.mvc_models;
+package app.models;
 
-import fr.esiee_it.projet.mvc_connectors.ConnectBDD;
+import app.network.ConnectBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class User {
         }
         
         // Vérification des informations de contact de l'utilicsateur dans la table de liaison pour récupérer l'id de contact lié 
-        sql = "SELECT contact_id FROM `user_and_contact` WHERE user_id="+this.user_Id+";";
+        sql = "SELECT contact_id FROM `users_and_contacts` WHERE user_id="+this.user_Id+";";
         System.out.println(sql);
         datas = connectBDD.getDatasBySQL(sql);
         while (datas.next()) {

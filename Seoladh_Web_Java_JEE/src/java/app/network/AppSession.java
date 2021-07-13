@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.esiee_it.projet.main;
+package app.network;
 
-import fr.esiee_it.projet.mvc_models.User;
+import app.models.User;
 import java.sql.SQLException;
 
 /**

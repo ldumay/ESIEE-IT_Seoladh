@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.esiee_it.projet.mvc_models;
+package app.models;
 
 import java.util.Collection;
 import java.util.Date;

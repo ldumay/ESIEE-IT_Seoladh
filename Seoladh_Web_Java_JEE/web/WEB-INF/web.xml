@@ -1,29 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-    
     <!-- App Name -->
     <display-name>Seoladh | App Web Java JEE</display-name>
     
-    
     <!-- Home Page -->
     <welcome-file-list>
-        <welcome-file>/</welcome-file>
+        <welcome-file>/home</welcome-file>
     </welcome-file-list>
     
-    
-    <!-- Servlets -->
-    
-    
-    <!-- Servelet - AvisSaisi -->
-    <!-- servlet - laison -->
+    <!-- Page_Home -->
     <servlet>
-        <servlet-name>Index</servlet-name>
-        <servlet-class>fr.esiee_it.projet.mvc_controllers.Index</servlet-class>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>app.views.Home</servlet-class>
     </servlet>
-    <!-- servlet-mapping - URI Accès -->
     <servlet-mapping>
-        <servlet-name>Index</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
+    <!-- ./Page_Home -->
+    
+    <!-- Page_Campaigns_Lists -->
+    <servlet>
+        <servlet-name>CampaignsLists</servlet-name>
+        <servlet-class>app.views.CampaignsLists</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignsLists</servlet-name>
+        <url-pattern>/campaigns</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Campaigns_Lists -->
+    
+    <!-- Page_Campaigns_New -->
+    <servlet>
+        <servlet-name>CampaignsNew</servlet-name>
+        <servlet-class>app.views.CampaignsNew</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignsNew</servlet-name>
+        <url-pattern>/campaigns-new</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Campaigns_New -->
+    
+    <!-- Page_Campaigns_Import -->
+    <servlet>
+        <servlet-name>CampaignsImport</servlet-name>
+        <servlet-class>app.views.CampaignsImport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignsImport</servlet-name>
+        <url-pattern>/campaigns-import</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Campaigns_Import -->
+    
+    <!-- Page_Campaigns_Export -->
+    <servlet>
+        <servlet-name>CampaignsExport</servlet-name>
+        <servlet-class>app.views.CampaignsExport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignsExport</servlet-name>
+        <url-pattern>/campaigns-export</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Campaigns_Export -->
+    
+    <!-- Page_ListsContacts -->
+    <servlet>
+        <servlet-name>ListsContacts</servlet-name>
+        <servlet-class>app.views.ListsContacts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListsContacts</servlet-name>
+        <url-pattern>/lists-contacts</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ListsContacts -->
+    
+    <!-- Page_ListsContacts_Blacklist -->
+    <servlet>
+        <servlet-name>ListsContactsBlacklist</servlet-name>
+        <servlet-class>app.views.ListsContactsBlacklist</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListsContactsBlacklist</servlet-name>
+        <url-pattern>/lists-contacts-blacklist</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ListsContacts_Blacklist -->
+    
+    <!-- Page_ListsContacts_New -->
+    <servlet>
+        <servlet-name>ListsContactsNew</servlet-name>
+        <servlet-class>app.views.ListsContactsNew</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListsContactsNew</servlet-name>
+        <url-pattern>/lists-contacts-new</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ListsContacts_New -->
+    
+    <!-- Page_ListsContacts_Clean -->
+    <servlet>
+        <servlet-name>ListsContactsClean</servlet-name>
+        <servlet-class>app.views.ListsContactsClean</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListsContactsClean</servlet-name>
+        <url-pattern>/lists-contacts-clean</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ListsContacts_Clean -->
+    
+    <!-- Page_ListsContacts_Import -->
+    <servlet>
+        <servlet-name>ListsContactsImport</servlet-name>
+        <servlet-class>app.views.ListsContactsImport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListsContactsImport</servlet-name>
+        <url-pattern>/lists-contacts-import</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ListsContacts_Import -->
+    
+    <!-- Page_ListsContacts_Export -->
+    <servlet>
+        <servlet-name>ListsContactsExport</servlet-name>
+        <servlet-class>app.views.ListsContactsExport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListsContactsExport</servlet-name>
+        <url-pattern>/lists-contacts-export</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ListsContacts_Export -->
+    
+    <!-- Page_Contacts -->
+    <servlet>
+        <servlet-name>Contacts</servlet-name>
+        <servlet-class>app.views.Contacts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Contacts</servlet-name>
+        <url-pattern>/contacts</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Contacts -->
+    
+    <!-- Page_ContactsNew -->
+    <servlet>
+        <servlet-name>ContactsNew</servlet-name>
+        <servlet-class>app.views.ContactsNew</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactsNew</servlet-name>
+        <url-pattern>/contacts-new</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ContactsNew -->
+    
+    <!-- Page_ContactsImport -->
+    <servlet>
+        <servlet-name>ContactsImport</servlet-name>
+        <servlet-class>app.views.ContactsImport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactsImport</servlet-name>
+        <url-pattern>/contacts-import</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ContactsImport -->
+    
+    <!-- Page_ContactsExport -->
+    <servlet>
+        <servlet-name>ContactsExport</servlet-name>
+        <servlet-class>app.views.ContactsExport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactsExport</servlet-name>
+        <url-pattern>/contacts-export</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ContactsExport -->
+    
+    <!-- Page_Admin -->
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>app.views.Admin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Admin -->
+    
+    <!-- Page_Admin_Accounts -->
+    <servlet>
+        <servlet-name>AdminAccounts</servlet-name>
+        <servlet-class>app.views.AdminAccounts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminAccounts</servlet-name>
+        <url-pattern>/admin-accounts</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Admin_Accounts -->
+    
+    <!-- Page_Admin_Roles -->
+    <servlet>
+        <servlet-name>AdminRoles</servlet-name>
+        <servlet-class>app.views.AdminRoles</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminRoles</servlet-name>
+        <url-pattern>/admin-roles</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Admin_Roles -->
+    
+    <!-- Page_Admin_Server -->
+    <servlet>
+        <servlet-name>AdminServer</servlet-name>
+        <servlet-class>app.views.AdminServer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServer</servlet-name>
+        <url-pattern>/admin-server</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Admin_Server -->
+    
+    <!-- Page_Profile -->
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>app.views.Profile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Profile -->
     
 </web-app>
