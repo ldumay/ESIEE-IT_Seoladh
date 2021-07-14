@@ -6,13 +6,12 @@
 package app.views;
 
 import app.includes.ElementsPages;
-import app.models.ListContacts;
+import app.models.Contact;
 import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,9 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ldumay
  */
-@WebServlet(name = "lists-contacts", urlPatterns = {"/lists-contacts"})
-public class ListsContacts extends HttpServlet {
-    
+@WebServlet(name = "contacts-blacklist", urlPatterns = {"/contacts-blacklist"})
+public class ContactsBlacklist extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,83 +37,32 @@ public class ListsContacts extends HttpServlet {
      * @throws IOException if an I/O error occurs
      * @throws java.sql.SQLException
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ParseException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            System.out.println("-> lists de contacts : START");
             // Variables nécessasires
             ConnectBDD connectBDD = new ConnectBDD();
             ResultSet datas = null;
             String sql = null;
             String contentTable = "";
-            
-            // = = = [ Lecture des contacts ] = = =
-            System.out.println("-> lists de contacts : START");
-            
-            // = = = [ Connexion à la BDD ] = = =
+            //-
             connectBDD.openConnexion();
-            System.out.println("BDD : Open");
             
-            // = = = [ Ajout d'un contact ] = = =
-            if(request.getParameter("list-contacts-ajout")!=null){
-                if( (!request.getParameter("list-contacts-ajout").isEmpty() && "list-contacts-ajout".equals(request.getParameter("list-contacts-ajout"))) 
-                    && (!request.getParameter("nom").isEmpty() && !"".equals(request.getParameter("nom"))) ){
+            // = = = [ Edition d'un contact ] = = =
+            if(request.getParameter("blacklist-retrait")!=null){
+                //-Validation Ajout Film
+                if( (!request.getParameter("blacklist-retrait").isEmpty() && !"".equals(request.getParameter("blacklist-retrait"))) ){
                     //-
-                    System.out.println("-> Ajout une liste de contact : START");
+                    System.out.println("-> Blacklist retrait : START");
                     //-
-                    ListContacts listContactAAjouter = new ListContacts();
-                    listContactAAjouter.setNom(request.getParameter("nom"));
-                    listContactAAjouter.setDescription(request.getParameter("description"));
-                    listContactAAjouter.setDateDebut(request.getParameter("dateDeDebut"));
-                    listContactAAjouter.setDateFin(request.getParameter("dateDeFin"));
-                    //-
-                    sql = ""
-                        +"INSERT INTO `lists_contacts` "
-                        +"(`nom`, `description`, `date_start`, `date_end`) "
-                        +"VALUES "
-                        +"("
-                        +"\""+listContactAAjouter.getNom()+"\","
-                        +"\""+listContactAAjouter.getDescription()+"\",";
-                    sql += "\""+listContactAAjouter.getDateDebut()+"\",";
-                    sql += "\""+listContactAAjouter.getDateFin()+"\"";
-                    sql += ");";
+                    sql = "UPDATE `contacts` SET `blacklist`=1 WHERE `id`="+request.getParameter("blacklist-retrait")+";";
                     System.out.println(sql);
                     connectBDD.setDatasBySQL(sql);
-                    
-                    // Récupération de l'id de la liste de contact ajouté
-                    sql = "SELECT `id` FROM `lists_contacts` ORDER BY `id` DESC LIMIT 0,1;";
-                    System.out.println(sql);
-                    datas = connectBDD.getDatasBySQL(sql);
-                    while (datas.next()) {
-                        listContactAAjouter.setId(datas.getInt(1));
-                    }
-                    
-                    // Liaison de la liste de contacts avec les contacts choisi
-                    try{
-                        int x = 0;
-                        while(x<100){
-                            if(request.getParameter("contact_"+x+"")!=null && !"".equals(request.getParameter("contact_"+x+""))){
-                                //-
-                                sql = "INSERT INTO `lists_contacts_and_contacts` "
-                                    +"(`list_contacts_id`, `contact_id`) "
-                                    +"VALUES "
-                                    +"("
-                                    +""+listContactAAjouter.getId()+","
-                                    +""+x+""
-                                    +")";
-                                //-
-                                System.out.println(sql);
-                                connectBDD.setDatasBySQL(sql);
-                            }
-                            x++;
-                        }
-                    }catch(Exception e){
-                        System.out.println(e);
-                    }
                     //-
-                    System.out.println("-> Ajout une liste de contact : END");
+                    System.out.println("-> Blacklist retrait : END");
                 }
             }
-            
             // = = = [ Suppression d'un contact ] = = =
             if(request.getParameter("contact-suppr-id")!=null){
                 //-Validation Ajout Film
@@ -122,7 +70,11 @@ public class ListsContacts extends HttpServlet {
                     //-
                     System.out.println("-> Edition de contact : START");
                     //-
-                    sql = "DELETE FROM `lists_contacts` WHERE `id`="+request.getParameter("contact-suppr-id")+";";
+                    sql = "DELETE FROM `lists_contacts_and_contacts` WHERE `contact_id`="+request.getParameter("contact-suppr-id")+";";
+                    System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
+                    //-
+                    sql = "DELETE FROM `contacts` WHERE `id`="+request.getParameter("contact-suppr-id")+";";
                     System.out.println(sql);
                     //-
                     connectBDD.setDatasBySQL(sql);
@@ -132,25 +84,29 @@ public class ListsContacts extends HttpServlet {
             }
             
             // Récupération des lists de contacts
-            sql = "SELECT * FROM `lists_contacts`;";
+            sql = "SELECT * FROM `contacts` WHERE blacklist=2;";
             System.out.println(sql);
             datas = connectBDD.getDatasBySQL(sql);
             while (datas.next()) {
-                ListContacts listContacts = new ListContacts(datas.getInt(1), datas.getString(2), datas.getString(3),
-                        datas.getString(4), datas.getString(5));
+                Contact contact = new Contact(datas.getInt(1), datas.getString(2), datas.getString(3),
+                        datas.getString(4), datas.getString(5), datas.getString(6), datas.getString(7),
+                        datas.getString(8), datas.getString(9), datas.getString(10), datas.getString(11),
+                        datas.getString(12), datas.getString(13), datas.getString(14), datas.getInt(15));
                 contentTable += "<tr>\n"
-                            +"<td>"+listContacts.getNom()+"</td>\n"
-                            +"<td>"+listContacts.getDescription()+"</td>\n"
-                            +"<td>"+listContacts.getDateDebut()+"</td>\n"
-                            +"<td>"+listContacts.getDateFin()+"</td>\n";
-                contentTable += "<td><a href=\"lists-contacts-edit?contact-edit-id="+listContacts.getId()+"\">Modifier</a></td>\n";
-                contentTable += "<td><a href=\"lists-contacts?contact-suppr-id="+listContacts.getId()+"\">Supprimer</a></td>\n";
+                            +"<td>"+contact.getNom()+"</td>\n"
+                            +"<td>"+contact.getPrenom()+"</td>\n"
+                            +"<td>"+contact.getDateNaissance()+"</td>\n"
+                            +"<td>"+contact.getEmail1()+"</td>\n"
+                            +"<td>"+contact.getEmail2()+"</td>\n";
+                contentTable += "<td><a href=\"contacts-edit?contact-edit-id="+contact.getId()+"\">Modifier</a></td>\n";
+                contentTable += "<td><a href=\"contacts-blacklist?contact-suppr-id="+contact.getId()+"\">Supprimer</a></td>\n";
+                contentTable += "<td><a href=\"contacts-blacklist?blacklist-retrait="+contact.getId()+"\">Retrait</a></td>\n";
                 contentTable +="</tr>\n";
             }
             // Lecture de données terminée
             connectBDD.closeConnexion();
             System.out.println("-> lists de contacts : END");
-        
+            
             ElementsPages elements = new ElementsPages();
             //-
             String htmlContent = "";
@@ -176,14 +132,15 @@ public class ListsContacts extends HttpServlet {
                                 +"<nav style=\"--bs-breadcrumb-divider: '>';\" aria-label=\"breadcrumb\">\n"
                                     +"<ol class=\"breadcrumb\">\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"home\">Accueil</a></li>\n"
-                                        +"<li class=\"breadcrumb-item active\">Listes de contacts</li>\n"
+                                        +"<li class=\"breadcrumb-item\"><a href=\"contacts\">Contacts</a></li>\n"
+                                        +"<li class=\"breadcrumb-item active\">Contacts retirés</li>\n"
                                     +"</ol>\n"
                                 +"</nav>\n"
                             +"</div>\n"
                             //_Title_
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
-                                +"<h3>Listes de contacts</h3>"
+                                +"<h3>Contacts retirés</h3>"
                             +"</div>\n"
                             +"<hr>\n"
                             //_Content_
@@ -192,11 +149,13 @@ public class ListsContacts extends HttpServlet {
                                 +"<thead>\n"
                                     +"<tr>\n"
                                         +"<th scope=\"col\">Nom</th>\n"
-                                        +"<th scope=\"col\">Description</th>\n"
-                                        +"<th scope=\"col\">Date de début</th>\n"
-                                        +"<th scope=\"col\">Date de fin</th>\n"
+                                        +"<th scope=\"col\">Prénom</th>\n"
+                                        +"<th scope=\"col\">Date de naissance</th>\n"
+                                        +"<th scope=\"col\">Mail 1</th>\n"
+                                        +"<th scope=\"col\">Mail 2</th>\n"
                                         +"<th scope=\"col\">Modifier</th>\n"
                                         +"<th scope=\"col\">Supprimer</th>\n"
+                                        +"<th scope=\"col\">Liste noire</th>\n"
                                     +"</tr>\n"
                                 +"</thead>\n"
                                 +"<tbody>\n"
@@ -232,8 +191,8 @@ public class ListsContacts extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException | ParseException ex) {
-            Logger.getLogger(ListsContacts.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContactsBlacklist.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -249,8 +208,8 @@ public class ListsContacts extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException | ParseException ex) {
-            Logger.getLogger(ListsContacts.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContactsBlacklist.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -5,12 +5,16 @@
  */
 package app.models;
 
+import app.utils.Dates;
+import java.util.Date;
+
 /**
  *
  * @author ldumay
  */
 public class Contact {
     //-Attributs de base
+    private Dates dates = new Dates();
     private int id;
     private String nom;
     private String prenom;
@@ -25,6 +29,7 @@ public class Contact {
     private String codepostal;
     private String ville;
     private String pays;
+    private int blacklist;
     
     /**
      * Constructor
@@ -47,11 +52,12 @@ public class Contact {
      * @param codepostal
      * @param ville
      * @param pays
+     * @param blacklist
      */
     public Contact(int id, String nom, String prenom, String dateNaissance,
             String categorie, String email1, String email2,
             String tel1, String tel2, String adresse1, String adresse2,
-            String codepostal, String ville, String pays){
+            String codepostal, String ville, String pays, int blacklist){
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -66,6 +72,7 @@ public class Contact {
         this.codepostal = codepostal;
         this.ville = ville;
         this.pays = pays;
+        this.blacklist = blacklist;
     }
 
     // The methods of basic getter below.
@@ -78,11 +85,12 @@ public class Contact {
     public String getEmail2() { return email2;  }
     public String getTel1() { return tel1; }
     public String getTel2() { return tel2; }
-    public String getAdresse1() { return adresse2; }
+    public String getAdresse1() { return adresse1; }
     public String getAdresse2() { return adresse2; }
     public String getCodepostal() { return codepostal; }
     public String getVille() { return ville; }
     public String getPays() { return pays; }
+    public int getBlacklist() { return blacklist; }
     
     // The methods of basic setter below.
     public void setId(int id) { this.id = id; }
@@ -92,13 +100,14 @@ public class Contact {
     public void setCategorie(String categorie) { this.categorie = categorie; }
     public void setEmail1(String email1) { this.email1 = email1; }
     public void setEmail2(String email2) { this.email2 = email2; }
-    public void setTel1(String tel) { this.tel1 = tel; }
-    public void setTel2(String tel) { this.tel2 = tel; }
-    public void setAdresse1(String adresse) { this.adresse1 = adresse; }
-    public void setAdresse2(String adresse) { this.adresse2 = adresse; }
+    public void setTel1(String tel1) { this.tel1 = tel1; }
+    public void setTel2(String tel2) { this.tel2 = tel2; }
+    public void setAdresse1(String adresse1) { this.adresse1 = adresse1; }
+    public void setAdresse2(String adresse2) { this.adresse2 = adresse2; }
     public void setCodepostal(String codepostal) { this.codepostal = codepostal; }
     public void setVille(String ville) { this.ville = ville; }
     public void setPays(String pays) { this.pays = pays; }
+    public void setBlacklist(int blacklist) { this.blacklist = blacklist; }
     
     /**
      * toString
@@ -120,7 +129,8 @@ public class Contact {
             +"adresse2="+adresse2+","
             +"codepostal="+codepostal+","
             +"ville="+ville+","
-            +"pays="+pays
+            +"pays="+pays+","
+            +"blacklist="+blacklist
             +"}";
     }
 }

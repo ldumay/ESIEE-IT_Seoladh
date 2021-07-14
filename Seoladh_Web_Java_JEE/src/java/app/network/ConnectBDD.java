@@ -83,7 +83,7 @@ public class ConnectBDD {
      */
     public void setDatasBySQL(String querySQL){
         try{
-            this.statement.executeQuery(querySQL);
+            this.statement.executeUpdate(querySQL);
             System.out.println("Ajout, Mise à Jour ou Suppression de données SQL -> OK !");
         } catch (SQLException e) {
             System.err.println("Autre erreur !");

@@ -6,8 +6,14 @@
 package app.views;
 
 import app.includes.ElementsPages;
+import app.models.Contact;
+import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,11 +35,48 @@ public class ListsContactsNew extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            // Variables nécessasires
+            ConnectBDD connectBDD = new ConnectBDD();
+            ResultSet datas = null;
+            String sql = null;
+            String contentTable = "";
+            
+            // = = = [ Lecture des contacts ] = = =
+            System.out.println("-> lists de contacts : START");
+            
+            // = = = [ Connexion à la BDD ] = = =
+            connectBDD.openConnexion();
+            System.out.println("BDD : Open");
+            
+            // Récupération des lists de contacts
+            sql = "SELECT * FROM `contacts` WHERE blacklist=0;";
+            System.out.println(sql);
+            datas = connectBDD.getDatasBySQL(sql);
+            while (datas.next()) {
+                Contact contact = new Contact(datas.getInt(1), datas.getString(2), datas.getString(3),
+                        datas.getString(4), datas.getString(5), datas.getString(6), datas.getString(7),
+                        datas.getString(8), datas.getString(9), datas.getString(10), datas.getString(11),
+                        datas.getString(12), datas.getString(13), datas.getString(14), datas.getInt(15));
+                contentTable += "<tr>\n"
+                            +"<td>"
+                                +"<input class=\"form-check-input\" type=\"checkbox\" id=\"contact_"+contact.getId()+"\" name=\"contact_"+contact.getId()+"\" value=\""+contact.getId()+"\">\n"
+                            +"</td>"
+                            +"<td>"+contact.getNom()+"</td>\n"
+                            +"<td>"+contact.getPrenom()+"</td>\n"
+                            +"<td>"+contact.getDateNaissance()+"</td>\n"
+                            +"<td>"+contact.getEmail1()+"</td>\n"
+                            +"<td>"+contact.getEmail2()+"</td>\n";
+                contentTable +="</tr>\n";
+            }
+            System.out.println("-> lists de contacts : END");
+            
+            //-
             ElementsPages elements = new ElementsPages();
             //-
             String htmlContent = "";
@@ -59,7 +102,7 @@ public class ListsContactsNew extends HttpServlet {
                                 +"<nav style=\"--bs-breadcrumb-divider: '>';\" aria-label=\"breadcrumb\">\n"
                                     +"<ol class=\"breadcrumb\">\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"home\">Accueil</a></li>\n"
-                                        +"<li class=\"breadcrumb-item\"><a href=\"contacts\">Listes de contacts</a></li>\n"
+                                        +"<li class=\"breadcrumb-item\"><a href=\"lists-contacts\">Listes de contacts</a></li>\n"
                                         +"<li class=\"breadcrumb-item active\">Nouvelle liste de contacts</li>\n"
                                     +"</ol>\n"
                                 +"</nav>\n"
@@ -72,41 +115,67 @@ public class ListsContactsNew extends HttpServlet {
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
-                            +"<form method=\"post\" action=\"#\">\n"
+                            +"<form method=\"post\" action=\"lists-contacts\">\n"
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
                                     +"<div class=\"row col-md-1 col-xs-1\"></div>\n"
                                     +"<div class=\"row col-md-9 col-xs-9 text-right\">\n"
                                         +"\n"
-                                        +"<!-- NomDeLaListDeContacts -->\n"
-                                        +"<label class=\"col-sm-4 col-form-label\" for=\"nomDeLaListDeContacts\">Nom de la list de contacts</label>\n"
+                                        +"<!-- ListeDeContact_Nom -->\n"
+                                        +"<label class=\"col-sm-4 col-form-label\" for=\"nom\">Nom</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"nomDeLaListDeContacts\" name=\"nomDeLaListDeContacts\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"nom\" name=\"nom\" maxlength=\"32\" placeholder=\"Nom\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
-                                        +"<!-- Contact_1_DeLaListDeContacts -->\n"
-                                        +"<label class=\"col-sm-4 col-form-label\" for=\"contact_1_DeLaListDeContacts\">Contact #1 De La List De Contacts</label>\n"
-                                        +"<div class=\"col-sm-6 input-group\">\n"
-                                            +"<select class=\"form-select\" aria-label=\"Default select example\">\n"
-                                                +"<option selected>Choisissez un contact</option>\n"
-                                                +"<option value=\"contact_1\">Contact 1</option>\n"
-                                                +"<option value=\"contact_2\">Contact 2</option>\n"
-                                                +"<option value=\"contact_3\">Contact 3</option>\n"
-                                            +"</select>\n"
-                                            +"<button type=\"button\" class=\"btn btn-primary\" name=\"nouveau_contact\" value=\"nouveau_contact\">+ Ajouter un contact</button>\n"
+                                        +"<!-- ListeDeContact_Description -->\n"
+                                        +"<label class=\"col-sm-4 col-form-label\" for=\"description\">Description</label>\n"
+                                        +"<div class=\"col-sm-6\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"description\" name=\"description\" maxlength=\"32\" placeholder=\"Description\">"
+                                        +"</div>\n"
+                                        +"<br><br>\n"
+                                        +"\n"
+                                        +"<!-- ListeDeContact_DateDeDebut -->\n"
+                                        +"<label class=\"col-sm-4 col-form-label\" for=\"dateDeDebut\">Date de début</label>\n"
+                                        +"<div class=\"col-sm-6\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDeDebut\" name=\"dateDeDebut\" maxlength=\"32\" placeholder=\"Date de début (AAAA-MM-DD)\">"
+                                        +"</div>\n"
+                                        +"<br><br>\n"
+                                        +"\n"
+                                        +"<!-- ListeDeContact_DateDeFin -->\n"
+                                        +"<label class=\"col-sm-4 col-form-label\" for=\"dateDeFin\">Date de fin</label>\n"
+                                        +"<div class=\"col-sm-6\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDeFin\" name=\"dateDeFin\" maxlength=\"32\" placeholder=\"Date de fin (AAAA-MM-DD)\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                     +"</div>\n"
-                                    +"<div class=\"row col-md-1 col-xs-1\"></div>\n"
                                 +"</div>\n"
+                                +"<br><br>\n"
                                 +"\n"
+                                +"<!-- ListDeContacts_choix_des_contacts -->\n"
+                                +"<div id=\"liste-de-contact-table\" class=\"row col-md-12 col-xs-12\">\n"
+                                    +"<table class=\"table table-bordered text-center\">\n"
+                                        +"<thead>\n"
+                                            +"<tr>\n"
+                                                +"<th scope=\"col\">#</th>\n"
+                                                +"<th scope=\"col\">Nom</th>\n"
+                                                +"<th scope=\"col\">Prénom</th>\n"
+                                                +"<th scope=\"col\">Date de naissance</th>\n"
+                                                +"<th scope=\"col\">Mail 1</th>\n"
+                                                +"<th scope=\"col\">Mail 2</th>\n"
+                                            +"</tr>\n"
+                                        +"</thead>\n"
+                                        +"<tbody>\n"
+                                            +contentTable
+                                        +"</tbody>\n"
+                                    +"</table>"
+                                +"</div>\n"
                                 +"<br>\n"
                                 +"\n"
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
                                     +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
                                     +"<div class=\"row col-md-4 col-xs-4 text-center\">\n"
-                                        +"<button type=\"submit\" class=\"btn btn-success\" name=\"valider\" value=\"valider\">Enregistrer</button>\n"
+                                        +"<button type=\"submit\" class=\"btn btn-success\" name=\"list-contacts-ajout\" value=\"list-contacts-ajout\">Ajouter la liste de contacts</button>\n"
                                     +"</div>\n"
                                     +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
                                 +"</div>\n"
@@ -137,9 +206,12 @@ public class ListsContactsNew extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListsContactsNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -151,9 +223,12 @@ public class ListsContactsNew extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListsContactsNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

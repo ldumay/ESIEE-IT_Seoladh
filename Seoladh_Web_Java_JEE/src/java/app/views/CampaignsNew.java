@@ -8,6 +8,9 @@ package app.views;
 import app.includes.ElementsPages;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,8 +33,7 @@ public class CampaignsNew extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             ElementsPages elements = new ElementsPages();
@@ -84,6 +86,19 @@ public class CampaignsNew extends HttpServlet {
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
+                                        +"<!-- Contact_1_DeLaListDeContacts -->\n"
+                                        +"<label class=\"col-sm-4 col-form-label\" for=\"contact_1_DeLaListDeContacts\">Contact #1 De La List De Contacts</label>\n"
+                                        +"<div class=\"col-sm-6 input-group\">\n"
+                                            +"<select class=\"form-select\" aria-label=\"Default select example\">\n"
+                                                +"<option selected>Choisissez un contact</option>\n"
+                                                +"<option value=\"contact_1\">Contact 1</option>\n"
+                                                +"<option value=\"contact_2\">Contact 2</option>\n"
+                                                +"<option value=\"contact_3\">Contact 3</option>\n"
+                                            +"</select>\n"
+                                            +"<button type=\"button\" class=\"btn btn-primary\" name=\"nouveau_contact\" value=\"nouveau_contact\">+ Ajouter un contact</button>\n"
+                                        +"</div>\n"
+                                        +"<br><br>\n"
+                                        +"\n"
                                     +"</div>\n"
                                     +"<div class=\"row col-md-1 col-xs-1\"></div>\n"
                                 +"</div>\n"
@@ -124,9 +139,12 @@ public class CampaignsNew extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CampaignsNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -138,9 +156,12 @@ public class CampaignsNew extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CampaignsNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

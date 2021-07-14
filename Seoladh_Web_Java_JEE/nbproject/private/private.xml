@@ -3,10 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/timot/Desktop/cours_L3/seoladh/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/web/js/index.js</file>
-            <file>file:/C:/Users/timot/Desktop/cours_L3/seoladh/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/web/adminAccountManagment.jsp</file>
-            <file>file:/C:/Users/timot/Desktop/cours_L3/seoladh/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/web/accueil.jsp</file>
-            <file>file:/C:/Users/timot/Desktop/cours_L3/seoladh/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/web/index.jsp</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/models/User.java</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/views/ListsContacts.java</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/models/Contact.java</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/models/ListContacts.java</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/sql/datas/BDD_Base.sql</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/views/ContactsEdit.java</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/includes/ElementsPages.java</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/views/ListsContactsNew.java</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/views/Contacts.java</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/web/WEB-INF/web.xml</file>
+            <file>file:/Users/mtl/NetBeansProjects/ESIEE-IT_Seoladh/Seoladh_Web_Java_JEE/src/java/app/views/ContactsNew.java</file>
         </group>
     </open-files>
 </project-private>

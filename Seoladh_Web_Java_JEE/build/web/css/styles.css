@@ -48,6 +48,18 @@ body{
     width: 23%!important;
 }
 
+#liste-de-contact-table{
+    border: 1px solid rgba(0, 0, 0, 1);
+    margin: 0;
+    padding: 0;
+}
+
+#liste-de-contact-table table{
+    display: inline-block;
+    height: 300px!important;
+    overflow: auto;
+}
+
 /*
 @media screen and (max-width: 1200px) {
     .container{ font-size: 0.9rem; }

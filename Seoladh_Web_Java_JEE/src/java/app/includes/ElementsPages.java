@@ -5,12 +5,19 @@
  */
 package app.includes;
 
+import app.models.User;
+import app.network.AppSession;
+import java.sql.SQLException;
+
 /**
  *
  * @author ldumay
  */
 public class ElementsPages {
     
+    //-Attributs de base
+    private AppSession session;
+    private User userConnect;
     private String headBody;
     private String headerContent;
     private String headercontentLogin;
@@ -20,8 +27,12 @@ public class ElementsPages {
     
     /**
      * Constructor
+     * @throws java.sql.SQLException
      */
-    public ElementsPages(){
+    public ElementsPages() throws SQLException{
+        
+        session = new AppSession("superAdmin","superAdmin");
+        userConnect = session.getUserConnect();
         
         //Création de la head du contenu de la page HTML
         this.headBody = ""
@@ -135,7 +146,6 @@ public class ElementsPages {
                                         +"<a class=\"nav-link dropdown-toggle\" id=\"listesDeContacts\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Listes de contacts</a>\n"
                                         +"<ul class=\"dropdown-menu\" aria-labelledby=\"listesDeContacts\">\n"
                                             +"<li><a class=\"dropdown-item\" href=\"lists-contacts\">Listes de contacts</a></li>\n"
-                                            +"<li><a class=\"dropdown-item\" href=\"lists-contacts-blacklist\">Liste noir des listes de contacts</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"lists-contacts-new\">Nouvelle liste de contacts</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"lists-contacts-clean\">Nettoyage des doublons et erreurs d'emails</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"lists-contacts-import\">Importation de listes de contacts</a></li>\n"
@@ -148,6 +158,7 @@ public class ElementsPages {
                                         +"<a class=\"nav-link dropdown-toggle\" id=\"listeDesEmails\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Contacts</a>\n"
                                         +"<ul class=\"dropdown-menu\" aria-labelledby=\"listeDesEmails\">\n"
                                             +"<li><a class=\"dropdown-item\" href=\"contacts\">Contacts</a></li>\n"
+                                            +"<li><a class=\"dropdown-item\" href=\"contacts-blacklist\">Liste noir des contacts</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"contacts-new\">Nouveau contact</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"contacts-import\">Importation des contacts</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"contacts-export\">Exportation des contacts</a></li>\n"
@@ -223,6 +234,8 @@ public class ElementsPages {
     }
 
     // The methods of basic getter below.
+    public AppSession getSessionApp() { return session; }
+    public User getUserConnect() { return userConnect; }
     public String getHeadBody() { return headBody; }
     public String getHeaderContent() { return headerContent; }
     public String getHeaderContentLogin() { return headercontentLogin; }

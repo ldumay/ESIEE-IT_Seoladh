@@ -2,12 +2,10 @@
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <!-- App Name -->
     <display-name>Seoladh | App Web Java JEE</display-name>
-    
     <!-- Home Page -->
     <welcome-file-list>
         <welcome-file>/home</welcome-file>
     </welcome-file-list>
-    
     <!-- Page_Home -->
     <servlet>
         <servlet-name>Home</servlet-name>
@@ -18,7 +16,6 @@
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Home -->
-    
     <!-- Page_Campaigns_Lists -->
     <servlet>
         <servlet-name>CampaignsLists</servlet-name>
@@ -29,7 +26,6 @@
         <url-pattern>/campaigns</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Campaigns_Lists -->
-    
     <!-- Page_Campaigns_New -->
     <servlet>
         <servlet-name>CampaignsNew</servlet-name>
@@ -40,7 +36,6 @@
         <url-pattern>/campaigns-new</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Campaigns_New -->
-    
     <!-- Page_Campaigns_Import -->
     <servlet>
         <servlet-name>CampaignsImport</servlet-name>
@@ -51,7 +46,6 @@
         <url-pattern>/campaigns-import</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Campaigns_Import -->
-    
     <!-- Page_Campaigns_Export -->
     <servlet>
         <servlet-name>CampaignsExport</servlet-name>
@@ -62,7 +56,6 @@
         <url-pattern>/campaigns-export</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Campaigns_Export -->
-    
     <!-- Page_ListsContacts -->
     <servlet>
         <servlet-name>ListsContacts</servlet-name>
@@ -73,18 +66,16 @@
         <url-pattern>/lists-contacts</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ListsContacts -->
-    
-    <!-- Page_ListsContacts_Blacklist -->
+    <!-- Page_Contacts_Blacklist -->
     <servlet>
-        <servlet-name>ListsContactsBlacklist</servlet-name>
-        <servlet-class>app.views.ListsContactsBlacklist</servlet-class>
+        <servlet-name>ContactsBlacklist</servlet-name>
+        <servlet-class>app.views.ContactsBlacklist</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ListsContactsBlacklist</servlet-name>
-        <url-pattern>/lists-contacts-blacklist</url-pattern>
+        <servlet-name>ContactsBlacklist</servlet-name>
+        <url-pattern>/contacts-blacklist</url-pattern>
     </servlet-mapping>
-    <!-- ./Page_ListsContacts_Blacklist -->
-    
+    <!-- ./Page_Contacts_Blacklist -->
     <!-- Page_ListsContacts_New -->
     <servlet>
         <servlet-name>ListsContactsNew</servlet-name>
@@ -95,7 +86,6 @@
         <url-pattern>/lists-contacts-new</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ListsContacts_New -->
-    
     <!-- Page_ListsContacts_Clean -->
     <servlet>
         <servlet-name>ListsContactsClean</servlet-name>
@@ -106,7 +96,6 @@
         <url-pattern>/lists-contacts-clean</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ListsContacts_Clean -->
-    
     <!-- Page_ListsContacts_Import -->
     <servlet>
         <servlet-name>ListsContactsImport</servlet-name>
@@ -117,7 +106,6 @@
         <url-pattern>/lists-contacts-import</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ListsContacts_Import -->
-    
     <!-- Page_ListsContacts_Export -->
     <servlet>
         <servlet-name>ListsContactsExport</servlet-name>
@@ -128,7 +116,6 @@
         <url-pattern>/lists-contacts-export</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ListsContacts_Export -->
-    
     <!-- Page_Contacts -->
     <servlet>
         <servlet-name>Contacts</servlet-name>
@@ -139,7 +126,6 @@
         <url-pattern>/contacts</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Contacts -->
-    
     <!-- Page_ContactsNew -->
     <servlet>
         <servlet-name>ContactsNew</servlet-name>
@@ -150,7 +136,16 @@
         <url-pattern>/contacts-new</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ContactsNew -->
-    
+    <!-- Page_ContactsEdit -->
+    <servlet>
+        <servlet-name>ContactsEdit</servlet-name>
+        <servlet-class>app.views.ContactsEdit</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactsEdit</servlet-name>
+        <url-pattern>/contacts-edit</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ContactsEdit -->
     <!-- Page_ContactsImport -->
     <servlet>
         <servlet-name>ContactsImport</servlet-name>
@@ -161,7 +156,6 @@
         <url-pattern>/contacts-import</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ContactsImport -->
-    
     <!-- Page_ContactsExport -->
     <servlet>
         <servlet-name>ContactsExport</servlet-name>
@@ -172,7 +166,6 @@
         <url-pattern>/contacts-export</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ContactsExport -->
-    
     <!-- Page_Admin -->
     <servlet>
         <servlet-name>Admin</servlet-name>
@@ -183,7 +176,6 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Admin -->
-    
     <!-- Page_Admin_Accounts -->
     <servlet>
         <servlet-name>AdminAccounts</servlet-name>
@@ -194,7 +186,6 @@
         <url-pattern>/admin-accounts</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Admin_Accounts -->
-    
     <!-- Page_Admin_Roles -->
     <servlet>
         <servlet-name>AdminRoles</servlet-name>
@@ -205,7 +196,6 @@
         <url-pattern>/admin-roles</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Admin_Roles -->
-    
     <!-- Page_Admin_Server -->
     <servlet>
         <servlet-name>AdminServer</servlet-name>
@@ -216,7 +206,6 @@
         <url-pattern>/admin-server</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Admin_Server -->
-    
     <!-- Page_Profile -->
     <servlet>
         <servlet-name>Profile</servlet-name>
@@ -227,5 +216,4 @@
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Profile -->
-    
 </web-app>

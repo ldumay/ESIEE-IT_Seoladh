@@ -6,8 +6,11 @@
 package app.views;
 
 import app.includes.ElementsPages;
+import app.models.Contact;
+import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,9 +24,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ldumay
  */
-@WebServlet(name = "contacts-new", urlPatterns = {"/contacts-new"})
-public class ContactsNew extends HttpServlet {
+@WebServlet(name = "contacts-edit", urlPatterns = {"/contacts-edit"})
+public class ContactsEdit extends HttpServlet {
 
+    Contact contactAModifier = new Contact();
+    boolean erreur = false;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,6 +44,51 @@ public class ContactsNew extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            // Variables nécessasires
+            ConnectBDD connectBDD = new ConnectBDD();
+            ResultSet datas = null;
+            String sql = null;
+            String contentTable = "";
+            
+            // = = = [ Connexion à la BDD ] = = =
+            connectBDD.openConnexion();
+            System.out.println("BDD : Open");
+            
+            //si le paramètre == contact-edit-id
+            if(request.getParameter("contact-edit-id")!=null){
+                //-Validation Ajout Film
+                if( (!request.getParameter("contact-edit-id").isEmpty() && !"".equals(request.getParameter("contact-edit-id"))) ){
+                    // = = = [ Lecture des contacts ] = = =
+                    System.out.println("-> Edition de contacts : START");
+
+                    // Récupération des lists de contacts
+                    sql = "SELECT * FROM `contacts` WHERE `id`="+request.getParameter("contact-edit-id")+";";
+                    System.out.println(sql);
+                    datas = connectBDD.getDatasBySQL(sql);
+                    while (datas.next()) {
+                        contactAModifier = new Contact(datas.getInt(1), datas.getString(2), datas.getString(3),
+                                datas.getString(4), datas.getString(5), datas.getString(6), datas.getString(7),
+                                datas.getString(8), datas.getString(9), datas.getString(10), datas.getString(11),
+                                datas.getString(12), datas.getString(13), datas.getString(14), datas.getInt(15));
+                        contentTable += "<tr>\n"
+                                    +"<th scope=\"row\">"+contactAModifier.getId()+"</th>\n"
+                                    +"<td>"+contactAModifier.getNom()+"</td>\n"
+                                    +"<td>"+contactAModifier.getPrenom()+"</td>\n"
+                                    +"<td>"+contactAModifier.getDateNaissance()+"</td>\n"
+                                    +"<td>"+contactAModifier.getEmail1()+"</td>\n"
+                                    +"<td>"+contactAModifier.getEmail2()+"</td>\n";
+                        contentTable += "<td><a href=\"contacts-edit?contact-edit-id="+contactAModifier.getId()+"\">Modifier</a></td>\n";
+                        contentTable += "<td><a href=\"contacts-blacklist-ajout?id="+contactAModifier.getId()+"\">Ajout</a></td>\n";
+                        contentTable +="</tr>\n";
+                    }
+                    //-
+                    System.out.println("-> Edition de contact : END");
+                } else {
+                    erreur=true;
+                    System.out.println("-> Edition de contact : ERREUR");
+                }
+            }
+            
             ElementsPages elements = new ElementsPages();
             //-
             String htmlContent = "";
@@ -64,41 +115,49 @@ public class ContactsNew extends HttpServlet {
                                     +"<ol class=\"breadcrumb\">\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"home\">Accueil</a></li>\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"contacts\">Contacts</a></li>\n"
-                                        +"<li class=\"breadcrumb-item active\">Nouveau contact</li>\n"
+                                        +"<li class=\"breadcrumb-item active\">Modification de contact</li>\n"
                                     +"</ol>\n"
                                 +"</nav>\n"
                             +"</div>\n"
                             //_Title_
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
-                                +"<h3>Nouveau contact</h3>"
+                                +"<h3>Modification de contact</h3>"
                             +"</div>\n"
-                            +"<hr>\n"
+                            +"<hr>\n";
+                            
                             //_Content_
+                            if(erreur==false){
+                            htmlContent += ""
                             +"<!-- Page - Content -->\n"
                             +"<form method=\"post\" action=\"contacts\">\n"
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
                                     +"<div class=\"row col-md-2 col-xs-2\"></div>\n"
                                     +"<div class=\"row col-md-8 col-xs-8s text-right\">\n"
+                                        +"<!-- IdDuContact -->\n"
+                                        +"<div class=\"col-sm-6\" style=\"display:none;\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"id\" name=\"id\" value=\""+contactAModifier.getId()+"\">"
+                                        +"</div>\n"
+                                        +"<br><br>\n"
                                         +"\n"
                                         +"<!-- NomDuContact -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"nom\">Nom</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"nom\" name=\"nom\" maxlength=\"32\" placeholder=\"Nom\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"nom\" name=\"nom\" maxlength=\"32\" placeholder=\"Nom\" value=\""+contactAModifier.getNom()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- PrenomDuContact -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"prenom\">Prénom</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"prenom\" name=\"prenom\" maxlength=\"32\" placeholder=\"Prénom\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"prenom\" name=\"prenom\" maxlength=\"32\" placeholder=\"Prénom\" value=\""+contactAModifier.getPrenom()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- DateDeNaissance -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"dateDeNaissance\">Date de naissance</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDeNaissance\" name=\"dateDeNaissance\" maxlength=\"32\" placeholder=\"Date de naissance (AAAA-MM-DD)\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDeNaissance\" name=\"dateDeNaissance\" maxlength=\"32\" placeholder=\"AAAA-MM-DD\" value=\""+contactAModifier.getDateNaissance()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
@@ -119,56 +178,56 @@ public class ContactsNew extends HttpServlet {
                                         +"<!-- Email1 -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"email1\">E-mail (principal)</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"email\" class=\"form-control\" id=\"email1\" name=\"email1\" maxlength=\"32\" placeholder=\"E-mail (principal)\">"
+                                            +"<input type=\"email\" class=\"form-control\" id=\"email1\" name=\"email1\" placeholder=\"E-mail (principal)\" value=\""+contactAModifier.getEmail1()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- Email2 -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"email2\">E-mail (secondaire)</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"email\" class=\"form-control\" id=\"email2\" name=\"email2\" maxlength=\"32\" placeholder=\"E-mail (secondaire)\">"
+                                            +"<input type=\"email\" class=\"form-control\" id=\"email2\" name=\"email2\" placeholder=\"E-mail (secondaire)\" value=\""+contactAModifier.getEmail2()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- Tel1 -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"tel1\">Téléphone (principal)</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"tel\" class=\"form-control\" id=\"tel1\" name=\"tel1\" maxlength=\"32\" placeholder=\"Téléphone (principal)\">"
+                                            +"<input type=\"tel\" class=\"form-control\" id=\"tel1\" name=\"tel1\" maxlength=\"32\" placeholder=\"Téléphone (principal)\" value=\""+contactAModifier.getTel1()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- Tel2 -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"tel2\">Téléphone (secondaire)</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"tel\" class=\"form-control\" id=\"tel2\" name=\"tel2\" maxlength=\"32\" placeholder=\"Téléphone (secondaire)\">"
+                                            +"<input type=\"tel\" class=\"form-control\" id=\"tel2\" name=\"tel2\" maxlength=\"32\" placeholder=\"Téléphone (secondaire)\" value=\""+contactAModifier.getTel2()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- Adresse1 -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"adresse1\">Adresse (principal)</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"adresse1\" name=\"adresse1\" placeholder=\"Adresse (principal)\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"adresse1\" name=\"adresse1\" placeholder=\"Adresse (principal)\" value=\""+contactAModifier.getAdresse1()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- Adresse2 -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"adresse2\">Adresse (secondaire)</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"adresse2\" name=\"adresse2\" placeholder=\"Adresse (secondaire)\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"adresse2\" name=\"adresse2\" placeholder=\"Adresse (secondaire)\" value=\""+contactAModifier.getAdresse2()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- CodePostal -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"codePostal\">Code Postal</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"tel\" class=\"form-control\" id=\"codePostal\" name=\"codePostal\" maxlength=\"5\" placeholder=\"Code Postal\">"
+                                            +"<input type=\"tel\" class=\"form-control\" id=\"codePostal\" name=\"codePostal\" maxlength=\"5\" placeholder=\"Code Postal\" value=\""+contactAModifier.getCodepostal()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- Ville -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"ville\">Ville</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"ville\" name=\"ville\" maxlength=\"32\" placeholder=\"Ville\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"ville\" name=\"ville\" maxlength=\"32\" placeholder=\"Ville\" value=\""+contactAModifier.getVille()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
@@ -194,11 +253,25 @@ public class ContactsNew extends HttpServlet {
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
                                     +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
                                     +"<div class=\"row col-md-4 col-xs-4 text-center\">\n"
-                                        +"<button type=\"submit\" class=\"btn btn-success\" name=\"contact-ajout\" value=\"contact-ajout\">Ajouter le contact</button>\n"
+                                        +"<button type=\"submit\" class=\"btn btn-success\" name=\"contact-edit\" value=\"contact-edit\">Modifier le contact</button>\n"
                                     +"</div>\n"
                                     +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
                                 +"</div>\n"
-                            +"</form>"
+                            +"</form>";
+                            
+                            }else{
+                                htmlContent += ""
+                                    +"<div class=\"row col-md-12 col-xs-12 text-center\">\n"
+                                        +"<div class=\"alert alert-danger\" role=\"alert\">\n"
+                                            +"<h2>Oups !</h2>"
+                                            +"<p>Quelque chose s'est mal passé.\n"
+                                            +"<br>Veuillez réessayé, svp.\n"
+                                            +"</p>\n"
+                                        +"</div>"
+                                    +"</div>";
+                            }
+                            
+                            htmlContent += ""
                         +"</div>\n"
                     +"</div>\n"
                     +"<hr>"
@@ -229,7 +302,7 @@ public class ContactsNew extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ContactsNew.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ContactsEdit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -246,7 +319,7 @@ public class ContactsNew extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ContactsNew.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ContactsEdit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

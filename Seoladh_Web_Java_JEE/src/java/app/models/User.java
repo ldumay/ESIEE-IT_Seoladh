@@ -8,7 +8,6 @@ package app.models;
 import app.network.ConnectBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
@@ -74,7 +73,7 @@ public class User {
             contactInfos = new Contact(datas.getInt(1), datas.getString(2), datas.getString(3),
                     datas.getString(4), datas.getString(5), datas.getString(6), datas.getString(7),
                     datas.getString(8), datas.getString(9), datas.getString(10), datas.getString(11),
-                    datas.getString(12), datas.getString(13), datas.getString(14));
+                    datas.getString(12), datas.getString(13), datas.getString(14), datas.getInt(15));
         }
         
         // Lecture de données terminée
