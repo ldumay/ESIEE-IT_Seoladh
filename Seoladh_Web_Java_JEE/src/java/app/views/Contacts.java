@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "contacts", urlPatterns = {"/contacts"})
 public class Contacts extends HttpServlet {
     
+    boolean errorSupprContact = false;
+    String errorSupprContactMessage = "";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -147,15 +150,67 @@ public class Contacts extends HttpServlet {
                 if( (!request.getParameter("contact-suppr-id").isEmpty() && !"".equals(request.getParameter("contact-suppr-id"))) ){
                     //-
                     System.out.println("-> Edition de contact : START");
+                    int userId = Integer.parseInt(request.getParameter("contact-suppr-id"));
                     //-
-                    sql = "DELETE FROM `lists_contacts_and_contacts` WHERE `contact_id`="+request.getParameter("contact-suppr-id")+";";
+                    /*
+                    ===[Section BUGGER - à vérifer]===
+                    sql = "SELECT "
+                        +"c.`id` as c_id, "
+                        +"c.`nom` as c_nom, "
+                        +"u.`identifiant` as u_identifiant, "
+                        +"uc.`id` as uc_user_id, "
+                        +"uc.`contact_id` as uc_contact, "
+                        +"lc.`nom` as lc_nom, "
+                        +"lcc.`id` as lcc_users_id, "
+                        +"lcc.`list_contacts_id` as lcc_list_contacts "
+                        +"FROM "
+                        +"`contacts` c, "
+                        +"`users` u, "
+                        +"`users_and_contacts` uc, "
+                        +"`lists_contacts` lc, "
+                        +"`lists_contacts_and_contacts` lcc "
+                        +"WHERE c.`id`=uc.`id` "
+                        +"AND u.`id`=uc.`user_id` "
+                        +"AND lc.`id`=lcc.`list_contacts_id` "
+                        +"AND c.`id`=lcc.`id` "
+                        +"AND C.`id`="+userId+" "
+                        +"ORDER BY c.`id`";
                     System.out.println(sql);
-                    connectBDD.setDatasBySQL(sql);
-                    //-
-                    sql = "DELETE FROM `contacts` WHERE `id`="+request.getParameter("contact-suppr-id")+";";
-                    System.out.println(sql);
-                    //-
-                    connectBDD.setDatasBySQL(sql);
+                    datas = connectBDD.getDatasBySQL(sql);
+                    while (datas.next()) {
+                        //Récupération des données
+                        int temp_c_id = datas.getInt(1);
+                        String temp_c_nom = datas.getString(2);
+                        String temp_u_identifiant = datas.getString(3);
+                        int temp_uc_user_id = datas.getInt(4);
+                        int temp_uc_contact = datas.getInt(5);
+                        String temp_lc_nom = datas.getString(6);
+                        int temp_lcc_users_id = datas.getInt(7);
+                        int temp_lcc_list_contacts = datas.getInt(8);
+                        //-
+                        if( (userId==temp_c_id && userId==temp_uc_user_id && userId==temp_lcc_users_id)
+                            && (userId==temp_uc_contact && userId==temp_lcc_list_contacts) ){
+                            errorSupprContact = true;
+                            errorSupprContactMessage += ""
+                                +"<div class=\"alert alert-danger\" role=\"alert\">\n"
+                                +"<h3>Oups !</h3>"
+                                +"<p>Il n'est pas possible de supprimer le contact <b>"+temp_c_nom+"</b>.\n";
+                            errorSupprContactMessage += (temp_u_identifiant!=null || !"".equals(temp_u_identifiant)) ? "Celui-ci est lié à au contact <b>"+temp_u_identifiant+"</b>.</p>\n" : "";
+                            errorSupprContactMessage += (temp_lc_nom!=null || !"".equals(temp_lc_nom)) ? "Celui-ci est lié à la liste <b>"+temp_lc_nom+"</b>.</p>\n" : "";
+                            errorSupprContactMessage += "</div>";
+                        }
+                    }
+                    */
+                    if(errorSupprContact==false){
+                        //-
+                        sql = "DELETE FROM `lists_contacts_and_contacts` WHERE `contact_id`="+userId+";";
+                        System.out.println(sql);
+                        connectBDD.setDatasBySQL(sql);
+                        //-
+                        sql = "DELETE FROM `contacts` WHERE `id`="+userId+";";
+                        System.out.println(sql);
+                        connectBDD.setDatasBySQL(sql);
+                    }
                     //-
                     System.out.println("-> Edition de contact : END");
                 }
@@ -242,6 +297,7 @@ public class Contacts extends HttpServlet {
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
+                            +errorSupprContactMessage
                             +"<table class=\"table table-bordered text-center\">\n"
                                 +"<thead>\n"
                                     +"<tr>\n"

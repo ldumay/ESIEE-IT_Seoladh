@@ -98,7 +98,8 @@ CREATE TABLE `campaigns` (
   `nom` varchar(32) DEFAULT NULL,
   `description` varchar(64) DEFAULT NULL,
   `date_start` varchar(32) DEFAULT NULL,
-  `date_end` varchar(32) DEFAULT NULL
+  `date_end` varchar(32) DEFAULT NULL,
+  `statut` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -239,9 +240,12 @@ INSERT INTO `users_and_contacts` (`id`, `user_id`, `contact_id`) VALUES
 --
 
 INSERT INTO `lists_contacts` (`id`, `nom`, `description`, `date_start`, `date_end`) VALUES
-(1, 'Liste 1', 'Ceci est une description.', '2021-01-01', '2021-01-01'),
-(2, 'Liste 2', 'Ceci est une description.', '2021-01-01', '2021-01-01'),
-(3, 'Liste 3', 'Ceci est une description.', '2021-01-01', '2021-01-01');
+(1, 'Liste 1', 'Ceci est une description.', '2021-01-01', '2021-01-05'),
+(2, 'Liste 2', 'Ceci est une description.', '2021-01-06', '2021-01-10'),
+(3, 'Liste 3', 'Ceci est une description.', '2021-01-11', '2021-01-15'),
+(4, 'Liste 4', 'Ceci est une description.', '2021-01-16', '2021-01-20'),
+(5, 'Liste 5', 'Ceci est une description.', '2021-01-21', '2021-01-25'),
+(6, 'Liste 6', 'Ceci est une description.', '2021-01-26', '2021-01-30');
 
 --
 -- Déchargement des données de la table `lists_contacts_and_contacts`
@@ -257,32 +261,32 @@ INSERT INTO `lists_contacts_and_contacts` (`id`, `list_contacts_id`, `contact_id
 (7, 1, 12),
 (8, 1, 13),
 (9, 1, 14),
-(10, 1, 15),
-(11, 1, 16),
-(12, 1, 17),
-(13, 1, 18),
-(14, 1, 19),
-(15, 2, 20),
-(16, 2, 21),
-(17, 2, 22),
-(18, 2, 23),
-(19, 2, 24),
-(20, 2, 25),
-(21, 2, 26),
-(22, 2, 27),
-(23, 2, 28),
-(24, 2, 29),
-(25, 3, 30),
-(26, 3, 31),
-(27, 3, 32),
-(28, 3, 33),
-(29, 3, 34),
-(30, 3, 35),
-(31, 3, 36),
-(32, 3, 37),
-(33, 3, 38),
-(34, 3, 39),
-(35, 3, 40);
+(10, 2, 15),
+(11, 2, 16),
+(12, 2, 17),
+(13, 2, 18),
+(14, 2, 19),
+(15, 3, 20),
+(16, 3, 21),
+(17, 3, 22),
+(18, 3, 23),
+(19, 3, 24),
+(20, 4, 25),
+(21, 4, 26),
+(22, 4, 27),
+(23, 4, 28),
+(24, 4, 29),
+(25, 5, 30),
+(26, 5, 31),
+(27, 5, 32),
+(28, 5, 33),
+(29, 5, 34),
+(30, 6, 35),
+(31, 6, 36),
+(32, 6, 37),
+(33, 6, 38),
+(34, 6, 39),
+(35, 6, 40);
 
 --
 -- Déchargement des données de la table `logs`
@@ -290,10 +294,20 @@ INSERT INTO `lists_contacts_and_contacts` (`id`, `list_contacts_id`, `contact_id
 
 INSERT INTO `logs` (`id`, `date`, `ip`) VALUES
 (1, '2021-01-01', '127.0.0.1'),
-(2, '2021-01-01', '127.0.0.1'),
-(3, '2021-01-01', '127.0.0.1'),
-(4, '2021-01-01', '127.0.0.1'),
-(5, '2021-01-01', '127.0.0.1');
+(2, '2021-01-02', '127.0.0.1'),
+(3, '2021-01-03', '127.0.0.1'),
+(4, '2021-01-04', '127.0.0.1'),
+(5, '2021-01-05', '127.0.0.1'),
+(6, '2021-01-06', '127.0.0.1'),
+(7, '2021-01-07', '127.0.0.1'),
+(8, '2021-01-08', '127.0.0.1'),
+(9, '2021-01-09', '127.0.0.1'),
+(10, '2021-01-10', '127.0.0.1'),
+(11, '2021-01-11', '127.0.0.1'),
+(12, '2021-01-12', '127.0.0.1'),
+(13, '2021-01-13', '127.0.0.1'),
+(14, '2021-01-14', '127.0.0.1'),
+(15, '2021-01-15', '127.0.0.1');
 
 --
 -- Déchargement des données de la table `users_and_logs`
@@ -304,21 +318,39 @@ INSERT INTO `users_and_logs` (`id`, `user_id`, `log_id`) VALUES
 (2, 1, 2),
 (3, 1, 3),
 (4, 1, 4),
-(5, 1, 5);
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 1, 10),
+(11, 1, 11),
+(12, 1, 12),
+(13, 1, 13),
+(14, 1, 14),
+(15, 1, 15);
 
 --
 -- Déchargement des données de la table `campaigns`
 --
 
-INSERT INTO `campaigns` (`id`, `nom`, `description`, `date_start`, `date_end`) VALUES
-(1, 'Campagne 1', 'Ceci est une description.', '2021-01-01', '2021-01-01');
+INSERT INTO `campaigns` (`id`, `nom`, `description`, `date_start`, `date_end`, `statut`) VALUES
+(1, 'Campagne 1', 'Ceci est une description.', '2021-01-01', '2021-01-05', 'Envoyé'),
+(2, 'Campagne 2', 'Ceci est une description.', '2021-01-06', '2021-01-10', 'Annulé'),
+(3, 'Campagne 3', 'Ceci est une description.', '2021-01-11', '2021-01-15', 'En attente'),
+(4, 'Campagne 4', 'Ceci est une description.', '2021-01-16', '2021-01-20', 'En attente'),
+(5, 'Campagne 5', 'Ceci est une description.', '2021-01-21', '2021-01-25', 'En attente');
 
 --
 -- Déchargement des données de la table `campaigns_and_lists_contacts`
 --
 
 INSERT INTO `campaigns_and_lists_contacts` (`id`, `campaigns_id`, `list_contacts_id`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5);
 
 --
 -- Déchargement des données de la table `admin_server`
@@ -465,7 +497,7 @@ ALTER TABLE `users_and_contacts`
 -- AUTO_INCREMENT pour la table `lists_contacts`
 --
 ALTER TABLE `lists_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `lists_contacts_and_contacts`
@@ -477,25 +509,25 @@ ALTER TABLE `lists_contacts_and_contacts`
 -- AUTO_INCREMENT pour la table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `users_and_logs`
 --
 ALTER TABLE `users_and_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `lists_contacts`
 --
 ALTER TABLE `campaigns`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `campaigns_and_lists_contacts`
 --
 ALTER TABLE `campaigns_and_lists_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `admin_server`

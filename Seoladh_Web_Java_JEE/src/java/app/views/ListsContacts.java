@@ -54,7 +54,7 @@ public class ListsContacts extends HttpServlet {
             connectBDD.openConnexion();
             System.out.println("BDD : Open");
             
-            // = = = [ Ajout d'un contact ] = = =
+            // = = = [ Ajout d'une liste de contacts ] = = =
             if(request.getParameter("list-contacts-ajout")!=null){
                 if( (!request.getParameter("list-contacts-ajout").isEmpty() && "list-contacts-ajout".equals(request.getParameter("list-contacts-ajout"))) 
                     && (!request.getParameter("nom").isEmpty() && !"".equals(request.getParameter("nom"))) ){
@@ -112,6 +112,67 @@ public class ListsContacts extends HttpServlet {
                     }
                     //-
                     System.out.println("-> Ajout une liste de contact : END");
+                }
+            }
+            
+            // = = = [ Mise à jour d'une liste de contacts ] = = =
+            if(request.getParameter("list-contacts-edit")!=null){
+                if( (!request.getParameter("list-contacts-edit").isEmpty() && "list-contacts-edit".equals(request.getParameter("list-contacts-edit"))) 
+                    && (!request.getParameter("nom").isEmpty() && !"".equals(request.getParameter("nom"))) ){
+                    //-
+                    System.out.println("-> Mise à jour d'une liste de contact : START");
+                    //Préparation de la liste de contact à modifier
+                    ListContacts listContactAEditer = new ListContacts();
+                    listContactAEditer.setId(Integer.parseInt(request.getParameter("id")));
+                    listContactAEditer.setNom(request.getParameter("nom"));
+                    listContactAEditer.setDescription(request.getParameter("description"));
+                    listContactAEditer.setDateDebut(request.getParameter("dateDeDebut"));
+                    listContactAEditer.setDateFin(request.getParameter("dateDeFin"));
+                    //Mise à jour de la liste de contact à modifier
+                    sql = "UPDATE `lists_contacts` "
+                        +"SET `nom`="+listContactAEditer.getNom()+", "
+                        +"`description`="+listContactAEditer.getDescription()+", "
+                        +"`date_start`="+listContactAEditer.getDateDebut()+", "
+                        +"`date_end`="+listContactAEditer.getDateFin()+" "
+                        +"WHERE `id`="+listContactAEditer.getId()+";";
+                    System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
+                    
+                    // Suppresion de toutes les liaisons précédentes 
+                    try{
+                        int x = 0;
+                        while(x<100){
+                            sql = "DELETE FROM `lists_contacts_and_contacts` WHERE `list_contacts_id`="+listContactAEditer.getId()+";";
+                            System.out.println(sql);
+                            connectBDD.setDatasBySQL(sql);
+                            x++;
+                        }
+                    }catch(Exception e){
+                        System.out.println(e);
+                    }
+                    
+                    // Liaison de la liste de contacts avec les contacts choisi
+                    try{
+                        int x = 0;
+                        while(x<100){
+                            if(request.getParameter("contact_"+x+"")!=null && !"".equals(request.getParameter("contact_"+x+""))){
+                                sql = "INSERT INTO `lists_contacts_and_contacts` "
+                                    +"(`list_contacts_id`, `contact_id`) "
+                                    +"VALUES "
+                                    +"("
+                                    +""+listContactAEditer.getId()+","
+                                    +""+x+""
+                                    +")";
+                                System.out.println(sql);
+                                connectBDD.setDatasBySQL(sql);
+                            }
+                            x++;
+                        }
+                    }catch(Exception e){
+                        System.out.println(e);
+                    }
+                    //-
+                    System.out.println("-> Mise à jour d'une liste de contact : END");
                 }
             }
             

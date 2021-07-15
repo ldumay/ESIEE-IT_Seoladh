@@ -6,8 +6,11 @@
 package app.views;
 
 import app.includes.ElementsPages;
+import app.models.Campaign;
+import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +40,180 @@ public class CampaignsLists extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            // Variables nécessasires
+            ConnectBDD connectBDD = new ConnectBDD();
+            ResultSet datas = null;
+            String sql = null;
+            String contentTable = "";
+            
+            // = = = [ Lecture des campaigns ] = = =
+            System.out.println("-> lists de contacts : START");
+            
+            // = = = [ Connexion à la BDD ] = = =
+            connectBDD.openConnexion();
+            System.out.println("BDD : Open");
+            
+            // = = = [ Ajout d'un campaign ] = = =
+            if(request.getParameter("campaign-new")!=null){
+                //-Validation Ajout Film
+                if( (!request.getParameter("campaign-new").isEmpty() && "campaign-new".equals(request.getParameter("campaign-new"))) 
+                    && (!request.getParameter("nomDeLaCampagne").isEmpty() && !"".equals(request.getParameter("nomDeLaCampagne")))
+                    && (!request.getParameter("listeContacts").isEmpty() && !"".equals(request.getParameter("listeContacts")) && !"Choisissez un liste de contacts".equals(request.getParameter("listeContacts"))) ){
+                    //-
+                    System.out.println("-> Ajout de la campagne : START");
+                    //Préparation de la campagne
+                    Campaign campaignAAjouter = new Campaign();
+                    campaignAAjouter.setNom(request.getParameter("nomDeLaCampagne"));
+                    campaignAAjouter.setDescription(request.getParameter("descriptionDeLaCampagne"));
+                    campaignAAjouter.setDateDebut(request.getParameter("dateDebutDeLaCampagne"));
+                    campaignAAjouter.setDateFin(request.getParameter("dateFinDeLaCampagne"));
+                    int listContact_id = Integer.parseInt(request.getParameter("listeContacts"));
+                    //Ajout de la campagne dans le table campaigns
+                    sql = "INSERT INTO `campaigns`"
+                        +"(`nom`, `description`, `date_start`, `date_end`) "
+                        +"VALUES "
+                        +"("
+                        +"\""+campaignAAjouter.getNom()+"\","
+                        +"\""+campaignAAjouter.getDescription()+"\","
+                        +"\""+campaignAAjouter.getDateDebut()+"\","
+                        +"\""+campaignAAjouter.getDateFin()+"\""
+                        +");";
+                    System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
+                    //Récupération de l'id de la campagne
+                    sql = "SELECT id FROM `campaigns` WHERE `nom`=\""+campaignAAjouter.getNom()+"\" AND `date_start`=\""+campaignAAjouter.getDateDebut()+"\";";
+                    System.out.println(sql);
+                    datas = connectBDD.getDatasBySQL(sql);
+                    while (datas.next()) {
+                        campaignAAjouter.setId(datas.getInt(1));
+                    }
+                    //Liaison entre la campagne et la liste de contact
+                    sql = "INSERT INTO `campaigns_and_lists_contacts` "
+                        +"(`campaigns_id`, `list_contacts_id`) "
+                        +"VALUES ("
+                        +""+campaignAAjouter.getId()+","
+                        +""+listContact_id+""
+                        +");";
+                    System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
+                    //-
+                    System.out.println("-> Ajout de la campagne : END");
+                }
+            }
+            
+            // = = = [ Edit d'un campaign ] = = =
+            if(request.getParameter("campaign-edit")!=null){
+                //-Validation Ajout Film
+                if( (!request.getParameter("campaign-edit").isEmpty() && "campaign-edit".equals(request.getParameter("campaign-edit"))) 
+                    && (!request.getParameter("nomDeLaCampagne").isEmpty() && !"".equals(request.getParameter("nomDeLaCampagne"))) ){
+                    //-
+                    System.out.println("-> Modification de la campagne : START");
+                    //Préparation de la campagne
+                    Campaign campaignAModifier = new Campaign();
+                    campaignAModifier.setId(Integer.parseInt(request.getParameter("id")));
+                    campaignAModifier.setNom(request.getParameter("nomDeLaCampagne"));
+                    campaignAModifier.setDescription(request.getParameter("descriptionDeLaCampagne"));
+                    campaignAModifier.setDateDebut(request.getParameter("dateDebutDeLaCampagne"));
+                    campaignAModifier.setDateFin(request.getParameter("dateFinDeLaCampagne"));
+                    int listContact_id = Integer.parseInt(request.getParameter("listeContacts"));
+                    //Modification de la campagne dans le table campaigns
+                    sql = "UPDATE `campaigns` SET "
+                        +"`nom`=\""+campaignAModifier.getNom()+"\", "
+                        +"`description`=\""+campaignAModifier.getDescription()+"\", "
+                        +"`date_start`=\""+campaignAModifier.getDateDebut()+"\", "
+                        +"`date_end`=\""+campaignAModifier.getDateFin()+"\" "
+                        +"WHERE `id`="+campaignAModifier.getId()+";";
+                    System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
+                    //Nettoyage de la table de laison entre la campagne et la liste de contact
+                    sql = "SELECT * FROM `campaigns_and_lists_contacts` WHERE `campaigns_id`="+campaignAModifier.getId()+";";
+                    System.out.println(sql);
+                    datas = connectBDD.getDatasBySQL(sql);
+                    try{
+                        while (datas.next()) {
+                            if(!datas.equals(null) && !datas.equals("")){
+                                sql = "DELETE FROM `campaigns_and_lists_contacts` WHERE `campaigns_id`="+campaignAModifier.getId()+";";
+                                System.out.println(sql);
+                                connectBDD.setDatasBySQL(sql);
+                            }
+                        }
+                    } catch(Exception e){ System.err.println(e); }
+                    //Liaison entre la campagne et la liste de contact
+                    sql = "INSERT INTO `campaigns_and_lists_contacts` "
+                        +"(`campaigns_id`, `list_contacts_id`) "
+                        +"VALUES ("
+                        +""+campaignAModifier.getId()+","
+                        +""+listContact_id+""
+                        +");";
+                    System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
+                    //-
+                    System.out.println("-> Modification de la campagne : END");
+                }
+            }
+            
+            // = = = [ Suppression d'une campaign ] = = =
+            if(request.getParameter("campaign-suppr-id")!=null && !request.getParameter("campaign-suppr-id").isEmpty()){
+                //-
+                System.out.println("-> Suppression de la campagne : START");
+                //-
+                String campaignIdSelected = request.getParameter("campaign-suppr-id");
+                //Nettoyage de la table de laison entre la campagne et la liste de contact
+                sql = "SELECT * FROM `campaigns_and_lists_contacts` WHERE `campaigns_id`="+campaignIdSelected+";";
+                System.out.println(sql);
+                datas = connectBDD.getDatasBySQL(sql);
+                try{
+                    while (datas.next()) {
+                        if(!datas.equals(null) && !datas.equals("")){
+                            sql = "DELETE FROM `campaigns_and_lists_contacts` WHERE `campaigns_id`="+campaignIdSelected+";";
+                            System.out.println(sql);
+                            connectBDD.setDatasBySQL(sql);
+                        }
+                    }
+                } catch(Exception e){ System.err.println(e); }
+                //-
+                sql = "DELETE FROM `campaigns` WHERE `id`="+campaignIdSelected+";";
+                System.out.println(sql);
+                connectBDD.setDatasBySQL(sql);
+                //-
+                System.out.println("-> Suppression de la campagne : END");
+            }
+            
+            // Récupération des campaigns
+            sql = "SELECT * FROM `campaigns`;";
+            System.out.println(sql);
+            datas = connectBDD.getDatasBySQL(sql);
+            while (datas.next()) {
+                Campaign campaign = new Campaign(datas.getInt(1), datas.getString(2), datas.getString(3), datas.getString(4), datas.getString(5), datas.getString(6));
+                contentTable += ""
+                    +"<!-- Item -->\n"
+                    +"<div class=\"col\">\n"
+                        +"<div class=\"card shadow-sm\">\n"
+                            +"<div class=\"card-body\">\n"
+                                +"<h4>"+campaign.getNom()+"</h4>"
+                                +"<hr>"
+                                +"<p class=\"card-text\">"+campaign.getDescription()+"</p>\n"
+                                +"<div class=\"d-flex justify-content-between align-items-center\">\n"
+                                +"<div class=\"btn-group\">\n"
+                                    +"<a href=\"campaigns-send?campaign-id="+campaign.getId()+"\"><button type=\"button\" class=\"btn btn-sm btn-outline-success\">Envoyer</button></a>\n"
+                                    +"<a href=\"campaigns-edit?campaign-id="+campaign.getId()+"\"><button type=\"button\" class=\"btn btn-sm btn-outline-primary\">Editer</button></a>\n"
+                                    +"<a href=\"campaigns?campaign-suppr-id="+campaign.getId()+"\"><button type=\"button\" class=\"btn btn-sm btn-outline-danger\" id=\"campaigns-suppr\" name=\"campaigns-suppr\">Delete</button></a>\n"
+                                +"</div>\n"
+                                +"<small class=\"text-muted\">Début : "+campaign.getDateDebut()+" <br> Fin : "+campaign.getDateFin()+"</small>\n"
+                                +"</div>\n"
+                                +"<hr>"
+                                +"<div class=\"row col-md-12 col-xs-12 text-center\">\n"
+                                    +"<p class=\"statut\">Statut : "+campaign.getStatut()+"</p>"
+                                +"</div>\n"
+                            +"</div>\n"
+                        +"</div>\n"
+                    +"</div>\n";
+            }
+            // Lecture de données terminée
+            connectBDD.closeConnexion();
+            System.out.println("-> lists de contacts : END");
+            
             ElementsPages elements = new ElementsPages();
             //-
             String htmlContent = "";
@@ -70,13 +247,16 @@ public class CampaignsLists extends HttpServlet {
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
                                 +"<h3>Campagnes</h3>"
+                                +"<p><a href=\"campaigns-new\">Créer une nouvelle campagne</a></p>"
                             +"</div>\n"
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
-                            +"<div class=\"row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3\">\n"
-                                +itemsLists(null, 3)
-                            +"</div>\n"
+                            +"<form method=\"post\" action=\"campaigns\">\n"
+                                +"<div class=\"row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3\">\n"
+                                    +contentTable
+                                +"</div>\n"
+                            +"</form>"
                         +"</div>\n"
                     +"</div>\n"
                     +"<hr>"
@@ -137,40 +317,5 @@ public class CampaignsLists extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    /**
-     * Génération de liste d'items
-     * 
-     * @param datas
-     * @param nombre
-     * @return String
-     */
-    public String itemsLists(String datas, int nombre){
-        String result = "";
-        
-        int x =0;
-        for(x = 0; x<nombre; x++){
-            result += ""
-                +"<!-- Item -->\n"
-                +"<div class=\"col\">\n"
-                +"<div class=\"card shadow-sm\">\n"
-                +"<svg class=\"bd-placeholder-img card-img-top\" width=\"100%\" height=\"225\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Placeholder: Thumbnail\" preserveAspectRatio=\"xMidYMid slice\" focusable=\"false\"><title>Placeholder</title><rect width=\"100%\" height=\"100%\" fill=\"#55595c\"></rect><text x=\"50%\" y=\"50%\" fill=\"#eceeef\" dy=\".3em\">Thumbnail</text></svg>\n"
-                +"<div class=\"card-body\">\n"
-                +"<p class=\"card-text\">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n"
-                +"<div class=\"d-flex justify-content-between align-items-center\">\n"
-                +"<div class=\"btn-group\">\n"
-                +"<button type=\"button\" class=\"btn btn-sm btn-outline-success\">View</button>\n"
-                +"<button type=\"button\" class=\"btn btn-sm btn-outline-primary\">Edit</button>\n"
-                +"<button type=\"button\" class=\"btn btn-sm btn-outline-danger\">Delete</button>\n"
-                +"</div>\n"
-                +"<small class=\"text-muted\">9 mins</small>\n"
-                +"</div>\n"
-                +"</div>\n"
-                +"</div>\n"
-                +"</div>\n";
-        }
-        
-        return result;
-    }
 
 }

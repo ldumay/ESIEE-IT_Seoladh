@@ -5,8 +5,10 @@
  */
 package app.models;
 
-import java.util.Collection;
-import java.util.Date;
+import app.network.ConnectBDD;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,11 +16,14 @@ import java.util.Date;
  */
 public class Campaign {
     //-Attributs de base
+    private int id;
     private String nom;
-    private Date dateCreation;
-    private Collection<Contact> listeContactsCollection;
-    private Date dateEnvoi;
-    private int delaiEnvoiEmailParLot;
+    private String description;
+    private String dateDebut;
+    private String dateFin;
+    private String statut;
+    private int listeContacts_id;
+    private ArrayList<ListContacts> listeContactsCollection;
     
     /**
      * Constructor
@@ -27,33 +32,98 @@ public class Campaign {
     
     /**
      * Constructor
+     * @param id
      * @param nom
-     * @param dateCreation
-     * @param listeContactsCollection
-     * @param dateEnvoi
-     * @param delaiEnvoiEmailParLot
+     * @param description
+     * @param dateDebut
+     * @param dateFin
+     * @param statut
+     * @throws java.sql.SQLException
      */
-    public Campaign(String nom, Date dateCreation, Collection listeContactsCollection, Date dateEnvoi, int delaiEnvoiEmailParLot){
+    public Campaign(int id, String nom, String description, String dateDebut,
+            String dateFin, String statut) throws SQLException{
+        this.id = id;
         this.nom = nom;
-        this.dateCreation = dateCreation;
-        this.listeContactsCollection = listeContactsCollection;
-        this.dateEnvoi = dateEnvoi;
-        this.delaiEnvoiEmailParLot = delaiEnvoiEmailParLot;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.statut = statut;
+        this.listeContactsCollection = getListeContactsCollection(this.id);
+        if(listeContactsCollection.size()>0){
+            this.listeContacts_id = listeContactsCollection.get(0).getId();
+        }
+    }
+    
+    /**
+     * Récupération de la liste des contacts de la campagne
+     * @param id
+     * @return ArrayList<ListContacts>
+     * @throws java.sql.SQLException
+     */
+    public ArrayList<ListContacts> getListeContactsCollection(int id) throws SQLException{
+        ArrayList<ListContacts> listeContactsCollection = new ArrayList();
+        
+        // Variables nécessasires
+        System.out.println("-> recupContactsCollection() : START");
+        ConnectBDD connectBDD = new ConnectBDD();
+        ResultSet datas = null;
+        String sql = null;
+        
+        // = = = [ Connexion à la BDD ] = = =
+        connectBDD.openConnexion();
+        System.out.println("BDD : Open");
+
+        // Récupération liste de contacts liés à la campagne
+        sql = "SELECT "
+            +"lc.`id`, "
+            +"lc.`nom`, "
+            +"lc.`description`, "
+            +"lc.`date_start`, "
+            +"lc.`date_end` "
+            +"FROM "
+            +"`campaigns` c, "
+            +"`lists_contacts` lc, "
+            +"`campaigns_and_lists_contacts` clc "
+            +"WHERE "
+            +"c.`id`=clc.`campaigns_id` "
+            +"AND lc.`id`=clc.`list_contacts_id` "
+            +"AND clc.`campaigns_id`="+id+";";
+        System.out.println(sql);
+        datas = connectBDD.getDatasBySQL(sql);
+        while (datas.next()) {
+            ListContacts contact = new ListContacts(datas.getInt(1), datas.getString(2), datas.getString(3),
+                datas.getString(4), datas.getString(5));
+            if(!listeContactsCollection.contains(contact)){
+                listeContactsCollection.add(contact);
+            }
+        }
+        
+        // Lecture de données terminée
+        connectBDD.closeConnexion();
+        System.out.println("-> recupContactsCollection() : END");
+        
+        return listeContactsCollection;
     }
 
     // The methods of basic getter below.
+    public int getId() { return id; }
     public String getNom() { return nom; }
-    public Date getDateCreation() { return dateCreation; }
-    public Collection getListeContactsCollection() { return listeContactsCollection; }
-    public Date getDateEnvoi() { return dateEnvoi; }
-    public int getDelaiEnvoiEmailParLot() { return delaiEnvoiEmailParLot; }
-    
+    public String getDescription() { return description; }
+    public String getDateDebut() { return dateDebut; }
+    public String getDateFin() { return dateFin; }
+    public String getStatut() { return statut; }
+    public int getListeContactsId() { return listeContacts_id; }
+    public ArrayList<ListContacts> getListeContactsCollection() { return listeContactsCollection; }
+
     // The methods of basic setter below.
+    public void setId(int id) { this.id = id; }
     public void setNom(String nom) { this.nom = nom; }
-    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation; }
-    public void setListeContactsCollection(Collection listeContactsCollection) { this.listeContactsCollection = listeContactsCollection; }
-    public void setDateEnvoi(Date dateEnvoi) { this.dateEnvoi = dateEnvoi; }
-    public void setDelaiEnvoiEmailParLot(int delaiEnvoiEmailParLot) { this.delaiEnvoiEmailParLot = delaiEnvoiEmailParLot; }
+    public void setDescription(String description) { this.description = description; }
+    public void setDateDebut(String dateDebut) { this.dateDebut = dateDebut; }
+    public void setDateFin(String dateFin) { this.dateFin = dateFin; }
+    public void setStatut(String statut) { this.statut = statut; }
+    public void setListeContactsId(int listeContacts_id) { this.listeContacts_id = listeContacts_id; }
+    public void setListeContactsCollection(ArrayList<ListContacts> listeContactsCollection) { this.listeContactsCollection = listeContactsCollection; }
 
     /**
      * toString
@@ -62,11 +132,12 @@ public class Campaign {
     @Override
     public String toString() {
         return "Campaign{"
-            +"nom="+nom + ","
-            +"dateCreation="+dateCreation+","
-            +"listeContactsCollection="+listeContactsCollection + ","
-            +"dateEnvoi="+dateEnvoi + ","
-            +"delaiEnvoiEmailParLot="+delaiEnvoiEmailParLot
-            +"}";
+            +"id="+id+", "
+            +"nom="+nom+", "
+            +"description="+description+", "
+            +"dateDebut="+dateDebut+", "
+            +"dateFin="+dateFin+","
+            +"statut="+statut
+            +'}';
     }
 }

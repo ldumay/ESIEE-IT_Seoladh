@@ -7,6 +7,7 @@ package app.views;
 
 import app.includes.ElementsPages;
 import app.models.Contact;
+import app.models.ListContacts;
 import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,9 +26,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ldumay
  */
-@WebServlet(name = "lists-contacts-new", urlPatterns = {"/lists-contacts-new"})
-public class ListsContactsNew extends HttpServlet {
+@WebServlet(name = "lists-contacts-edit", urlPatterns = {"/lists-contacts-edit"})
+public class ListsContactsEdit extends HttpServlet {
 
+    ListContacts listsContactsAModifier = new ListContacts();
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,14 +50,31 @@ public class ListsContactsNew extends HttpServlet {
             ResultSet datas = null;
             String sql = null;
             String contentTable = "";
-            ArrayList<Contact> contacts = new ArrayList();
-            
-            // = = = [ Lecture des contacts ] = = =
-            System.out.println("-> lists de contacts : START");
+            ArrayList<Contact> tousLesContacts = new ArrayList();
             
             // = = = [ Connexion à la BDD ] = = =
             connectBDD.openConnexion();
             System.out.println("BDD : Open");
+            
+            //si le paramètre == contact-edit-id
+            if(request.getParameter("contact-edit-id")!=null){
+                //-Validation Ajout Film
+                if( (!request.getParameter("contact-edit-id").isEmpty() && !"".equals(request.getParameter("contact-edit-id"))) ){
+                    // = = = [ Lecture des contacts ] = = =
+                    System.out.println("-> Edition de contacts : START");
+
+                    // Récupération des lists de contacts
+                    sql = "SELECT * FROM `lists_contacts` WHERE `id`="+request.getParameter("contact-edit-id")+";";
+                    System.out.println(sql);
+                    datas = connectBDD.getDatasBySQL(sql);
+                    while (datas.next()) {
+                        listsContactsAModifier = new ListContacts(datas.getInt(1), datas.getString(2), datas.getString(3),
+                            datas.getString(4), datas.getString(5));
+                    }
+                    //-
+                    System.out.println("-> Edition de contact : END");
+                }
+            }
             
             // Récupération de tous les contacts
             sql = "SELECT "
@@ -100,14 +120,20 @@ public class ListsContactsNew extends HttpServlet {
                     }
                 }
                 */
-                contacts.add(contact);
+                tousLesContacts.add(contact);
             }
             
             //Génération de la liste des contact disponible
-            for(Contact contact : contacts){
+            ArrayList<Contact> contactsDeLaListe = listsContactsAModifier.getContactsCollection();
+            String checked = "";
+            for(Contact contact : tousLesContacts){
+                for(Contact contactCheck : contactsDeLaListe){
+                    if(contact.getId()==contactCheck.getId())
+                        checked = "checked";
+                }
                 contentTable += "<tr>\n"
                             +"<td>"
-                                +"<input class=\"form-check-input\" type=\"checkbox\" id=\"contact_"+contact.getId()+"\" name=\"contact_"+contact.getId()+"\" value=\""+contact.getId()+"\">\n"
+                            +"<input class=\"form-check-input\" type=\"checkbox\" id=\"contact_"+contact.getId()+"\" name=\"contact_"+contact.getId()+"\" value=\""+contact.getId()+"\" "+checked+">\n"
                             +"</td>"
                             +"<td>"+contact.getNom()+"</td>\n"
                             +"<td>"+contact.getPrenom()+"</td>\n"
@@ -115,7 +141,11 @@ public class ListsContactsNew extends HttpServlet {
                             +"<td>"+contact.getEmail1()+"</td>\n"
                             +"<td>"+contact.getEmail2()+"</td>\n";
                 contentTable +="</tr>\n";
+                checked = "";
             }
+            
+            // Lecture de données terminée
+            connectBDD.closeConnexion();
             System.out.println("-> lists de contacts : END");
             
             //-
@@ -145,14 +175,14 @@ public class ListsContactsNew extends HttpServlet {
                                     +"<ol class=\"breadcrumb\">\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"home\">Accueil</a></li>\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"lists-contacts\">Listes de contacts</a></li>\n"
-                                        +"<li class=\"breadcrumb-item active\">Nouvelle liste de contacts</li>\n"
+                                        +"<li class=\"breadcrumb-item active\">Modification de la liste de contacts</li>\n"
                                     +"</ol>\n"
                                 +"</nav>\n"
                             +"</div>\n"
                             //_Title_
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
-                                +"<h3>Nouvelle liste de contacts</h3>"
+                                +"<h3>Modification de la liste de contacts</h3>"
                             +"</div>\n"
                             +"<hr>\n"
                             //_Content_
@@ -161,32 +191,38 @@ public class ListsContactsNew extends HttpServlet {
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
                                     +"<div class=\"row col-md-1 col-xs-1\"></div>\n"
                                     +"<div class=\"row col-md-9 col-xs-9 text-right\">\n"
+                                        +"<!-- IdDuContact -->\n"
+                                        +"<div class=\"col-sm-6\" style=\"display:none;\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"id\" name=\"id\" value=\""+listsContactsAModifier.getId()+"\">"
+                                        +"</div>\n"
+                                        +"<br><br>\n"
+                                        +"\n"
                                         +"\n"
                                         +"<!-- ListeDeContact_Nom -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"nom\">Nom</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"nom\" name=\"nom\" maxlength=\"32\" placeholder=\"Nom\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"nom\" name=\"nom\" maxlength=\"32\" placeholder=\"Nom\" value=\""+listsContactsAModifier.getNom()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- ListeDeContact_Description -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"description\">Description</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"description\" name=\"description\" maxlength=\"32\" placeholder=\"Description\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"description\" name=\"description\" maxlength=\"32\" placeholder=\"Description\" value=\""+listsContactsAModifier.getDescription()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- ListeDeContact_DateDeDebut -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"dateDeDebut\">Date de début</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDeDebut\" name=\"dateDeDebut\" maxlength=\"32\" placeholder=\"Date de début (AAAA-MM-DD)\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDeDebut\" name=\"dateDeDebut\" maxlength=\"32\" placeholder=\"Date de début (AAAA-MM-DD)\" value=\""+listsContactsAModifier.getDateDebut()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- ListeDeContact_DateDeFin -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"dateDeFin\">Date de fin</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDeFin\" name=\"dateDeFin\" maxlength=\"32\" placeholder=\"Date de fin (AAAA-MM-DD)\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDeFin\" name=\"dateDeFin\" maxlength=\"32\" placeholder=\"Date de fin (AAAA-MM-DD)\" value=\""+listsContactsAModifier.getDateFin()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
@@ -217,7 +253,7 @@ public class ListsContactsNew extends HttpServlet {
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
                                     +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
                                     +"<div class=\"row col-md-4 col-xs-4 text-center\">\n"
-                                        +"<button type=\"submit\" class=\"btn btn-success\" name=\"list-contacts-ajout\" value=\"list-contacts-ajout\">Ajouter la liste de contacts</button>\n"
+                                        +"<button type=\"submit\" class=\"btn btn-success\" name=\"list-contacts-edit\" value=\"list-contacts-edit\">Modifier la liste de contacts</button>\n"
                                     +"</div>\n"
                                     +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
                                 +"</div>\n"
@@ -252,7 +288,7 @@ public class ListsContactsNew extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ListsContactsNew.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListsContactsEdit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -269,7 +305,7 @@ public class ListsContactsNew extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ListsContactsNew.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListsContactsEdit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

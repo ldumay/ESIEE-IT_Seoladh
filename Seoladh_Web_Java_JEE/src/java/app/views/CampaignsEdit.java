@@ -6,6 +6,7 @@
 package app.views;
 
 import app.includes.ElementsPages;
+import app.models.Campaign;
 import app.models.ListContacts;
 import app.network.ConnectBDD;
 import java.io.IOException;
@@ -24,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author mtl
  */
-@WebServlet(name = "campaigns-new", urlPatterns = {"/campaigns-new"})
-public class CampaignsNew extends HttpServlet {
+@WebServlet(name = "campaigns-edit", urlPatterns = {"/campaigns-edit"})
+public class CampaignsEdit extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,13 +54,26 @@ public class CampaignsNew extends HttpServlet {
             connectBDD.openConnexion();
             System.out.println("BDD : Open");
             
+            // Récupération de la campagne sélectionné
+            Campaign campaign = new Campaign();
+            sql = "SELECT * FROM `campaigns` WHERE id="+request.getParameter("campaign-id")+";";
+            System.out.println(sql);
+            datas = connectBDD.getDatasBySQL(sql);
+            while (datas.next()) {
+                campaign = new Campaign(datas.getInt(1), datas.getString(2), datas.getString(3), datas.getString(4), datas.getString(5), datas.getString(6));
+            }
+            
             // Récupération des lists des rôles
             sql = "SELECT * FROM `lists_contacts`;";
             System.out.println(sql);
             datas = connectBDD.getDatasBySQL(sql);
             while (datas.next()) {
                 ListContacts listContacts = new ListContacts(datas.getInt(1), datas.getString(2), datas.getString(3), datas.getString(4), datas.getString(5));
-                optionsListesContacts += "<option value=\""+listContacts.getId()+"\">"+listContacts.getNom()+"</option>\n";
+                if(listContacts.getId()==campaign.getListeContactsId()){
+                    optionsListesContacts += "<option value=\""+listContacts.getId()+"\" selected>"+listContacts.getNom()+"</option>\n";
+                } else {
+                    optionsListesContacts += "<option value=\""+listContacts.getId()+"\">"+listContacts.getNom()+"</option>\n";
+                }
             }
             
             // Lecture de données terminée
@@ -109,43 +123,48 @@ public class CampaignsNew extends HttpServlet {
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
                                     +"<div class=\"row col-md-1 col-xs-1\"></div>\n"
                                     +"<div class=\"row col-md-9 col-xs-9 text-right\">\n"
+                                        +"<!-- IdDeLaCampagne -->\n"
+                                        +"<div class=\"col-sm-6\" style=\"display:none;\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"id\" name=\"id\" value=\""+campaign.getId()+"\">"
+                                        +"</div>\n"
+                                        +"<br><br>\n"
                                         +"\n"
                                         +"<!-- NomDeLaCampagne -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"nomDeLaCampagne\">Nom de la campagne</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"nomDeLaCampagne\" name=\"nomDeLaCampagne\" placeholder=\"Nom de la campagne\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"nomDeLaCampagne\" name=\"nomDeLaCampagne\" placeholder=\"Nom de la campagne\" value=\""+campaign.getNom()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- DescriptionDeLaCampagne -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"descriptionDeLaCampagne\">Description de la campagne</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"descriptionDeLaCampagne\" name=\"descriptionDeLaCampagne\" placeholder=\"Description de la campagne\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"descriptionDeLaCampagne\" name=\"descriptionDeLaCampagne\" placeholder=\"Description de la campagne\" value=\""+campaign.getDescription()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- DateDebutDeLaCampagne -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"dateDebutDeLaCampagne\">Date de début de la campagne</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDebutDeLaCampagne\" name=\"dateDebutDeLaCampagne\" placeholder=\"Date de début (AAAA-MM-DD)\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"dateDebutDeLaCampagne\" name=\"dateDebutDeLaCampagne\" placeholder=\"Date de début (AAAA-MM-DD)\" value=\""+campaign.getDateDebut()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- DateFinDeLaCampagne -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"dateFinDeLaCampagne\">Date de fin de la campagne</label>\n"
                                         +"<div class=\"col-sm-6\">"
-                                            +"<input type=\"text\" class=\"form-control\" id=\"dateFinDeLaCampagne\" name=\"dateFinDeLaCampagne\" placeholder=\"Date de fin (AAAA-MM-DD)\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"dateFinDeLaCampagne\" name=\"dateFinDeLaCampagne\" placeholder=\"Date de fin (AAAA-MM-DD)\" value=\""+campaign.getDateFin()+"\">"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
                                         +"<!-- Contact_1_DeLaListDeContacts -->\n"
-                                        +"<label class=\"col-sm-4 col-form-label\" for=\"listeContacts\">Contact #1 De La List De Contacts</label>\n"
+                                        +"<label class=\"col-sm-4 col-form-label\" for=\"listeContacts\">Liste de contacts #1</label>\n"
                                         +"<div class=\"col-sm-6 input-group\">\n"
                                             +"<select class=\"form-select\" id=\"listeContacts\" name=\"listeContacts\">\n"
-                                                +"<option selected>Choisissez un liste de contacts</option>\n"
+                                                +"<option>Choisissez un liste de contacts</option>\n"
                                                 +optionsListesContacts
                                             +"</select>\n"
-                                            +"<button type=\"button\" class=\"btn btn-primary\" name=\"nouveau_contact\" value=\"nouveau_contact\" disabled>+ Ajouter un contact</button>\n"
+                                            +"<button type=\"button\" class=\"btn btn-primary\" name=\"listContacts_add\" value=\"listContacts_add\" disabled>+ Ajouter une liste de contacts</button>\n"
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
@@ -158,7 +177,7 @@ public class CampaignsNew extends HttpServlet {
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
                                     +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
                                         +"<div class=\"row col-md-4 col-xs-4 text-center\">\n"
-                                            +"<button type=\"submit\" class=\"btn btn-success\" name=\"campaign-new\" value=\"campaign-new\">Valider la nouvelle campagne</button>\n"
+                                            +"<button type=\"submit\" class=\"btn btn-success\" name=\"campaign-edit\" value=\"campaign-edit\">Valider la modification campagne</button>\n"
                                         +"</div>\n"
                                     +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
                                 +"</div>\n"
@@ -193,7 +212,7 @@ public class CampaignsNew extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CampaignsNew.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CampaignsEdit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -210,7 +229,7 @@ public class CampaignsNew extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CampaignsNew.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CampaignsEdit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

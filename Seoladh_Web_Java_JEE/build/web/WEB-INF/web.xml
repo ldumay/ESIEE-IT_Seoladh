@@ -36,6 +36,16 @@
         <url-pattern>/campaigns-new</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Campaigns_New -->
+    <!-- Page_Campaigns_Edit -->
+    <servlet>
+        <servlet-name>CampaignsEdit</servlet-name>
+        <servlet-class>app.views.CampaignsEdit</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignsEdit</servlet-name>
+        <url-pattern>/campaigns-edit</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Campaigns_Edit -->
     <!-- Page_Campaigns_Import -->
     <servlet>
         <servlet-name>CampaignsImport</servlet-name>
@@ -86,6 +96,16 @@
         <url-pattern>/lists-contacts-new</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ListsContacts_New -->
+    <!-- Page_ListsContacts_Edit -->
+    <servlet>
+        <servlet-name>ListsContactsEdit</servlet-name>
+        <servlet-class>app.views.ListsContactsEdit</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListsContactsEdit</servlet-name>
+        <url-pattern>/lists-contacts-edit</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ListsContacts_Edit -->
     <!-- Page_ListsContacts_Suppr -->
     <servlet>
         <servlet-name>ListsContactsSuppr</servlet-name>

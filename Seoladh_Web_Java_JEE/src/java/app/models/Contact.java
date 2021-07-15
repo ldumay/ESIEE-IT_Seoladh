@@ -6,7 +6,6 @@
 package app.models;
 
 import app.utils.Dates;
-import java.util.Date;
 
 /**
  *
@@ -35,6 +34,25 @@ public class Contact {
      * Constructor
      */
     public Contact(){}
+    
+    /**
+     * Constructor
+     * @param id
+     * @param nom
+     * @param prenom
+     * @param email1
+     * @param dateNaissance
+     * @param email2
+     */
+    public Contact(int id, String nom, String prenom, String dateNaissance,
+            String email1, String email2){
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.email1 = email1;
+        this.email2 = email2;
+    }
     
     /**
      * Constructor
