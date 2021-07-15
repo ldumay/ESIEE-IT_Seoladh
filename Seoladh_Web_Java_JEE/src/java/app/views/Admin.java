@@ -74,10 +74,9 @@ public class Admin extends HttpServlet {
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
-                            /**
-                             * CODE ICI
-                             */
-                            +"<p>Code à venir.</p>"
+                            +"<div class=\"row col-md-12 col-xs-12 text-center\">"
+                                +"<p>Vous trouverez ici toutes les informations d'administrations importantes.</p>"
+                            +"</div>\n"
                         +"</div>\n"
                     +"</div>\n"
                     +"<hr>"

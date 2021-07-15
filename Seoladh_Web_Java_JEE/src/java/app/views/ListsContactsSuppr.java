@@ -191,10 +191,12 @@ public class ListsContactsSuppr extends HttpServlet {
                                         +"\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"nouvelle-liste-contacts\">Choix de la nouvelle liste</label>\n"
                                         +"<div class=\"col-sm-6\">\n"
-                                        +"<select class=\"form-select\" id=\"nouvelle-liste-contacts\" name=\"nouvelle-liste-contacts\">\n"
-                                            +"<option selected>Choisissez une liste de contact</option>\n"
-                                            +optionsListesContacts
-                                        +"</select>\n"
+                                            +"<select class=\"form-select\" id=\"nouvelle-liste-contacts\" name=\"nouvelle-liste-contacts\">\n"
+                                                +"<option selected>Choisissez une liste de contact</option>\n"
+                                                +optionsListesContacts
+                                            +"</select>\n"
+                                        +"</div>\n"
+                                        +"\n"
                                     +"</div>\n"
                                     +"<div class=\"row col-md-1 col-xs-1\"></div>"
                                     +"<br><br>"

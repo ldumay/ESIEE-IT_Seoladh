@@ -173,7 +173,7 @@ public class ElementsPages {
                                         +"<a class=\"nav-link dropdown-toggle\" id=\"administation\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Administration</a>\n"
                                         +"<ul class=\"dropdown-menu\" aria-labelledby=\"administation\">\n"
                                             +"<li><a class=\"dropdown-item\" href=\"admin\">Administration</a></li>\n"
-                                            +"<li><a class=\"dropdown-item\" href=\"admin-accounts\">Gestion des comptes</a></li>\n"
+                                            +"<li><a class=\"dropdown-item\" href=\"admin-users\">Gestion des comptes utilisateurs</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"admin-roles\">Gestion des rôles</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"admin-server\">Serveur SMTP</a></li>\n"
                                         +"</ul>\n"

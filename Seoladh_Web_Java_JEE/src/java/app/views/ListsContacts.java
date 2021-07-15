@@ -191,6 +191,7 @@ public class ListsContacts extends HttpServlet {
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
                                 +"<h3>Listes de contacts</h3>"
+                                +"<p><a href=\"lists-contacts-new\">Ajout une liste de contacts</a></p>"
                             +"</div>\n"
                             +"<hr>\n"
                             //_Content_

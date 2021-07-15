@@ -237,6 +237,7 @@ public class Contacts extends HttpServlet {
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
                                 +"<h3>Contacts</h3>"
+                                +"<p><a href=\"contacts-new\">Ajout un contact</a></p>"
                             +"</div>\n"
                             +"<hr>\n"
                             //_Content_

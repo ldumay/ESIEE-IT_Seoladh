@@ -186,16 +186,38 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Admin -->
-    <!-- Page_Admin_Accounts -->
+    <!-- Page_Admin_Users -->
     <servlet>
-        <servlet-name>AdminAccounts</servlet-name>
-        <servlet-class>app.views.AdminAccounts</servlet-class>
+        <servlet-name>AdminUsers</servlet-name>
+        <servlet-class>app.views.AdminUsers</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdminAccounts</servlet-name>
-        <url-pattern>/admin-accounts</url-pattern>
+        <servlet-name>AdminUsers</servlet-name>
+        <url-pattern>/admin-users</url-pattern>
     </servlet-mapping>
-    <!-- ./Page_Admin_Accounts -->
+    <!-- ./Page_Admin_Users -->
+    
+    <!-- Page_Admin_Users_New -->
+    <servlet>
+        <servlet-name>AdminUsersNew</servlet-name>
+        <servlet-class>app.views.AdminUsersNew</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminUsersNew</servlet-name>
+        <url-pattern>/admin-users-new</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Admin_Users_New -->
+    <!-- Page_Admin_Users_Edit -->
+    <servlet>
+        <servlet-name>AdminUsersEdit</servlet-name>
+        <servlet-class>app.views.AdminUsersEdit</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminUsersEdit</servlet-name>
+        <url-pattern>/admin-users-edit</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Admin_Users_Edit -->
+    
     <!-- Page_Admin_Roles -->
     <servlet>
         <servlet-name>AdminRoles</servlet-name>
@@ -206,6 +228,26 @@
         <url-pattern>/admin-roles</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Admin_Roles -->
+    <!-- Page_Admin_Roles_New -->
+    <servlet>
+        <servlet-name>AdminRolesNew</servlet-name>
+        <servlet-class>app.views.AdminRolesNew</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminRolesNew</servlet-name>
+        <url-pattern>/admin-roles-new</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Admin_Roles_New -->
+    <!-- Page_Admin_Roles_Edit -->
+    <servlet>
+        <servlet-name>AdminRolesEdit</servlet-name>
+        <servlet-class>app.views.AdminRolesEdit</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminRolesEdit</servlet-name>
+        <url-pattern>/admin-roles-edit</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Admin_Roles_Edit -->
     <!-- Page_Admin_Server -->
     <servlet>
         <servlet-name>AdminServer</servlet-name>

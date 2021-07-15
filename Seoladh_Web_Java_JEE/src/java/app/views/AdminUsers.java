@@ -6,8 +6,8 @@
 package app.views;
 
 import app.includes.ElementsPages;
-import app.models.ListContacts;
 import app.models.Role;
+import app.models.User;
 import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ldumay
  */
-@WebServlet(name = "admin-roles", urlPatterns = {"/admin-roles"})
-public class AdminRoles extends HttpServlet {
+@WebServlet(name = "admin-users", urlPatterns = {"/admin-users"})
+public class AdminUsers extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,94 +47,122 @@ public class AdminRoles extends HttpServlet {
             String sql = null;
             String contentTable = "";
             
-            // = = = [ Lecture des contacts ] = = =
-            System.out.println("-> Admin rôle : START");
+            // = = = [ Lecture des userss ] = = =
+            System.out.println("-> Admin user : START");
             
             // = = = [ Connexion à la BDD ] = = =
             connectBDD.openConnexion();
             System.out.println("BDD : Open");
             
-            //si le paramètre == admin-role-ajout
-            if(request.getParameter("admin-role-ajout")!=null){
+            //si le paramètre == admin-user-ajout
+            if(request.getParameter("admin-user-ajout")!=null){
                 //-Validation Ajout Film
-                if( (!request.getParameter("admin-role-ajout").isEmpty() && !"".equals(request.getParameter("admin-role-ajout"))) ){
-                    // = = = [ Lecture des contacts ] = = =
-                    System.out.println("-> Ajout du rôle : START");
-                    //-
-                    Role roleAAjouter = new Role();
-                    roleAAjouter.setNom(request.getParameter("nom"));
-                    roleAAjouter.setDescription(request.getParameter("description"));
-                    //-
-                    sql = "INSERT INTO `admin_roles` "
-                        +"(`nom`, `description`) "
+                if( (!request.getParameter("admin-user-ajout").isEmpty() && !"".equals(request.getParameter("admin-user-ajout"))) ){
+                    // = = = [ Lecture des userss ] = = =
+                    System.out.println("-> Ajout de l'utilisateur : START");
+                    //Préparation de l'utilisateur
+                    User userAAjouter = new User();
+                    userAAjouter.setIdentifiant(request.getParameter("identifiant"));
+                    userAAjouter.setMotDePasse(request.getParameter("motDePasse"));
+                    userAAjouter.setRole_Id(Integer.parseInt(request.getParameter("role")));
+                    //Ajout de l'utilisateur dans la table users
+                    sql = "INSERT INTO `users` "
+                        +"(`identifiant`, `motDePasse`) "
                         +"VALUES "
                         +"("
-                        +"\""+roleAAjouter.getNom()+"\","
-                        +"\""+roleAAjouter.getDescription()+"\""
+                        +"\""+userAAjouter.getIdentifiant()+"\","
+                        +"\""+userAAjouter.getMotDePasse()+"\""
                         +");";
-                    //-
+                    System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
+                    //Récupération de l'id de l'utilisateur ajouté
+                    sql = "SELECT id FROM `users` WHERE `identifiant`=\""+userAAjouter.getIdentifiant()+"\" AND `motDePasse`=\""+userAAjouter.getMotDePasse()+"\";";
+                    System.out.println(sql);
+                    datas = connectBDD.getDatasBySQL(sql);
+                    while (datas.next()) {
+                        userAAjouter.setId(datas.getInt(1));
+                    }
+                    //Laison de l'utilisateur au rôle sélectionné
+                    sql = "INSERT INTO `users_and_admin_roles` "
+                        +"(`user_id`, `admin_roles_id`) "
+                        +"VALUES "
+                        +"("
+                        +""+userAAjouter.getId()+","
+                        +""+userAAjouter.getRole_Id()+""
+                        +");";
                     System.out.println(sql);
                     connectBDD.setDatasBySQL(sql);
                     //-
-                    System.out.println("-> Ajout du rôle : END");
+                    System.out.println("-> Ajout de l'utilisateur : END");
                 }
             }
-            // = = = [ Edition d'un contact ] = = =
-            if(request.getParameter("admin-role-edit")!=null){
+            // = = = [ Edition d'un users ] = = =
+            if(request.getParameter("admin-user-edit")!=null){
                 //-Validation Ajout Film
-                if( (!request.getParameter("admin-role-edit").isEmpty() && "admin-role-edit".equals(request.getParameter("admin-role-edit"))) 
-                    && (!request.getParameter("nom").isEmpty() && !"".equals(request.getParameter("nom"))) ){
+                if( (!request.getParameter("admin-user-edit").isEmpty() && "admin-user-edit".equals(request.getParameter("admin-user-edit"))) 
+                    && (!request.getParameter("identifiant").isEmpty() && !"".equals(request.getParameter("motDePasse"))) ){
                     //-
-                    System.out.println("-> Edition du rôle : START");
-                    //-
-                    Role roleAEditer = new Role();
-                    roleAEditer.setId(Integer.parseInt(request.getParameter("id")));
-                    roleAEditer.setNom(request.getParameter("nom"));
-                    roleAEditer.setDescription(request.getParameter("description"));
-                    //-
-                    sql = "UPDATE `admin_roles` SET"
-                        +"`nom`=\""+roleAEditer.getNom()+"\","
-                        +"`description`=\""+roleAEditer.getDescription()+"\""
-                        +" WHERE `id`="+roleAEditer.getId()+";";
+                    System.out.println("-> Edition de l'utilisateur : START");
+                    //Préparation de l'utiliateur à modifier
+                    User userAEditer = new User();
+                    userAEditer.setId(Integer.parseInt(request.getParameter("id")));
+                    userAEditer.setIdentifiant(request.getParameter("identifiant"));
+                    userAEditer.setMotDePasse(request.getParameter("motDePasse"));
+                    userAEditer.setRole_Id(Integer.parseInt(request.getParameter("role")));
+                    //Mise à jour de l'utyilisateur dans la table users
+                    sql = "UPDATE `users` SET"
+                        +"`identifiant`=\""+userAEditer.getIdentifiant()+"\","
+                        +"`motDePasse`=\""+userAEditer.getMotDePasse()+"\""
+                        +" WHERE `id`="+userAEditer.getId()+";";
                     System.out.println(sql);
-                    //-
+                    connectBDD.setDatasBySQL(sql);
+                    //Mise à jour de l'utilisateur dans table users
+                    sql = "UPDATE `users_and_admin_roles` SET `admin_roles_id`="+userAEditer.getRole_Id()+" WHERE `user_id`="+userAEditer.getId()+";";
+                    System.out.println(sql);
                     connectBDD.setDatasBySQL(sql);
                     //-
-                    System.out.println("-> Edition du rôle : END");
+                    System.out.println("-> Edition de l'utilisateur : END");
                 }
             }
-            // = = = [ Suppression d'un contact ] = = =
-            if(request.getParameter("admin-roles-id")!=null){
+            // = = = [ Suppression d'un users ] = = =
+            if(request.getParameter("admin-users-id")!=null){
                 //-Validation Ajout Film
-                if( (!request.getParameter("admin-roles-id").isEmpty() && !"".equals(request.getParameter("admin-roles-id"))) ){
+                if( (!request.getParameter("admin-users-id").isEmpty() && !"".equals(request.getParameter("admin-users-id"))) ){
                     //-
-                    System.out.println("-> Suppression du rôle : START");
+                    System.out.println("-> Suppression de l'utilisateur : START");
                     //-
-                    sql = "DELETE FROM `admin_roles` WHERE `id`="+request.getParameter("admin-roles-id")+";";
+                    sql = "DELETE FROM `users_and_admin_roles` WHERE `user_id`="+request.getParameter("admin-users-id")+";";
                     System.out.println(sql);
-                    //-
                     connectBDD.setDatasBySQL(sql);
                     //-
-                    System.out.println("-> Suppression du rôle : END");
+                    sql = "DELETE FROM `users` WHERE `id`="+request.getParameter("admin-users-id")+";";
+                    System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
+                    //-
+                    System.out.println("-> Suppression de l'utilisateur : END");
                 }
             }
             
-            // Récupération des lists de contacts
-            sql = "SELECT * FROM `admin_roles`;";
+            // Récupération des lists de userss
+            sql = "SELECT u.`id`, u.`identifiant`, u.`motdepasse`, uar.`admin_roles_id` FROM `users` u, `users_and_admin_roles` uar WHERE uar.`user_id`=u.`id`;";
             System.out.println(sql);
             datas = connectBDD.getDatasBySQL(sql);
             while (datas.next()) {
-                Role listContacts = new Role(datas.getInt(1), datas.getString(2), datas.getString(3));
+                User user = new User(datas.getInt(1), datas.getString(2), datas.getString(3));
+                user.setRole_Id(datas.getInt(4));
+                Role userRole = user.getRoleInfo(user.getRole_Id());
+                
                 contentTable += "<tr>\n"
-                            +"<td>"+listContacts.getNom()+"</td>\n"
-                            +"<td>"+listContacts.getDescription()+"</td>\n";
-                contentTable += "<td><a href=\"admin-roles-edit?admin-roles-id="+listContacts.getId()+"\">Modifier</a></td>\n";
-                contentTable += "<td><a href=\"admin-roles?admin-roles-id="+listContacts.getId()+"\">Supprimer</a></td>\n";
+                            +"<td>"+user.getIdentifiant()+"</td>\n"
+                            +"<td>"+user.getMotDePasse()+"</td>\n";
+                contentTable += (userRole.getNom()!=null) ? "<td>"+userRole.getNom()+"</td>\n" : "<td>Aucun rôle</td>\n";
+                contentTable += "<td><a href=\"admin-users-edit?admin-users-id="+user.getId()+"\">Modifier</a></td>\n";
+                contentTable += "<td><a href=\"admin-users?admin-users-id="+user.getId()+"\">Supprimer</a></td>\n";
                 contentTable +="</tr>\n";
             }
             // Lecture de données terminée
             connectBDD.closeConnexion();
-            System.out.println("-> Admin rôle : END");
+            System.out.println("-> Admin user : END");
             
             ElementsPages elements = new ElementsPages();
             //-
@@ -162,15 +190,15 @@ public class AdminRoles extends HttpServlet {
                                     +"<ol class=\"breadcrumb\">\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"home\">Accueil</a></li>\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"admin\">Administration</a></li>\n"
-                                        +"<li class=\"breadcrumb-item active\">Gestion des rôles</li>\n"
+                                        +"<li class=\"breadcrumb-item active\">Gestion des comptes utilisateurs</li>\n"
                                     +"</ol>\n"
                                 +"</nav>\n"
                             +"</div>\n"
                             //_Title_
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
-                                +"<h3>Gestion des rôles</h3>"
-                                +"<p><a href=\"admin-roles-new\">Ajout un rôle</a></p>"
+                                +"<h3>Gestion des comptes utilisateurs</h3>"
+                                +"<p><a href=\"admin-users-new\">Ajout un utilisateur</a></p>"
                             +"</div>\n"
                             +"<hr>\n"
                             //_Content_
@@ -181,6 +209,7 @@ public class AdminRoles extends HttpServlet {
                                         +"<tr>\n"
                                             +"<th scope=\"col\">Nom</th>\n"
                                             +"<th scope=\"col\">Description</th>\n"
+                                            +"<th scope=\"col\">Rôle</th>\n"
                                             +"<th scope=\"col\">Modifier</th>\n"
                                             +"<th scope=\"col\">Supprimer</th>\n"
                                         +"</tr>\n"
@@ -221,7 +250,7 @@ public class AdminRoles extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(AdminRoles.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -238,7 +267,7 @@ public class AdminRoles extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(AdminRoles.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

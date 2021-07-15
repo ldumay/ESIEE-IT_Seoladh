@@ -6,8 +6,12 @@
 package app.views;
 
 import app.includes.ElementsPages;
+import app.models.ListContacts;
+import app.models.Role;
+import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ldumay
  */
-@WebServlet(name = "admin-accounts", urlPatterns = {"/admin-accounts"})
-public class AdminAccounts extends HttpServlet {
+@WebServlet(name = "admin-roles-new", urlPatterns = {"/admin-roles-new"})
+public class AdminRolesNew extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,6 +41,36 @@ public class AdminAccounts extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            // Variables nécessasires
+            ConnectBDD connectBDD = new ConnectBDD();
+            ResultSet datas = null;
+            String sql = null;
+            String contentTable = "";
+            
+            // = = = [ Lecture des contacts ] = = =
+            System.out.println("-> lists de contacts : START");
+            
+            // = = = [ Connexion à la BDD ] = = =
+            connectBDD.openConnexion();
+            System.out.println("BDD : Open");
+            
+            // Récupération des lists de contacts
+            sql = "SELECT * FROM `admin_roles`;";
+            System.out.println(sql);
+            datas = connectBDD.getDatasBySQL(sql);
+            while (datas.next()) {
+                Role listContacts = new Role(datas.getInt(1), datas.getString(2), datas.getString(3));
+                contentTable += "<tr>\n"
+                            +"<td>"+listContacts.getNom()+"</td>\n"
+                            +"<td>"+listContacts.getDescription()+"</td>\n";
+                contentTable += "<td><a href=\"admin-roles-edit?admin-roles-id="+listContacts.getId()+"\">Modifier</a></td>\n";
+                contentTable += "<td><a href=\"admin-roles?admin-roles-id="+listContacts.getId()+"\">Supprimer</a></td>\n";
+                contentTable +="</tr>\n";
+            }
+            // Lecture de données terminée
+            connectBDD.closeConnexion();
+            System.out.println("-> lists de contacts : END");
+            
             ElementsPages elements = new ElementsPages();
             //-
             String htmlContent = "";
@@ -63,22 +97,50 @@ public class AdminAccounts extends HttpServlet {
                                     +"<ol class=\"breadcrumb\">\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"home\">Accueil</a></li>\n"
                                         +"<li class=\"breadcrumb-item\"><a href=\"admin\">Administration</a></li>\n"
-                                        +"<li class=\"breadcrumb-item active\">Gestion des comptes</li>\n"
+                                        +"<li class=\"breadcrumb-item\"><a href=\"admin-roles\">Gestion des rôles</a></li>\n"
+                                        +"<li class=\"breadcrumb-item active\">Ajouter un rôle</li>\n"
                                     +"</ol>\n"
                                 +"</nav>\n"
                             +"</div>\n"
                             //_Title_
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
-                                +"<h3>Gestion des comptes</h3>"
+                                +"<h3>Ajouter un rôle</h3>"
                             +"</div>\n"
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
-                            /**
-                             * CODE ICI
-                             */
-                            +"<p>Code à venir.</p>"
+                            +"<form method=\"post\" action=\"admin-roles\">\n"
+                                +"<div class=\"row col-md-12 col-xs-12\">\n"
+                                    +"<div class=\"row col-md-2 col-xs-2\"></div>\n"
+                                    +"<div class=\"row col-md-8 col-xs-8s text-right\">\n"
+                                        +"<!-- NomDuRole -->\n"
+                                        +"<label class=\"col-sm-4 col-form-label\" for=\"nom\">Nom</label>\n"
+                                        +"<div class=\"col-sm-6\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"nom\" name=\"nom\" maxlength=\"32\" placeholder=\"Nom\"\">"
+                                        +"</div>\n"
+                                        +"<br><br>\n"
+                                        +"\n"
+                                        +"<!-- DescriptionDuRole -->\n"
+                                        +"<label class=\"col-sm-4 col-form-label\" for=\"prenom\">Description</label>\n"
+                                        +"<div class=\"col-sm-6\">"
+                                            +"<input type=\"text\" class=\"form-control\" id=\"description\" name=\"description\" maxlength=\"32\" placeholder=\"Description\" value=\"\">"
+                                        +"</div>\n"
+                                        +"<br><br>\n"
+                                        +"\n"
+                                    +"</div>\n"
+                                +"</div>\n"
+                                +"\n"
+                                +"<br>\n"
+                                +"\n"
+                                +"<div class=\"row col-md-12 col-xs-12\">\n"
+                                    +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
+                                    +"<div class=\"row col-md-4 col-xs-4 text-center\">\n"
+                                        +"<button type=\"submit\" class=\"btn btn-success\" name=\"admin-role-ajout\" value=\"admin-role-ajout\">Ajout le nouveau rôle</button>\n"
+                                    +"</div>\n"
+                                    +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
+                                +"</div>\n"
+                            +"</form>"
                         +"</div>\n"
                     +"</div>\n"
                     +"<hr>"
@@ -109,7 +171,7 @@ public class AdminAccounts extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(AdminAccounts.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminRolesNew.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -126,7 +188,7 @@ public class AdminAccounts extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(AdminAccounts.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminRolesNew.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
