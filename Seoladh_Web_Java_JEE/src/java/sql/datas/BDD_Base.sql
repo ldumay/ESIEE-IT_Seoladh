@@ -131,6 +131,39 @@ CREATE TABLE `users_and_logs` (
   `log_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Structure de la table `admin_server`
+--
+
+CREATE TABLE `admin_server` (
+  `id` int(11) NOT NULL,
+  `nom_du_serveur` varchar(32) NOT NULL,
+  `adresse_du_serveur` varchar(32) NOT NULL,
+  `port_du_serveur` varchar(32) NOT NULL,
+  `adresse_email_du_serveur` varchar(32) NOT NULL,
+  `mot_de_passe_du_serveur` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Structure de la table `admin_roles`
+--
+
+CREATE TABLE `admin_roles` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(32) NOT NULL,
+  `description` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Structure de la table `users_and_admin_roles`
+--
+
+CREATE TABLE `users_and_admin_roles` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `admin_roles_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -206,9 +239,9 @@ INSERT INTO `users_and_contacts` (`id`, `user_id`, `contact_id`) VALUES
 --
 
 INSERT INTO `lists_contacts` (`id`, `nom`, `description`, `date_start`, `date_end`) VALUES
-(1, "Liste 1", "Ceci est une description.", "2021-01-01", "2021-01-01"),
-(2, "Liste 2", "Ceci est une description.", "2021-01-01", "2021-01-01"),
-(3, "Liste 3", "Ceci est une description.", "2021-01-01", "2021-01-01");
+(1, 'Liste 1', 'Ceci est une description.', '2021-01-01', '2021-01-01'),
+(2, 'Liste 2', 'Ceci est une description.', '2021-01-01', '2021-01-01'),
+(3, 'Liste 3', 'Ceci est une description.', '2021-01-01', '2021-01-01');
 
 --
 -- Déchargement des données de la table `lists_contacts_and_contacts`
@@ -256,11 +289,11 @@ INSERT INTO `lists_contacts_and_contacts` (`id`, `list_contacts_id`, `contact_id
 --
 
 INSERT INTO `logs` (`id`, `date`, `ip`) VALUES
-(1, "2021-01-01", "127.0.0.1"),
-(2, "2021-01-01", "127.0.0.1"),
-(3, "2021-01-01", "127.0.0.1"),
-(4, "2021-01-01", "127.0.0.1"),
-(5, "2021-01-01", "127.0.0.1");
+(1, '2021-01-01', '127.0.0.1'),
+(2, '2021-01-01', '127.0.0.1'),
+(3, '2021-01-01', '127.0.0.1'),
+(4, '2021-01-01', '127.0.0.1'),
+(5, '2021-01-01', '127.0.0.1');
 
 --
 -- Déchargement des données de la table `users_and_logs`
@@ -278,7 +311,7 @@ INSERT INTO `users_and_logs` (`id`, `user_id`, `log_id`) VALUES
 --
 
 INSERT INTO `campaigns` (`id`, `nom`, `description`, `date_start`, `date_end`) VALUES
-(1, "Campagne 1", "Ceci est une description.", "2021-01-01", "2021-01-01");
+(1, 'Campagne 1', 'Ceci est une description.', '2021-01-01', '2021-01-01');
 
 --
 -- Déchargement des données de la table `campaigns_and_lists_contacts`
@@ -286,6 +319,35 @@ INSERT INTO `campaigns` (`id`, `nom`, `description`, `date_start`, `date_end`) V
 
 INSERT INTO `campaigns_and_lists_contacts` (`id`, `campaigns_id`, `list_contacts_id`) VALUES
 (1, 1, 1);
+
+--
+-- Déchargement des données de la table `admin_server`
+--
+
+INSERT INTO `admin_server` (`id`, `nom_du_serveur`, `adresse_du_serveur`, `port_du_serveur`, `adresse_email_du_serveur`, `mot_de_passe_du_serveur`) VALUES
+(1, 'Serveur de test', '127.0.0.1', '007', 'mail@mail.com', 'password');
+
+--
+-- Déchargement des données de la table `admin_roles`
+--
+
+INSERT INTO `admin_roles` (`id`, `nom`, `description`) VALUES
+(1, 'Super Administrateur', 'Description 1'),
+(2, 'Administrateur', 'Description 2'),
+(3, 'Modérateur', 'Description 3'),
+(4, 'Client', 'Description 4'),
+(5, 'Guest', 'Description 5');
+
+--
+-- Déchargement des données de la table `users_and_admin_roles`
+--
+
+INSERT INTO `users_and_admin_roles` (`id`, `user_id`, `admin_roles_id`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -355,6 +417,26 @@ ALTER TABLE `campaigns_and_lists_contacts`
   ADD KEY `campaigns_and_lists_contacts_ibfk_1` (`campaigns_id`),
   ADD KEY `campaigns_and_lists_contacts_ibfk_2` (`list_contacts_id`);
 
+--
+-- Index pour la table `admin_server`
+--
+ALTER TABLE `admin_server`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `admin_roles`
+--
+ALTER TABLE `admin_roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `users_and_admin_roles`
+--
+ALTER TABLE `users_and_admin_roles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `users_and_logs_ibfk_1` (`user_id`),
+  ADD KEY `users_and_logs_ibfk_2` (`admin_roles_id`);
+
 -- --------------------------------------------------------
 
 --
@@ -415,6 +497,24 @@ ALTER TABLE `campaigns`
 ALTER TABLE `campaigns_and_lists_contacts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
+--
+-- AUTO_INCREMENT pour la table `admin_server`
+--
+ALTER TABLE `admin_server`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT pour la table `admin_roles`
+--
+ALTER TABLE `admin_roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `users_and_admin_roles`
+--
+ALTER TABLE `users_and_admin_roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 -- --------------------------------------------------------
 
 --
@@ -448,6 +548,13 @@ ALTER TABLE `users_and_logs`
 ALTER TABLE `campaigns_and_lists_contacts`
   ADD CONSTRAINT `campaigns_and_lists_contacts_ibfk_1` FOREIGN KEY (`campaigns_id`) REFERENCES `campaigns` (`id`),
   ADD CONSTRAINT `campaigns_and_lists_contacts_ibfk_2` FOREIGN KEY (`list_contacts_id`) REFERENCES `lists_contacts` (`id`);
+
+--
+-- Contraintes pour la table `users_and_admin_roles`
+--
+ALTER TABLE `users_and_admin_roles`
+  ADD CONSTRAINT `users_and_admin_roles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `users_and_admin_roles_ibfk_2` FOREIGN KEY (`admin_roles_id`) REFERENCES `admin_roles` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

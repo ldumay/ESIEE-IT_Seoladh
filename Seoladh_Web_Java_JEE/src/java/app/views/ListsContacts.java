@@ -115,16 +115,23 @@ public class ListsContacts extends HttpServlet {
                 }
             }
             
-            // = = = [ Suppression d'un contact ] = = =
-            if(request.getParameter("contact-suppr-id")!=null){
-                //-Validation Ajout Film
-                if( (!request.getParameter("contact-suppr-id").isEmpty() && !"".equals(request.getParameter("contact-suppr-id"))) ){
+            // = = = [ Suppression d'une liste de contacts - Partie 1 ] = = =
+            if(request.getParameter("list-contacts-suppr-id")!=null){
+                if( (!request.getParameter("list-contacts-suppr-id").isEmpty() && !"".equals(request.getParameter("list-contacts-suppr-id"))) 
+                    && (!request.getParameter("nouvelle-liste-contacts").isEmpty() && !"".equals(request.getParameter("nouvelle-liste-contacts"))) ){
                     //-
                     System.out.println("-> Edition de contact : START");
+                    String oldListeContacts = request.getParameter("ancienne-liste-contacts");
+                    String newListeContacts = request.getParameter("nouvelle-liste-contacts");
                     //-
-                    sql = "DELETE FROM `lists_contacts` WHERE `id`="+request.getParameter("contact-suppr-id")+";";
+                    sql = "UPDATE `lists_contacts_and_contacts` "
+                            +"SET `list_contacts_id`="+newListeContacts+" "
+                            +"WHERE `list_contacts_id`="+oldListeContacts+";";
                     System.out.println(sql);
+                    connectBDD.setDatasBySQL(sql);
                     //-
+                    sql = "DELETE FROM `lists_contacts` WHERE `id`="+oldListeContacts+";";
+                    System.out.println(sql);
                     connectBDD.setDatasBySQL(sql);
                     //-
                     System.out.println("-> Edition de contact : END");
@@ -144,7 +151,7 @@ public class ListsContacts extends HttpServlet {
                             +"<td>"+listContacts.getDateDebut()+"</td>\n"
                             +"<td>"+listContacts.getDateFin()+"</td>\n";
                 contentTable += "<td><a href=\"lists-contacts-edit?contact-edit-id="+listContacts.getId()+"\">Modifier</a></td>\n";
-                contentTable += "<td><a href=\"lists-contacts?contact-suppr-id="+listContacts.getId()+"\">Supprimer</a></td>\n";
+                contentTable += "<td><a href=\"lists-contacts-suppr?list-contacts-id="+listContacts.getId()+"\">Supprimer</a></td>\n";
                 contentTable +="</tr>\n";
             }
             // Lecture de données terminée

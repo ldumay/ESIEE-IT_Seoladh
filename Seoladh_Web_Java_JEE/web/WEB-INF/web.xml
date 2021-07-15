@@ -86,6 +86,16 @@
         <url-pattern>/lists-contacts-new</url-pattern>
     </servlet-mapping>
     <!-- ./Page_ListsContacts_New -->
+    <!-- Page_ListsContacts_Suppr -->
+    <servlet>
+        <servlet-name>ListsContactsSuppr</servlet-name>
+        <servlet-class>app.views.ListsContactsSuppr</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListsContactsSuppr</servlet-name>
+        <url-pattern>/lists-contacts-suppr</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_ListsContacts_Suppr -->
     <!-- Page_ListsContacts_Clean -->
     <servlet>
         <servlet-name>ListsContactsClean</servlet-name>

@@ -55,7 +55,7 @@ public class ListsContactsNew extends HttpServlet {
             System.out.println("BDD : Open");
             
             // Récupération des lists de contacts
-            sql = "SELECT * FROM `contacts` WHERE blacklist=0;";
+            sql = "SELECT * FROM `contacts` WHERE blacklist=1;";
             System.out.println(sql);
             datas = connectBDD.getDatasBySQL(sql);
             while (datas.next()) {

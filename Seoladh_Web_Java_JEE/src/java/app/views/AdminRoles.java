@@ -6,8 +6,12 @@
 package app.views;
 
 import app.includes.ElementsPages;
+import app.models.ListContacts;
+import app.models.Role;
+import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +41,36 @@ public class AdminRoles extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            // Variables nécessasires
+            ConnectBDD connectBDD = new ConnectBDD();
+            ResultSet datas = null;
+            String sql = null;
+            String contentTable = "";
+            
+            // = = = [ Lecture des contacts ] = = =
+            System.out.println("-> lists de contacts : START");
+            
+            // = = = [ Connexion à la BDD ] = = =
+            connectBDD.openConnexion();
+            System.out.println("BDD : Open");
+            
+            // Récupération des lists de contacts
+            sql = "SELECT * FROM `admin_roles`;";
+            System.out.println(sql);
+            datas = connectBDD.getDatasBySQL(sql);
+            while (datas.next()) {
+                Role listContacts = new Role(datas.getInt(1), datas.getString(2), datas.getString(3));
+                contentTable += "<tr>\n"
+                            +"<td>"+listContacts.getNom()+"</td>\n"
+                            +"<td>"+listContacts.getDescription()+"</td>\n";
+                contentTable += "<td><a href=\"admin-roles-edit?admin-roles-id="+listContacts.getId()+"\">Modifier</a></td>\n";
+                contentTable += "<td><a href=\"admin-roles?admin-roles-id="+listContacts.getId()+"\">Supprimer</a></td>\n";
+                contentTable +="</tr>\n";
+            }
+            // Lecture de données terminée
+            connectBDD.closeConnexion();
+            System.out.println("-> lists de contacts : END");
+            
             ElementsPages elements = new ElementsPages();
             //-
             String htmlContent = "";
@@ -71,14 +105,27 @@ public class AdminRoles extends HttpServlet {
                             +"<!-- Page - Title -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
                                 +"<h3>Gestion des rôles</h3>"
+                                +"<p><a href=\"admin-roles\">Ajout un rôle</a></p>"
                             +"</div>\n"
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
-                            /**
-                             * CODE ICI
-                             */
-                            +"<p>Code à venir.</p>"
+                            +"<div class=\"row col-md-12 col-xs-12 text-center\">"
+                                +"<table class=\"table table-bordered text-center\">\n"
+                                    +"<thead>\n"
+                                        +"<tr>\n"
+                                            +"<th scope=\"col\">Nom</th>\n"
+                                            +"<th scope=\"col\">Description</th>\n"
+                                            +"<th scope=\"col\">Modifier</th>\n"
+                                            +"<th scope=\"col\">Supprimer</th>\n"
+                                        +"</tr>\n"
+                                    +"</thead>\n"
+                                    +"<tbody>\n"
+                                        +contentTable
+                                    +"</tbody>\n"
+                                +"</table>"
+                            +"</div>\n"
+                            +"\n"
                         +"</div>\n"
                     +"</div>\n"
                     +"<hr>"

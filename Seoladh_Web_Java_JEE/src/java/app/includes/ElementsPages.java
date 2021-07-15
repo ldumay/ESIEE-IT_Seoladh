@@ -5,6 +5,7 @@
  */
 package app.includes;
 
+import app.models.ServeurSMTP;
 import app.models.User;
 import app.network.AppSession;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 public class ElementsPages {
     
     //-Attributs de base
+    private ServeurSMTP serveurSMTP;
     private AppSession session;
     private User userConnect;
     private String headBody;
@@ -31,6 +33,7 @@ public class ElementsPages {
      */
     public ElementsPages() throws SQLException{
         
+        serveurSMTP = new ServeurSMTP();
         session = new AppSession("superAdmin","superAdmin");
         userConnect = session.getUserConnect();
         
@@ -234,6 +237,7 @@ public class ElementsPages {
     }
 
     // The methods of basic getter below.
+    public ServeurSMTP getServeurSMTP() { return serveurSMTP; }
     public AppSession getSessionApp() { return session; }
     public User getUserConnect() { return userConnect; }
     public String getHeadBody() { return headBody; }
