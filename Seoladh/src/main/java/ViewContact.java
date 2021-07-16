@@ -352,14 +352,9 @@ public class ViewContact extends JFrame{
 		frmSeoladh.getContentPane().setLayout(groupLayout);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(table.getRowCount() > 0) {
-					String colonne[] = new String[table.getColumnCount()];
-					for (int i = 0; i < colonne.length; i++) {
-						colonne[i] = table.getColumnName(i);
-					}
-					PopUp.main(colonne,frmSeoladh,listContact,table);
-					frmSeoladh.disable();
-				}
+				frmSeoladh.dispose();
+				CreateListContacts inter = new CreateListContacts();
+				inter.main(null);
 			}
 		});
 		btnExporter.addActionListener(new ActionListener() {

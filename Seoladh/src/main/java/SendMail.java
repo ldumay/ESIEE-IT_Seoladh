@@ -51,7 +51,7 @@ public class SendMail {
 	            message.setSubject(Subject);
 
 	            // Now set the actual message
-	            message.setText(text);
+	            message.setContent(text,"text/html");
 
 	            System.out.println("sending...");
 	            // Send message
