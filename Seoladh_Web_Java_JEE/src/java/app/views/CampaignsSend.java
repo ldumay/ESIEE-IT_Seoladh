@@ -51,7 +51,7 @@ public class CampaignsSend extends HttpServlet {
                 String contentTable = "";
 
                 // = = = [ Lecture des campaigns ] = = =
-                System.out.println("-> lists de contacts : START");
+                System.out.println("-> Preparation de la campagne : START");
 
                 // = = = [ Connexion à la BDD ] = = =
                 connectBDD.openConnexion();
@@ -62,12 +62,17 @@ public class CampaignsSend extends HttpServlet {
                 System.out.println(sql);
                 datas = connectBDD.getDatasBySQL(sql);
                 while (datas.next()) {
-                    campaign = new Campaign(datas.getInt(1), datas.getString(2), datas.getString(3), datas.getString(4), datas.getString(5), datas.getString(6));
+                    if(datas.getString(7)!=null && datas.getString(7)!=""){
+                        campaign = new Campaign(datas.getInt(1), datas.getString(2), datas.getString(3), datas.getString(4), datas.getString(5), datas.getString(6), datas.getString(7));
+                    } else {
+                        campaign = new Campaign(datas.getInt(1), datas.getString(2), datas.getString(3), datas.getString(4), datas.getString(5), datas.getString(6));
+                        campaign.setMessage("");
+                    }
                 }
 
                 // Lecture de données terminée
                 connectBDD.closeConnexion();
-                System.out.println("-> lists de contacts : END");
+                System.out.println("-> Preparation de la campagne : END");
             }
             
             ElementsPages elements = new ElementsPages();
@@ -108,23 +113,41 @@ public class CampaignsSend extends HttpServlet {
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
-                            +"<form method=\"post\" action=\"campaigns\" class=\"text-center\">\n"
+                            +"<form method=\"post\" action=\"campaigns-send-result\" class=\"text-center\">\n"
+                                +"<!-- IdDuContact -->\n"
+                                +"<div class=\"col-sm-6\" style=\"display:none;\">"
+                                    +"<input type=\"text\" class=\"form-control\" id=\"id\" name=\"id\" value=\""+campaign.getId()+"\">"
+                                +"</div>\n"
+                                +"<br><br>\n"
+                                +"\n"
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
-                                    +"<div class=\"row col-md-3 col-xs-3\"></div>\n"
-                                    +"<div class=\"row col-md-6 col-xs-6 text-center\">\n"
-                                        +"<label for=\"exampleFormControlTextarea1\" class=\"form-label\">Contenu du message</label>"
-                                        +"<textarea class=\"form-control\" id=\"exampleFormControlTextarea1\" row=\"5\"></textarea>"
+                                    +"<div class=\"row col-md-6 col-xs-6\">\n"
+                                        +"<h4>Détail de la campagne</h4>\n"
+                                        +"<p class=\"text-left\">"
+                                        +"<b>Nom :</b> "+campaign.getNom()+""
+                                        +"<br><b>Description :</b> "+campaign.getDescription()+""
+                                        +"<br><b>Date de début :</b> "+campaign.getDateDebut()+""
+                                        +"<br><b>Date de fin :</b> "+campaign.getDateFin()+""
+                                        +"</p>"
                                     +"</div>\n"
-                                    +"<div class=\"row col-md-3 col-xs-3\"></div>\n"
+                                    +"<div class=\"row col-md-6 col-xs-6 text-center\">\n"
+                                        +"<h4>Contenu du message</4h>\n"
+                                        +"<br><br>\n"
+                                        +"<textarea class=\"form-control\" id=\"message\" name=\"message\" rows=\"14\">"+campaign.getMessage()+"</textarea>"
+                                    +"</div>\n"
                                 +"</div>\n"
                                 +"<br>\n"
                                 +"\n"
                                 +"<div class=\"row col-md-12 col-xs-12\">\n"
-                                    +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
-                                    +"<div class=\"row col-md-4 col-xs-4 text-center\">\n"
+                                    +"<div class=\"row col-md-2 col-xs-2\"></div>\n"
+                                    +"<div class=\"row col-md-3 col-xs-3 text-center\">\n"
+                                        +"<button type=\"submit\" class=\"btn btn-danger\" name=\"campaign-send-cancel\" value=\"campaign-send-cancel\">Annuler l'envoyer la campagne</button>\n"
+                                    +"</div>\n"
+                                    +"<div class=\"row col-md-2 col-xs-2\"></div>\n"
+                                    +"<div class=\"row col-md-3 col-xs-3 text-center\">\n"
                                         +"<button type=\"submit\" class=\"btn btn-success\" name=\"campaign-send\" value=\"campaign-send\">Envoyer la campagne</button>\n"
                                     +"</div>\n"
-                                    +"<div class=\"row col-md-4 col-xs-4\"></div>\n"
+                                    +"<div class=\"row col-md-2 col-xs-2\"></div>\n"
                                 +"</div>\n"
                             +"</form>"
                         +"</div>\n"

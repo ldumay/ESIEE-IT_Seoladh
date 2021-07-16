@@ -99,7 +99,8 @@ CREATE TABLE `campaigns` (
   `description` varchar(64) DEFAULT NULL,
   `date_start` varchar(32) DEFAULT NULL,
   `date_end` varchar(32) DEFAULT NULL,
-  `statut` varchar(32) DEFAULT NULL
+  `statut` varchar(32) DEFAULT NULL,
+  `message` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -333,9 +334,10 @@ INSERT INTO `users_and_logs` (`id`, `user_id`, `log_id`) VALUES
 --
 -- Déchargement des données de la table `campaigns`
 --
+INSERT INTO `campaigns` (`id`, `nom`, `description`, `date_start`, `date_end`, `statut`, `message`) VALUES
+(1, 'Campagne 1', 'Ceci est une description.', '2021-01-01', '2021-01-05', 'Envoyé', 'Bonjour,\r\n\r\nCeci est un message de Seoladh !\r\n\r\nCordialement,\r\nSeoladh Corporation.');
 
 INSERT INTO `campaigns` (`id`, `nom`, `description`, `date_start`, `date_end`, `statut`) VALUES
-(1, 'Campagne 1', 'Ceci est une description.', '2021-01-01', '2021-01-05', 'Envoyé'),
 (2, 'Campagne 2', 'Ceci est une description.', '2021-01-06', '2021-01-10', 'Annulé'),
 (3, 'Campagne 3', 'Ceci est une description.', '2021-01-11', '2021-01-15', 'En attente'),
 (4, 'Campagne 4', 'Ceci est une description.', '2021-01-16', '2021-01-20', 'En attente'),

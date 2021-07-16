@@ -23,6 +23,7 @@ public class Campaign {
     private String dateFin;
     private String statut;
     private String mail;
+    private String message;
     private int listeContacts_id;
     private ArrayList<ListContacts> listeContactsCollection;
     
@@ -49,6 +50,32 @@ public class Campaign {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.statut = statut;
+        this.listeContactsCollection = getListeContactsCollection(this.id);
+        if(listeContactsCollection.size()>0){
+            this.listeContacts_id = listeContactsCollection.get(0).getId();
+        }
+    }
+    
+    /**
+     * Constructor
+     * @param id
+     * @param nom
+     * @param description
+     * @param dateDebut
+     * @param dateFin
+     * @param statut
+     * @param message
+     * @throws java.sql.SQLException
+     */
+    public Campaign(int id, String nom, String description, String dateDebut,
+            String dateFin, String statut, String message) throws SQLException{
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.statut = statut;
+        this.message = message;
         this.listeContactsCollection = getListeContactsCollection(this.id);
         if(listeContactsCollection.size()>0){
             this.listeContacts_id = listeContactsCollection.get(0).getId();
@@ -114,6 +141,7 @@ public class Campaign {
     public String getDateFin() { return dateFin; }
     public String getStatut() { return statut; }
     public String getMail() { return mail; }
+    public String getMessage(){ return message; }
     public int getListeContactsId() { return listeContacts_id; }
     public ArrayList<ListContacts> getListeContactsCollection() { return listeContactsCollection; }
 
@@ -125,6 +153,7 @@ public class Campaign {
     public void setDateFin(String dateFin) { this.dateFin = dateFin; }
     public void setStatut(String statut) { this.statut = statut; }
     public void setMail(String mail){ this.mail = mail; }
+    public void setMessage(String message){ this.message = message; }
     public void setListeContactsId(int listeContacts_id) { this.listeContacts_id = listeContacts_id; }
     public void setListeContactsCollection(ArrayList<ListContacts> listeContactsCollection) { this.listeContactsCollection = listeContactsCollection; }
 

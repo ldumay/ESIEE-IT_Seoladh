@@ -197,7 +197,6 @@ public class ListsContactsEdit extends HttpServlet {
                                         +"</div>\n"
                                         +"<br><br>\n"
                                         +"\n"
-                                        +"\n"
                                         +"<!-- ListeDeContact_Nom -->\n"
                                         +"<label class=\"col-sm-4 col-form-label\" for=\"nom\">Nom</label>\n"
                                         +"<div class=\"col-sm-6\">"

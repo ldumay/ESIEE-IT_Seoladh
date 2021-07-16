@@ -108,6 +108,16 @@
         <url-pattern>/campaigns-send</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Campaigns_Send -->
+    <!-- Page_Campaigns_Send_Result -->
+    <servlet>
+        <servlet-name>CampaignsSendResult</servlet-name>
+        <servlet-class>app.views.CampaignsSendResult</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignsSendResult</servlet-name>
+        <url-pattern>/campaigns-send-result</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Campaigns_Send_Result -->
     <!-- Page_ListsContacts -->
     <servlet>
         <servlet-name>ListsContacts</servlet-name>
@@ -258,7 +268,6 @@
         <url-pattern>/admin-users</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Admin_Users -->
-    
     <!-- Page_Admin_Users_New -->
     <servlet>
         <servlet-name>AdminUsersNew</servlet-name>
@@ -279,7 +288,6 @@
         <url-pattern>/admin-users-edit</url-pattern>
     </servlet-mapping>
     <!-- ./Page_Admin_Users_Edit -->
-    
     <!-- Page_Admin_Roles -->
     <servlet>
         <servlet-name>AdminRoles</servlet-name>
