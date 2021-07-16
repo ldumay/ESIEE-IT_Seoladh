@@ -22,6 +22,7 @@ public class Campaign {
     private String dateDebut;
     private String dateFin;
     private String statut;
+    private String mail;
     private int listeContacts_id;
     private ArrayList<ListContacts> listeContactsCollection;
     
@@ -112,6 +113,7 @@ public class Campaign {
     public String getDateDebut() { return dateDebut; }
     public String getDateFin() { return dateFin; }
     public String getStatut() { return statut; }
+    public String getMail() { return mail; }
     public int getListeContactsId() { return listeContacts_id; }
     public ArrayList<ListContacts> getListeContactsCollection() { return listeContactsCollection; }
 
@@ -122,6 +124,7 @@ public class Campaign {
     public void setDateDebut(String dateDebut) { this.dateDebut = dateDebut; }
     public void setDateFin(String dateFin) { this.dateFin = dateFin; }
     public void setStatut(String statut) { this.statut = statut; }
+    public void setMail(String mail){ this.mail = mail; }
     public void setListeContactsId(int listeContacts_id) { this.listeContacts_id = listeContacts_id; }
     public void setListeContactsCollection(ArrayList<ListContacts> listeContactsCollection) { this.listeContactsCollection = listeContactsCollection; }
 
