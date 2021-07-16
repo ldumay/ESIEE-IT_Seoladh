@@ -6,8 +6,11 @@
 package app.views;
 
 import app.includes.ElementsPages;
+import app.models.Log;
+import app.network.ConnectBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +40,38 @@ public class Admin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            // Variables nécessasires
+            ConnectBDD connectBDD = new ConnectBDD();
+            ResultSet datas = null;
+            String sql = null;
+            String contentTable = "";
+            
+            // = = = [ Lecture des campaigns ] = = =
+            System.out.println("-> lists de contacts : START");
+            
+            // = = = [ Connexion à la BDD ] = = =
+            connectBDD.openConnexion();
+            System.out.println("BDD : Open");
+            
+            // Récupération des campaigns
+            sql = "SELECT * FROM `logs`;";
+            System.out.println(sql);
+            datas = connectBDD.getDatasBySQL(sql);
+            while (datas.next()) {
+                Log logs = new Log(datas.getInt(1), datas.getString(2), datas.getString(3));
+                //-
+                contentTable += "<tr>\n"
+                            +"<td>"+logs.getId()+"</td>\n"
+                            +"<td>"+logs.getDate()+"</td>\n"
+                            +"<td>"+logs.getIp()+"</td>\n";
+                contentTable +="</tr>\n";
+            }
+            
+            // Lecture de données terminée
+            connectBDD.closeConnexion();
+            System.out.println("-> lists de contacts : END");
+            
             ElementsPages elements = new ElementsPages();
             //-
             String htmlContent = "";
@@ -75,7 +110,22 @@ public class Admin extends HttpServlet {
                             //_Content_
                             +"<!-- Page - Content -->\n"
                             +"<div class=\"row col-md-12 col-xs-12 text-center\">"
-                                +"<p>Vous trouverez ici toutes les informations d'administrations importantes.</p>"
+                                +"<p>Vous trouverez ici toutes les informations d'administrations importantes."
+                                +"<br>Pour le moment, vous trouverez ci-dessous les logs.</p>"
+                                +"<hr>"
+                                +"<h4>Logs</h4>"
+                                +"<table class=\"table table-bordered text-center\">\n"
+                                    +"<thead>\n"
+                                        +"<tr>\n"
+                                            +"<th scope=\"col\">Id</th>\n"
+                                            +"<th scope=\"col\">Date</th>\n"
+                                            +"<th scope=\"col\">Ip</th>\n"
+                                        +"</tr>\n"
+                                    +"</thead>\n"
+                                    +"<tbody>\n"
+                                        +contentTable
+                                    +"</tbody>\n"
+                                +"</table>"
                             +"</div>\n"
                         +"</div>\n"
                     +"</div>\n"

@@ -4,18 +4,38 @@
     <display-name>Seoladh | App Web Java JEE</display-name>
     <!-- Home Page -->
     <welcome-file-list>
-        <welcome-file>/home</welcome-file>
+        <welcome-file>/</welcome-file>
     </welcome-file-list>
-    <!-- Page_Home -->
+    <!-- Page_Index -->
     <servlet>
-        <servlet-name>Home</servlet-name>
-        <servlet-class>app.views.Home</servlet-class>
+        <servlet-name>Index</servlet-name>
+        <servlet-class>app.views.Index</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Home</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <!-- ./Page_Home -->
+    <!-- ./Page_Index -->
+    <!-- Page_Auth_Register -->
+    <servlet>
+        <servlet-name>AuthRegister</servlet-name>
+        <servlet-class>app.views.AuthRegister</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthRegister</servlet-name>
+        <url-pattern>/auth-register</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Auth_Register -->
+    <!-- Page_Auth_Login -->
+    <servlet>
+        <servlet-name>AuthLogin</servlet-name>
+        <servlet-class>app.views.AuthLogin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthLogin</servlet-name>
+        <url-pattern>/auth-login</url-pattern>
+    </servlet-mapping>
+    <!-- ./Page_Auth_Login -->
     <!-- Page_Campaigns_Lists -->
     <servlet>
         <servlet-name>CampaignsLists</servlet-name>

@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ldumay
  */
-@WebServlet(name = "campaigns-export", urlPatterns = {"/campaigns-export"})
-public class CampaignsExport extends HttpServlet {
+@WebServlet(name = "auth-register", urlPatterns = {"/auth-register"})
+public class AuthRegister extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,39 +49,33 @@ public class CampaignsExport extends HttpServlet {
                 +"<body>\n"
                 +"<div class=\"container\">"
                 //_Header_
-                +elements.getHeaderContent()
-                //_Navbar_
-                +elements.getNavbarContent()
+                +elements.getHeaderContentLogin()
                 //_Content_
                 +"<div id=\"sub-container\">\n"
-                    +"<div id=\"content\" class=\"row\">\n"
-                        +"<div class=\"col-md-12 col-xs-12\">\n"
-                            //_Breadcrumb_
-                            +"<!-- Page - Breadcrumb -->\n"
-                            +"<div class=\"row col-md-12 col-xs-12\">\n"
-                                +"<nav style=\"--bs-breadcrumb-divider: '>';\" aria-label=\"breadcrumb\">\n"
-                                    +"<ol class=\"breadcrumb\">\n"
-                                        +"<li class=\"breadcrumb-item\"><a href=\"home\">Accueil</a></li>\n"
-                                        +"<li class=\"breadcrumb-item\"><a href=\"campaigns\">Campagnes</a></li>\n"
-                                        +"<li class=\"breadcrumb-item active\">Exportation de campagnes</li>\n"
-                                    +"</ol>\n"
-                                +"</nav>\n"
-                            +"</div>\n"
-                            //_Title_
-                            +"<!-- Page - Title -->\n"
-                            +"<div class=\"row col-md-12 col-xs-12 text-center\">"
-                                +"<h3>Exportation de campagnes</h3>"
-                            +"</div>\n"
-                            +"<hr>\n"
-                            //_Content_
-                            +"<!-- Page - Content -->\n"
-                            /**
-                             * CODE ICI
-                             */
-                            +"<p>Code à venir.</p>"
-                            //-
-                        +"</div>\n"
-                    +"</div>\n"
+                    +"<div id=\"content\" class=\"row\">"
+                        +"<div class=\"col-md-12 col-xs-12 text-center\">"
+                            +"<p><a href=\"auth-login\">Vous connecter</a></p>"
+                        +"</div>"
+                        +"<hr>"
+                        +"<div class=\"col-md-12 col-xs-12\">"
+                            +"<form>"
+                                +"<div class=\"mb-3\">"
+                                    +"<label for=\"identifiant\" class=\"form-label\">Identifiant</label>"
+                                    +"<input type=\"text\" class=\"form-control\" id=\"identifiant\">"
+                                +"</div>"
+                                +"<div class=\"mb-3\">"
+                                    +"<label for=\"motDePasse\" class=\"form-label\">Mot de passe</label>"
+                                    +"<input type=\"password\" class=\"form-control\" id=\"motDePasse\">"
+                                +"</div>"
+                                +"<div class=\"mb-3\">"
+                                    +"<label for=\"confirmationMotDePasse\" class=\"form-label\">Confirmation du mot de passe</label>"
+                                    +"<input type=\"password\" class=\"form-control\" id=\"confirmationMotDePasse\">"
+                                +"</div>"
+                                +"<a href=\"login.jsp\"><button type=\"button\" class=\"btn btn-success\">Inscription</button></a>"
+                            +"</form>"
+                        +"</div>"
+                    +"</div>"
+                    +"\n"
                     +"<hr>"
                 //_Footer_
                     +elements.getFooterContent()
@@ -110,7 +104,7 @@ public class CampaignsExport extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CampaignsExport.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AuthRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -127,7 +121,7 @@ public class CampaignsExport extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CampaignsExport.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AuthRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

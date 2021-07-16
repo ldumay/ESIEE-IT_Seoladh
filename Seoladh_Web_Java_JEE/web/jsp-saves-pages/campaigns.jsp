@@ -1,7 +1,7 @@
 <%-- 
     Document   : campaigns.jsp
     Created on : 24 juin 2021, 10:59:05
-    Author     : mtl
+    Author     : ldumay
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

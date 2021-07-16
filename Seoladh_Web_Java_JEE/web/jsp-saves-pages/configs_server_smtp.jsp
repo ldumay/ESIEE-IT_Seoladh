@@ -1,7 +1,7 @@
 <%-- 
     Document   : parametres_serveur_smtp.jsp
     Created on : 24 juin 2021, 12:00:23
-    Author     : mtl
+    Author     : ldumay
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

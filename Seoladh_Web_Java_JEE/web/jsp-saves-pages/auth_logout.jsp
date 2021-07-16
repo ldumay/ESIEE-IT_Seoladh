@@ -1,7 +1,7 @@
 <%-- 
     Document   : login.jsp
     Created on : 23 juin 2021, 21:56:13
-    Author     : mtl
+    Author     : ldumay
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

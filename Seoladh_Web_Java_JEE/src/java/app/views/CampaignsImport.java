@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author mtl
+ * @author ldumay
  */
 @WebServlet(name = "campaigns-import", urlPatterns = {"/campaigns-import"})
 public class CampaignsImport extends HttpServlet {
