@@ -32,26 +32,40 @@ public class Index extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             ElementsPages elements = new ElementsPages();
-            elements.getUserConnect().getIdentifiant();
-            elements.getUserConnect().getMotDePasse();
             
-            /* TODO output your page here. You may use following sample code. */
-            /*
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Index</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Index at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            */
+            //Demande de connexion
+            if( (request.getParameter("login")!=null && !request.getParameter("login").isEmpty() && !"".equals(request.getParameter("login"))) ){
+                //-
+                if( (request.getParameter("identifiant")!=null && !request.getParameter("identifiant").isEmpty() && !"".equals(request.getParameter("identifiant")))
+                    && (request.getParameter("motDePasse")!=null && !request.getParameter("motDePasse").isEmpty() && !"".equals(request.getParameter("motDePasse"))) ){
+                    //-
+                    String identifiant = request.getParameter("identifiant");
+                    String motDePasse = request.getParameter("motDePasse");
+                    //nouvelle connexion
+                    elements.getSessionApp().newUserConnect(identifiant, motDePasse);
+                }
+            }
+            
+            //Demande de connexion
+            if( (request.getParameter("logout")!=null && !request.getParameter("logout").isEmpty() && !"".equals(request.getParameter("logout"))) ){
+                elements.getSessionApp().supprUserConnect();
+            }
+            
+            //Si connecté
+            if( (elements.getSessionApp()!=null && !"".equals(elements.getSessionApp()))
+                    && (elements.getSessionApp().getUserConnect()!=null && !"".equals(elements.getSessionApp().getUserConnect()))
+                    && (elements.getSessionApp().getUserConnect().getIdentifiant()!=null && !"".equals(elements.getSessionApp().getUserConnect().getIdentifiant()))
+                    && (elements.getSessionApp().getUserConnect().getMotDePasse()!=null && !"".equals(elements.getSessionApp().getUserConnect().getMotDePasse())) ){
+                response.sendRedirect("home");
+            } else {
+                response.sendRedirect("auth-login");
+            }
         }
     }
 

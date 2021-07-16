@@ -34,7 +34,7 @@ public class ElementsPages {
     public ElementsPages() throws SQLException{
         
         serveurSMTP = new ServeurSMTP();
-        session = new AppSession("superAdmin","superAdmin");
+        session = new AppSession();
         userConnect = session.getUserConnect();
         
         //Création de la head du contenu de la page HTML
@@ -179,16 +179,15 @@ public class ElementsPages {
                                         +"</ul>\n"
                                     +"</li>\n"
                                     +"\n"
-                                    +"<li class=\"nav-item\">"
-                                        +"<a class=\"nav-link \" href=\"profile\">Profil</a>"
-                                    +"</li>\n"
-                                    +"\n"
                                     +"<!-- Authentification -->\n"
                                     +"<li class=\"nav-item dropdown\">\n"
-                                        +"<a class=\"nav-link dropdown-toggle\" id=\"administation\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Authentification</a>\n"
-                                        +"<ul class=\"dropdown-menu\" aria-labelledby=\"administation\">\n"
+                                        +"<a class=\"nav-link dropdown-toggle\" id=\"profile\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Profile</a>\n"
+                                        +"<ul class=\"dropdown-menu\" aria-labelledby=\"profile\">\n"
+                                            /*
                                             +"<li><a class=\"dropdown-item\" href=\"auth-register\">Inscription</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"auth-login\">Connexion</a></li>\n"
+                                            */
+                                            +"<li><a class=\"dropdown-item\" href=\"profile\">Profil</a></li>\n"
                                             +"<li><a class=\"dropdown-item\" href=\"index?logout=true\">Déconnexion</a></li>\n"
                                         +"</ul>\n"
                                     +"</li>\n"

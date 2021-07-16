@@ -7,7 +7,6 @@
         <welcome-file>/index</welcome-file>
     </welcome-file-list>
     <!-- Page_Index -->
-    <!--
     <servlet>
         <servlet-name>Index</servlet-name>
         <servlet-class>app.views.Index</servlet-class>
@@ -16,7 +15,6 @@
         <servlet-name>Index</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
-    -->
     <!-- ./Page_Index -->
     <!-- Page_Home -->
     <servlet>

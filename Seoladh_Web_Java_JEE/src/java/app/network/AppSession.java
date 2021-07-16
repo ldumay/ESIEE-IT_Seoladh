@@ -18,6 +18,11 @@ public class AppSession {
     
     /**
      * Constructor
+     */
+    public AppSession(){}
+    
+    /**
+     * Constructor
      * @param identifiant
      * @param motDePasse
      * @throws java.sql.SQLException
@@ -26,6 +31,22 @@ public class AppSession {
         this.userConnect = new User(identifiant, motDePasse);
     }
 
+    /**
+     * Mise à jour de l'utilisateur connecté
+     * @param identifiant
+     * @param motDePasse
+     */
+    public void newUserConnect(String identifiant, String motDePasse) throws SQLException{
+        this.userConnect = new User(identifiant, motDePasse);
+    }
+    
+    /**
+     * Remise à zéro de l'utilisateur connecté. 
+     */
+    public void supprUserConnect(){
+        this.userConnect = null;
+    }
+    
     // The methods of basic getter below.
     public User getUserConnect() { return userConnect; }
 

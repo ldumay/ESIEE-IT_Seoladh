@@ -6,6 +6,7 @@
 package app.views;
 
 import app.includes.ElementsPages;
+import app.models.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,12 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "profile", urlPatterns = {"/profile"})
 public class Profile extends HttpServlet {
     
-    ElementsPages elements;
-
-    public Profile() throws SQLException {
-        this.elements = new ElementsPages();
-    }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,6 +37,9 @@ public class Profile extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        ElementsPages elements = new ElementsPages();
+        User userConnect = new User("superAdmin", "superAdmin");
         
         try (PrintWriter out = response.getWriter()) {
             //-
@@ -88,24 +86,24 @@ public class Profile extends HttpServlet {
                                 +"<div class=\"col-md-4 col-xs-4\">\n"
                                     +"<h4>User Connect :</h4>"
                                     +"<ul>"
-                                        +"<li><b>Identifiant : </b>"+elements.getUserConnect().getIdentifiant()+"</li>"
+                                        +"<li><b>Identifiant : </b>"+userConnect.getIdentifiant()+"</li>"
                                         +"<li><b>Mot de passe : </b>*****</li>"
-                                        //+"<li><b>Mot de passe : </b>"+elements.getUserConnect().getMotDePasse()+"</li>"
+                                        //+"<li><b>Mot de passe : </b>"+userConnect.getMotDePasse()+"</li>"
                                     +"<br>"
-                                        +"<li><b>Id : </b>"+elements.getUserConnect().getContactInfos().getId()+"</li>"
-                                        +"<li><b>Nom : </b>"+elements.getUserConnect().getContactInfos().getNom()+"</li>"
-                                        +"<li><b>Prénom : </b>"+elements.getUserConnect().getContactInfos().getPrenom()+"</li>"
-                                        +"<li><b>Date de naissance : </b>"+elements.getUserConnect().getContactInfos().getDateNaissance()+"</li>"
-                                        +"<li><b>Catégorie : </b>"+elements.getUserConnect().getContactInfos().getCategorie()+"</li>"
-                                        +"<li><b>Email 1 : </b>"+elements.getUserConnect().getContactInfos().getEmail1()+"</li>"
-                                        +"<li><b>Email 2 : </b>"+elements.getUserConnect().getContactInfos().getEmail2()+"</li>"
-                                        +"<li><b>Téléphone 1 : </b>"+elements.getUserConnect().getContactInfos().getTel1()+"</li>"
-                                        +"<li><b>Téléphone 2 : </b>"+elements.getUserConnect().getContactInfos().getTel2()+"</li>"
-                                        +"<li><b>Adresse 1 : </b>"+elements.getUserConnect().getContactInfos().getAdresse1()+"</li>"
-                                        +"<li><b>Adresse 2 : </b>"+elements.getUserConnect().getContactInfos().getAdresse2()+"</li>"
-                                        +"<li><b>Code postal : </b>"+elements.getUserConnect().getContactInfos().getCodepostal()+"</li>"
-                                        +"<li><b>Ville : </b>"+elements.getUserConnect().getContactInfos().getVille()+"</li>"
-                                        +"<li><b>Pays : </b>"+elements.getUserConnect().getContactInfos().getPays()+"</li>"
+                                        +"<li><b>Id : </b>"+userConnect.getContactInfos().getId()+"</li>"
+                                        +"<li><b>Nom : </b>"+userConnect.getContactInfos().getNom()+"</li>"
+                                        +"<li><b>Prénom : </b>"+userConnect.getContactInfos().getPrenom()+"</li>"
+                                        +"<li><b>Date de naissance : </b>"+userConnect.getContactInfos().getDateNaissance()+"</li>"
+                                        +"<li><b>Catégorie : </b>"+userConnect.getContactInfos().getCategorie()+"</li>"
+                                        +"<li><b>Email 1 : </b>"+userConnect.getContactInfos().getEmail1()+"</li>"
+                                        +"<li><b>Email 2 : </b>"+userConnect.getContactInfos().getEmail2()+"</li>"
+                                        +"<li><b>Téléphone 1 : </b>"+userConnect.getContactInfos().getTel1()+"</li>"
+                                        +"<li><b>Téléphone 2 : </b>"+userConnect.getContactInfos().getTel2()+"</li>"
+                                        +"<li><b>Adresse 1 : </b>"+userConnect.getContactInfos().getAdresse1()+"</li>"
+                                        +"<li><b>Adresse 2 : </b>"+userConnect.getContactInfos().getAdresse2()+"</li>"
+                                        +"<li><b>Code postal : </b>"+userConnect.getContactInfos().getCodepostal()+"</li>"
+                                        +"<li><b>Ville : </b>"+userConnect.getContactInfos().getVille()+"</li>"
+                                        +"<li><b>Pays : </b>"+userConnect.getContactInfos().getPays()+"</li>"
                                     +"</ul>"
                                 +"</div>\n"
                                 +"<div class=\"col-md-2 col-xs-2\"></div>\n"

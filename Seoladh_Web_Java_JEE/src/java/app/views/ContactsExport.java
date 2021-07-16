@@ -74,10 +74,12 @@ public class ContactsExport extends HttpServlet {
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
-                            /**
-                             * CODE ICI
-                             */
-                            +"<p>Code à venir.</p>"
+                            +"<div class=\"row col-md-12 col-xs-12 text-center\">\n"
+                                +"<p>Vous aurez bientôt la possiblité de d'exporter des contacts."
+                                +"<br><a href=\"contacts\">Retour aux contacts</a>"
+                                +"</p>"
+                            +"</div>\n"
+                            +"\n"
                         +"</div>\n"
                     +"</div>\n"
                     +"<hr>"

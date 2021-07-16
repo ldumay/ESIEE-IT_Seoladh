@@ -74,10 +74,12 @@ public class ListsContactsClean extends HttpServlet {
                             +"<hr>\n"
                             //_Content_
                             +"<!-- Page - Content -->\n"
-                            /**
-                             * CODE ICI
-                             */
-                            +"<p>Code à venir.</p>"
+                            +"<div class=\"row col-md-12 col-xs-12 text-center\">\n"
+                                +"<p>Vous aurez bientôt la possiblité de nettoyer les doublons et erreures des listes de contacts."
+                                +"<br><a href=\"lists-contacts\">Retour aux listes de contacts</a>"
+                                +"</p>"
+                            +"</div>\n"
+                            +"\n"
                         +"</div>\n"
                     +"</div>\n"
                     +"<hr>"
