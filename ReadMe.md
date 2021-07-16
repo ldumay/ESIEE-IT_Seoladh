@@ -1,28 +1,34 @@
 # <img src="_sources/mail-envelope-flat-red.png" width="40px"/> ESIEE-IT - Projet Seoladh
 
+Bienvenue sur le git de Seoladh
+
+Vous ci-desous un petit guide d'installation.
+Vous aurez besoin cependant d'installer Ecplise la version lourde et NetBeans 8.2 pour la version Web.
+
 ## 1 - Arborescence Complète du projet
 
+Avant toute chose, cloner le git complet dans votre espace de travail Java.
 Vous trouverez le lien de l'arboresence complète du projet : [ici](https://github.com/ldumay/ESIEE-IT_Seoladh/tree/main/ReadMe_Arborescence.md)
 
-## 2 - Démo C
+## 2 - Version Lourde - Java JEE
 
-<img src="Seoladh_C_Demo/Seoladh_Demo.PNG" width="400px"/>
+<img src="images/client_lourd.png" width="400px"/>
 
-La démo C# est testable dans le dossier 
+Avec Eclipse, importer le projet Seoladh Java.
 
-```
-/Seoladh_C_Demo/Seoladh_Demo/bin/Debug/netcoreapp3.1/Seoladh.exe
-```
-
-Pour l'exécuter, il est requis ".NET Core Runtime" disponible dans le dossier :
+Dossier correspondant ci-dessous.
 
 ```
-/_Requis/Microsodt .NET_Core_Runtime_v3.1.15_win64.exe
+/Seoladh/
 ```
 
-## 3 - Modèle Java JEE [en cours de réalisation]
+## 3 - Version Web - Java JEE
+<img src="images/client_web.png" width="400px"/>
+
+Avec Netbeans (Glassfish ou Tomcat pré-configurer), ouvrez simplement le projet Seoladh Java JEE.
+
+Dossier correspondant ci-dessous.
 
 ```
 /Seoladh_Web_Java_JEE/
 ```
-Projet gérer via Netbeans 8.2.
