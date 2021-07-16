@@ -48,6 +48,31 @@ body{
     width: 23%!important;
 }
 
+#liste-de-contact-table{
+    border: 1px solid rgba(0, 0, 0, 1);
+    margin: 0;
+    padding: 0;
+}
+
+#liste-de-contact-table table{
+    display: inline-block;
+    height: 300px!important;
+    overflow: auto;
+}
+
+.btn-group-sm>.btn, .btn-sm {
+    font-size: 0.875rem;
+}
+
+.small, small {
+    text-align: right;
+    font-size: 0.875em;
+}
+
+.statut{
+    color: #6c757d!important;
+    font-size: 0.9rem;
+}
 /*
 @media screen and (max-width: 1200px) {
     .container{ font-size: 0.9rem; }
