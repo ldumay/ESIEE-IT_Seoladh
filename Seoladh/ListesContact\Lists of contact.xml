@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Listcontacts>
+    <Listcontacts id="0">
+        <identifiant>0</identifiant>
+        <nom>Degardin</nom>
+        <prenom>Jonathan</prenom>
+        <email>Jonathan.degardin@edu.itescia.fr</email>
+        <Birthday>07/09/2000</Birthday>
+        <Titreautre>nClient</Titreautre>
+        <Detailautre>001</Detailautre>
+    </Listcontacts>
+    <Listcontacts id="1">
+        <identifiant>1</identifiant>
+        <nom>Tessier</nom>
+        <prenom>Benjamin</prenom>
+        <email>Benjamin.tessier@edu.itescia.fr</email>
+        <Birthday>02/12/2000</Birthday>
+        <Titreautre>nClient</Titreautre>
+        <Detailautre>002</Detailautre>
+    </Listcontacts>
+    <Listcontacts id="2">
+        <identifiant>2</identifiant>
+        <nom>Norgol</nom>
+        <prenom>Guillaume</prenom>
+        <email>Guillaume.Norgol@edu.itescia.fr</email>
+        <Birthday>18/03/2000</Birthday>
+        <Titreautre>nClient</Titreautre>
+        <Detailautre>003</Detailautre>
+    </Listcontacts>
+    <Listcontacts id="3">
+        <identifiant>3</identifiant>
+        <nom>Dumay</nom>
+        <prenom>Loïc</prenom>
+        <email>loic.dumay@edu.itescia.fr</email>
+        <Birthday>22-10-1993</Birthday>
+        <Titreautre>nClient</Titreautre>
+        <Detailautre>004</Detailautre>
+    </Listcontacts>
+</Listcontacts>
