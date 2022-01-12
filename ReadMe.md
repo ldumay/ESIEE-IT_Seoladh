@@ -32,3 +32,9 @@ Dossier correspondant ci-dessous.
 ```
 /Seoladh_Web_Java_JEE/
 ```
+
+### Petite présentation vidéo
+
+<video controls width="100%">
+  <source src="https://uploads.ldumay.fr/esiee-it/Seoladh/001_Demo_Video_App_Web_Beta.mp4" type="video/mp4">
+</video>
