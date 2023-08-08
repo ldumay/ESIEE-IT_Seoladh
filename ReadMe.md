@@ -1,6 +1,6 @@
 # <img src="_sources/mail-envelope-flat-red.png" width="40px"/> ESIEE-IT - Projet Seoladh
 
-> 🚨 **Projet déplacer ici ▶▶ : [https://github.com/2023-esiee-projectlab/esiee-it_2021_seoladh](https://github.com/2023-esiee-projectlab/esiee-it_2021_seoladh)**
+> 🚨 **Projet déplacer ici ▶▶ : [https://github.com/2023-esiee-projectlab/L3_2021_seoladh](https://github.com/2023-esiee-projectlab/L3_2021_seoladh)**
 
 Bienvenue sur le git de Seoladh
 
